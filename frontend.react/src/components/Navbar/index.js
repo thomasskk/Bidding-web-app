@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Nav, Logo, Dropdown, Button, Profile } from "./style";
+import { Nav, Logo, Dropdown, Button, Profile, Menu, Menu2 } from "./style";
 import logoImg from "./img/logo.png";
 import AnimLoad from "../../utils/AnimLoad";
 import dropdownJson from "./img/dropdown.json";
@@ -7,41 +7,46 @@ import profileJson from "./img/profile.json";
 
 function Navbar() {
   const dropDownContainer = useRef(null);
-  const [dropDown, setdropDown] = useState(null);
-  const [dropDownOn, setdropDownOn] = useState(true);
+  const [dropDownAnim, setdropDownAnim] = useState(null);
+  const [dropDownOn, setDropDownOn] = useState(false);
 
   const profileContainer = useRef(null);
-  const [profile, setProfile] = useState(null);
+  const [profileAnim, setProfileAnim] = useState(null);
 
   function onClick() {
-    setdropDownOn(!dropDownOn);
+    setDropDownOn(!dropDownOn);
     dropDownOn
-      ? dropDown.playSegments([0, 70], true)
-      : dropDown.playSegments([70, 140], true);
+      ? dropDownAnim.playSegments([60, 120], true)
+      : dropDownAnim.playSegments([0, 60], true);
   }
 
   useEffect(() => {
-    new AnimLoad(setdropDown, dropDownContainer, dropdownJson);
-    new AnimLoad(setProfile, profileContainer, profileJson);
+    AnimLoad(setdropDownAnim, dropDownContainer, dropdownJson, 4.5);
+    AnimLoad(setProfileAnim, profileContainer, profileJson, 2);
   }, []);
 
   return (
-    <Nav>
-      <Logo>
-        <img src={logoImg} alt="" />
-      </Logo>
-      <Button
-        onClick={() => {
-          onClick();
-        }}
-        onMouseEnter={() => {
-          profile.goToAndPlay(0);
-        }}
-      >
-        <Dropdown ref={dropDownContainer} />
-        <Profile ref={profileContainer} />
-      </Button>
-    </Nav>
+    <>
+      <Nav>
+        <Logo>
+          <img src={logoImg} alt="" />
+        </Logo>
+        <Button>
+          <div
+            onClick={() => {
+              onClick();
+            }}
+            onMouseEnter={() => {
+              profileAnim.goToAndPlay(0);
+            }}
+          >
+            <Dropdown ref={dropDownContainer} />
+            <Profile ref={profileContainer} />
+          </div>
+          {dropDownOn ? <Menu /> : <Menu2 />}
+        </Button>
+      </Nav>
+    </>
   );
 }
 
