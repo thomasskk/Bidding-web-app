@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Nav,
   Logo,
@@ -13,24 +13,39 @@ import AnimLoad from "../../utils/AnimLoad";
 import dropdownJson from "./img/dropdown.json";
 import profileJson from "./img/profile.json";
 import shortid from "shortid";
+import ClickOutsideListener from "../../utils/ClickOutsideListener";
 
 function Navbar() {
+  const  isMenuRender = useRef(false);
+  
   const dropDownContainer = useRef(null);
   const [dropDownAnim, setdropDownAnim] = useState(null);
-  const [dropDownOn, setDropDownOn] = useState(undefined);
+  const [dropDownOn, setDropDownOn] = useState(false);
 
   const profileContainer = useRef(null);
   const [profileAnim, setProfileAnim] = useState(null);
 
+  // check click outside dropdown menu
+  const menuRef = useRef();
+  ClickOutsideListener(menuRef, () => {
+    if (dropDownOn) {
+      dropDownAnim.playSegments([60, 120], true);
+      setDropDownOn(!dropDownOn);
+    }
+  });
+
+  // onclick element => open dropdown menu
   function onClick() {
-    setDropDownOn(!dropDownOn);
-    dropDownOn
-      ? dropDownAnim.playSegments([60, 120], true)
-      : dropDownAnim.playSegments([0, 60], true);
+    isMenuRender.current = true
+    if (!dropDownOn) {
+      dropDownAnim.playSegments([0, 60], true);
+      setDropDownOn(!dropDownOn);
+    }
   }
 
+  // load animation
   useEffect(() => {
-    AnimLoad(setdropDownAnim, dropDownContainer, dropdownJson, 4.5);
+    AnimLoad(setdropDownAnim, dropDownContainer, dropdownJson, 5.5);
     AnimLoad(setProfileAnim, profileContainer, profileJson, 2);
   }, []);
 
@@ -52,18 +67,13 @@ function Navbar() {
             <Dropdown ref={dropDownContainer} />
             <Profile ref={profileContainer} />
           </div>
-          {dropDownOn != null && (
-            <Menu key={shortid.generate()} display={dropDownOn}>
+          {isMenuRender.current && (
+            <Menu key={shortid.generate()} display={dropDownOn} ref={menuRef}>
               <MenuButton>Log in</MenuButton>
               <MenuButton>Sign up</MenuButton>
-              <MenuButton> </MenuButton>
-              <MenuButton> </MenuButton>
-              <MenuButton> </MenuButton>
-              <MenuButton> </MenuButton>
-              <MenuButton> </MenuButton>
             </Menu>
           )}
-        </Button>
+        </Button> 
       </Nav>
     </>
   );

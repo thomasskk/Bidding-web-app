@@ -1,6 +1,6 @@
 import lottie from "lottie-web";
 
-function AnimLoad(state, container, path, speed) {
+const  AnimLoad = (state, container, path, speed) => {
   const anim = lottie.loadAnimation({
     container: container.current,
     renderer: "svg",
