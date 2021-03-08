@@ -42,6 +42,10 @@ export const Profile = styled.div`
 `;
 
 export const Menu = styled.div`
+
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
   position: absolute;
   background-color: white;
   border-radius: 21px;
@@ -51,11 +55,11 @@ export const Menu = styled.div`
   top: 78px;
   right: 5%;
   animation-name: animation;
-  animation-direction: normal;
+  animation-direction: ${props => props.display ? "normal" : "reverse"};
   animation-duration: 0.2s;
   animation-timing-function: ease-in;
   animation-delay: 0s;
-  animation-fill-mode: none;
+  animation-fill-mode: forwards;
   animation-play-state: running;
 
   @keyframes animation {
@@ -68,21 +72,13 @@ export const Menu = styled.div`
       height: 400px;
     }
   }
-`;
+`;  
 
-export const Menu2 = styled(Menu)`
-  animation-direction: reverse;
-  animation-fill-mode: forwards;
+export const MenuButton = styled.button`
+  width:100%;
+  height:100%;
+  border:none;
+  outline: none;
 
-  @keyframes animation {
-    0% {
-      height: 0;
-      width: 0;
-    }
-    100% {
-      width: 231px;
-      height: 400px;
-      display: none;
-    }
-  }
-`;
+
+`

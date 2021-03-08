@@ -1,14 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Nav, Logo, Dropdown, Button, Profile, Menu, Menu2 } from "./style";
+import {
+  Nav,
+  Logo,
+  Dropdown,
+  Button,
+  Profile,
+  Menu,
+  MenuButton,
+} from "./style";
 import logoImg from "./img/logo.png";
 import AnimLoad from "../../utils/AnimLoad";
 import dropdownJson from "./img/dropdown.json";
 import profileJson from "./img/profile.json";
+import shortid from "shortid";
 
 function Navbar() {
   const dropDownContainer = useRef(null);
   const [dropDownAnim, setdropDownAnim] = useState(null);
-  const [dropDownOn, setDropDownOn] = useState(false);
+  const [dropDownOn, setDropDownOn] = useState(undefined);
 
   const profileContainer = useRef(null);
   const [profileAnim, setProfileAnim] = useState(null);
@@ -43,7 +52,17 @@ function Navbar() {
             <Dropdown ref={dropDownContainer} />
             <Profile ref={profileContainer} />
           </div>
-          {dropDownOn ? <Menu /> : <Menu2 />}
+          {dropDownOn != null && (
+            <Menu key={shortid.generate()} display={dropDownOn}>
+              <MenuButton>Log in</MenuButton>
+              <MenuButton>Sign up</MenuButton>
+              <MenuButton> </MenuButton>
+              <MenuButton> </MenuButton>
+              <MenuButton> </MenuButton>
+              <MenuButton> </MenuButton>
+              <MenuButton> </MenuButton>
+            </Menu>
+          )}
         </Button>
       </Nav>
     </>
