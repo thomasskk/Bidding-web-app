@@ -57,22 +57,15 @@ border-radius: 15px;
 box-shadow: 5px 5px 10px;
 top: 78px;
 right: 5%;
-animation-name: animation;
-animation-direction: ${(props) => (props.display ? "normal" : "reverse")};
-animation-duration: 0.1s;
-animation-timing-function: ease-in;
-animation-delay: 0s;
-animation-fill-mode: forwards;
-animation-play-state: running;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+transform: translateY(-20px);
 
-@keyframes animation {
-  0% {
-    transform: scale(0);
-    display: none;
-  }
-  100% {
-    transform: scale(1);
-  }
+&.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 `;
 

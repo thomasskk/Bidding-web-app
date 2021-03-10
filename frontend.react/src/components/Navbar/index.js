@@ -12,43 +12,31 @@ import logoImg from "./img/logo.png";
 import AnimLoad from "../../utils/AnimLoad";
 import dropdownJson from "./img/dropdown.json";
 import profileJson from "./img/profile.json";
-import shortid from "shortid";
-import ClickOutsideListener from "../../utils/ClickOutsideListener";
+import { ClickOutsideListener } from "../../utils/ClickOutsideListener";
 
 function Navbar() {
-  const  isMenuRender = useRef(false);
-  
-  const dropDownContainer = useRef(null);
-  const [dropDownAnim, setdropDownAnim] = useState(null);
-  const [dropDownOn, setDropDownOn] = useState(false);
-
   const profileContainer = useRef(null);
   const [profileAnim, setProfileAnim] = useState(null);
 
-  // check click outside dropdown menu
-  const menuRef = useRef();
-  ClickOutsideListener(menuRef, () => {
-    if (dropDownOn) {
-      dropDownAnim.playSegments([60, 120], true);
-      setDropDownOn(!dropDownOn);
-    }
-  });
+  const dropDownContainer = useRef(null);
+  const [dropDownAnim, setdropDownAnim] = useState(null);
 
-  // onclick element => open dropdown menu
-  function onClick() {
-    isMenuRender.current = true
-    if (!dropDownOn) {
-      dropDownAnim.playSegments([0, 60], true);
-      setDropDownOn(!dropDownOn);
-    }
-  }
-
-  // load animation
   useEffect(() => {
     AnimLoad(setdropDownAnim, dropDownContainer, dropdownJson, 5.5);
     AnimLoad(setProfileAnim, profileContainer, profileJson, 2);
   }, []);
 
+  const menuRef = useRef();
+  const onClick = () => {
+    setIsActive(!isActive);
+    if(dropDownAnim){
+      dropDownAnim.playSegments([0, 60], true);
+    }
+   }
+  
+  const dropDownAnimClose = () => {if (dropDownAnim) {dropDownAnim.playSegments([60, 120], true)}}
+  const [isActive, setIsActive] = ClickOutsideListener(menuRef, false,dropDownAnimClose )
+   
   return (
     <>
       <Nav>
@@ -57,23 +45,17 @@ function Navbar() {
         </Logo>
         <Button>
           <div
-            onClick={() => {
-              onClick();
-            }}
-            onMouseEnter={() => {
-              profileAnim.goToAndPlay(0);
-            }}
+            onClick={onClick}
+            onMouseEnter={() => profileAnim.playSegments([0, 122], true)}
           >
             <Dropdown ref={dropDownContainer} />
             <Profile ref={profileContainer} />
           </div>
-          {isMenuRender.current && (
-            <Menu key={shortid.generate()} display={dropDownOn} ref={menuRef}>
-              <MenuButton>Log in</MenuButton>
-              <MenuButton>Sign up</MenuButton>
-            </Menu>
-          )}
-        </Button> 
+          <Menu className={`${isActive ? "active" : "inactive"}`} ref={menuRef}>
+            <MenuButton>Log in</MenuButton>
+            <MenuButton>Sign up</MenuButton>
+          </Menu>
+        </Button>
       </Nav>
     </>
   );

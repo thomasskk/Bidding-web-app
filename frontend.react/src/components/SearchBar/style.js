@@ -15,11 +15,44 @@ export const Search = styled.button`
   width: 500px;
   height: 50px;
   border-radius: 21px;
-  background-color: white;
+  background: white;
   box-shadow: 5px 5px 10px;
   display: flex;
   padding: 0;
   align-items: center;
+`;
+
+export const SearchItem = styled.button`
+  align-items: center;
+  height: 100%;
+  outline: none;
+  border: none;
+  border-radius: 21px;
+  background: white;
+  &:hover {
+    &,
+    * {
+      background: whitesmoke;
+    }
+  }
+
+  &:focus-within {
+    &,
+    * {
+      background: white;
+    }
+  }
+  input {
+    padding: 10px;
+    border: none;
+    outline: none;
+    &:focus::placeholder {
+      color: transparent;
+    }
+    &::placeholder {
+      text-align: center;
+    }
+  }
 `;
 
 export const Separator = styled.div`
@@ -27,41 +60,8 @@ export const Separator = styled.div`
   border-left: 1px solid gray;
 `;
 
-export const SearchItem = styled.button`
-  display: flex;
-  align-items: center;
-  flex: 1;
-  height: 100%;
-  outline: none;
-  border: none;
-  border-radius: 21px;
-  background-color: white;
-  &:hover {
-    &,
-    * {
-      background: whitesmoke;
-    }
-  }
-
-  &:focus-within {
-    &,
-    * {
-      background-color: white;
-    }
-  }
-
-  input {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    &:focus::placeholder {
-      color: transparent;
-    }
-  }
-`;
-
 export const Category = styled.button`
+  justify-content: space-between;
   display: flex;
   align-items: center;
   flex: 1;
@@ -69,34 +69,27 @@ export const Category = styled.button`
   outline: none;
   border: none;
   border-radius: 21px;
-  background-color: white;
+  background: white;
+  label {
+    margin-left: 30px;
+  }
   &:hover {
-    & {
-      background: whitesmoke;
-    }
-  }
-
-  &:focus-within {
-    & {
-      background-color: white;
-    }
-  }
-
-  input {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    &:focus::placeholder {
-      color: transparent;
-    }
+    background: whitesmoke;
   }
 `;
-
-
 
 export const SearchButton = styled.div`
-  flex-basis: 40px;
   display: flex;
   border-radius: 50%;
+  height: 38px;
+  width: 38px;
+  padding-left: 20px;
+  svg {
+    border-radius: 50%;
+    background: #ce3434;
+  }
+  &:hover {
+    height: 42px;
+    width: 42px;
+  }
 `;
