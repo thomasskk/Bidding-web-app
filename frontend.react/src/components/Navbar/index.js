@@ -29,28 +29,34 @@ function Navbar() {
   const menuRef = useRef();
   const onClick = () => {
     setIsActive(!isActive);
-    if(dropDownAnim){
+    if (dropDownAnim) {
       dropDownAnim.playSegments([0, 60], true);
     }
-   }
-  
-  const dropDownAnimClose = () => {if (dropDownAnim) {dropDownAnim.playSegments([60, 120], true)}}
-  const [isActive, setIsActive] = ClickOutsideListener(menuRef, false,dropDownAnimClose )
-   
+  };
+
+  const dropDownAnimClose = () => {
+    if (dropDownAnim) {
+      dropDownAnim.playSegments([60, 120], true);
+    }
+  };
+  const [isActive, setIsActive] = ClickOutsideListener(
+    menuRef,
+    false,
+    dropDownAnimClose
+  );
+
   return (
     <>
       <Nav>
         <Logo>
           <img src={logoImg} alt="" />
         </Logo>
-        <Button>
-          <div
-            onClick={onClick}
-            onMouseEnter={() => profileAnim.playSegments([0, 122], true)}
-          >
-            <Dropdown ref={dropDownContainer} />
-            <Profile ref={profileContainer} />
-          </div>
+        <Button
+          onClick={onClick}
+          onMouseEnter={() => profileAnim.playSegments([0, 122], true)}
+        >
+          <Dropdown ref={dropDownContainer} />
+          <Profile ref={profileContainer} />
           <Menu className={`${isActive ? "active" : "inactive"}`} ref={menuRef}>
             <MenuButton>Log in</MenuButton>
             <MenuButton>Sign up</MenuButton>

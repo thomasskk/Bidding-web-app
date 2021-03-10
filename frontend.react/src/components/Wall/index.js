@@ -1,23 +1,37 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import { Container } from "./style";
-
-  const randomizeImg = () => {
-    var indents= []
-    for (let i = 0; i < 1; i++) {
-      indents.push(<img src={`https://picsum.photos/300?random=${Math.random()}`} alt="" />)
-    }
-    return indents;
-  }
+import { Container, ItemContainer } from "./style";
+import InfiniteScroll from "react-infinite-scroll-component";
+import bookmark from "./img/bookmark.svg"
 
 function Wall() {
+
+  const randomizeImg = () => {
+    var items = [];
+    for (let index = 0; index < 30; index++) {
+      items.push(
+        <ItemContainer>
+          <img src={`https://picsum.photos/id/${Math.floor(Math.random() * 100)}/300/300`} alt="" />
+          <div>
+            <label>Wonderful antique pottery</label>
+            <label> Current price : 1240e</label>
+          </div>
+          <div>
+            <label>Bidding ends : </label>
+            <img src={bookmark} alt="" srcset=""/>
+            <button> Bid </button>
+          </div>
+        </ItemContainer>
+      );
+    }
+
+    return items;
+  };
+  
   return (
     <>
-      <Container>
-        {randomizeImg()}
-      </Container>
+      <Container>{randomizeImg()}</Container>
     </>
   );
 }
 
-export default Wall
+export default Wall;

@@ -20,12 +20,10 @@ export const Logo = styled.div`
 `;
 
 export const Button = styled.button`
-  div {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border: none;
   outline: none;
   width: 77px;
@@ -46,8 +44,7 @@ export const Profile = styled.div`
 `;
 
 export const Menu = styled.div`
-padding-top: 9px;
-padding-bottom: 9px;
+padding-top: 9px 0px 9px;
 overflow: hidden;
 display: flex;
 flex-direction: column;

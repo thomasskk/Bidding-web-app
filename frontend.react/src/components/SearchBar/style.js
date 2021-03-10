@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import { Menu, MenuButton } from "../Navbar/style";
+
 
 export const Container = styled.div`
+  z-index:1;
   top: -50px;
   height: 0;
   position: sticky;
@@ -83,13 +86,18 @@ export const SearchButton = styled.div`
   border-radius: 50%;
   height: 38px;
   width: 38px;
-  padding-left: 20px;
   svg {
     border-radius: 50%;
     background: #ce3434;
   }
   &:hover {
-    height: 42px;
-    width: 42px;
+   height: 42px;
+   width: 42px;
   }
 `;
+
+export const MenuCategory=styled(Menu)`
+  top : 140px;
+  right:39%;
+  `
+  

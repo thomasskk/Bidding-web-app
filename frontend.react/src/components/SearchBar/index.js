@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef} from "react";
 import {
   Search,
   Container,
@@ -6,11 +6,15 @@ import {
   SearchButton,
   Separator,
   Category,
+  MenuCategory
 } from "./style";
-import { Menu, MenuButton } from "../Navbar/style";
+import {  MenuButton } from "../Navbar/style";
 import AnimLoad from "../../utils/AnimLoad";
 import SearchJson from "./img/search.json";
 import { ClickOutsideListener } from "../../utils/ClickOutsideListener";
+import dataJson from './data.json'
+
+
 
 function SearchBar() {
   const SearchContainer = useRef(null);
@@ -23,7 +27,17 @@ function SearchBar() {
   const menuRef = useRef();
   const onClick = () => setIsActive(!isActive);
   const [isActive, setIsActive] = ClickOutsideListener(menuRef, false);
-  
+
+  const [dataState, updateDataState] = useState();
+
+  useEffect( () => {
+    async function fetchData() {
+      var data = dataJson.map(category => <MenuButton key={category.id}>{category.label}</MenuButton>)
+      updateDataState(data)
+    }
+    isActive && fetchData();
+  }, [isActive])
+
   return (
     <Container>
       <Search>
@@ -35,14 +49,9 @@ function SearchBar() {
         <Separator />
         <Category onClick={onClick}>
           <label htmlFor="">Catégorie : Toutes</label>
-          <Menu
-            className={`${isActive ? "active" : "inactive"}`}
-            ref={menuRef}
-            style={{ top: "130px", right: "36%" }}
-          >
-            <MenuButton>Log in</MenuButton>
-            <MenuButton>Sign up</MenuButton>
-          </Menu>
+          <MenuCategory className={`${isActive ? "active" : "inactive"}`} ref={menuRef}>
+            {dataState}
+          </MenuCategory>
           <SearchButton
             ref={SearchContainer}
             onClick={() => SearchAnim.playSegments([0, 21], true)}
