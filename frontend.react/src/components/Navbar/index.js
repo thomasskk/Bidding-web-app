@@ -45,7 +45,6 @@ function Navbar() {
     false,
     dropDownAnimClose
   );
-
   return (
     <>
       <Nav>

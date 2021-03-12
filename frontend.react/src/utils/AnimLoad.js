@@ -6,7 +6,7 @@ const  AnimLoad = (state, container, path, speed=1, initialSegment=null) => {
     renderer: "svg",
     loop: false,
     autoplay: false,
-    animationData: path ,
+    animationData: JSON.parse(JSON.stringify(path )) ,
     initialSegment: [initialSegment],
   });
   anim.setSpeed(speed);

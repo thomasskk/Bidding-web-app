@@ -11,7 +11,8 @@ export const Container = styled.div`
 export const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 40px;
+  width:400px;
+  margin: 30px;
   border-radius: 10px;
   box-shadow:0 0 0 1px hsla(0, 0%, 47.8%, 0.5);;  
   align-items: center;

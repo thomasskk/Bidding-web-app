@@ -4,6 +4,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Bookmark from "./Bookmark";
 import imgJson from "./img.json";
 import axios from "axios"
+import shortid from 'shortid'
+
 function Wall() {
 
 
@@ -14,17 +16,18 @@ function Wall() {
 
   return (
     <>
-      <Container>
+    <Container>
         {imgJson.map((image) => {
           return (
-            <ItemContainer>
-              <img src={`https://picsum.photos/id/${image.id}/300/300`} alt="" key={image.id}/>
+            <ItemContainer >
+              <img src={`https://picsum.photos/id/${image.id}/300/300`} alt="" />
               <div>
                 <label>Wonderful antique pottery</label>
                 <label> Current price : 1240e</label>
               </div>
               <div>
                 <label>Bidding ends : 2j 10:50:24</label>
+                <Bookmark/>
                 <button> Bid </button>
               </div>
             </ItemContainer>
