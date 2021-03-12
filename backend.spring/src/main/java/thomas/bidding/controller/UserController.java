@@ -2,26 +2,26 @@ package thomas.bidding.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import thomas.bidding.model.User;
-import thomas.bidding.repository.UserRepository;
-
-import java.util.Optional;
-
+import thomas.bidding.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class UserController {
 
 	@Autowired
-	private UserRepository UserRepository;
+	private UserService userService;
 
-	@RequestMapping("/login")
-	public Iterable<User> login() {
-		return UserRepository.findAll();
+	@PostMapping("/register")
+	public void saveAll(@RequestBody Iterable<User> IterableUser) {
+		System.out.println("fdss");
+		userService.SaveAllUser(IterableUser);
 	}
-	
-	@RequestMapping("/register")
-	public Optional<User> register() {
-		return UserRepository.findByuserId(2);
+
+	@GetMapping("/user")
+	public Iterable<User> findAll() {
+		return userService.findAllUser();
 	}
 }

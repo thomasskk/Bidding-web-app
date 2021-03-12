@@ -1,35 +1,36 @@
 import { useState, useEffect, useRef } from "react";
 import { Container, ItemContainer } from "./style";
 import InfiniteScroll from "react-infinite-scroll-component";
-import bookmark from "./img/bookmark.svg"
-
+import Bookmark from "./Bookmark";
+import imgJson from "./img.json";
+import axios from "axios"
 function Wall() {
 
-  const randomizeImg = () => {
-    var items = [];
-    for (let index = 0; index < 30; index++) {
-      items.push(
-        <ItemContainer>
-          <img src={`https://picsum.photos/id/${Math.floor(Math.random() * 100)}/300/300`} alt="" />
-          <div>
-            <label>Wonderful antique pottery</label>
-            <label> Current price : 1240e</label>
-          </div>
-          <div>
-            <label>Bidding ends : </label>
-            <img src={bookmark} alt="" srcset=""/>
-            <button> Bid </button>
-          </div>
-        </ItemContainer>
-      );
-    }
 
-    return items;
-  };
-  
+  useEffect(() =>{
+    const data = axios(imgJson)
+    console.log(data);
+  },[])
+
   return (
     <>
-      <Container>{randomizeImg()}</Container>
+      <Container>
+        {imgJson.map((image) => {
+          return (
+            <ItemContainer>
+              <img src={`https://picsum.photos/id/${image.id}/300/300`} alt="" key={image.id}/>
+              <div>
+                <label>Wonderful antique pottery</label>
+                <label> Current price : 1240e</label>
+              </div>
+              <div>
+                <label>Bidding ends : 2j 10:50:24</label>
+                <button> Bid </button>
+              </div>
+            </ItemContainer>
+          );
+        })}
+      </Container>
     </>
   );
 }

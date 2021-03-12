@@ -22,4 +22,7 @@ const GlobalStyle = createGlobalStyle`
   box-sizing:border-box;
   font-family: system-ui; 
 }
+body {
+  background:#f7f7f7
+}
 `;

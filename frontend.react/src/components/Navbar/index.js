@@ -39,6 +39,7 @@ function Navbar() {
       dropDownAnim.playSegments([60, 120], true);
     }
   };
+  
   const [isActive, setIsActive] = ClickOutsideListener(
     menuRef,
     false,

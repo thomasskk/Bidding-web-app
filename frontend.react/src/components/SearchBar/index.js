@@ -10,18 +10,18 @@ import {
 } from "./style";
 import {  MenuButton } from "../Navbar/style";
 import AnimLoad from "../../utils/AnimLoad";
-import SearchJson from "./img/search.json";
+import searchJson from "./img/search.json";
 import { ClickOutsideListener } from "../../utils/ClickOutsideListener";
 import dataJson from './data.json'
 
 
 
 function SearchBar() {
-  const SearchContainer = useRef(null);
-  const [SearchAnim, setSearchAnim] = useState(null);
+  const searchContainer = useRef(null);
+  const [searchAnim, setSearchAnim] = useState(null);
 
   useEffect(() => {
-    AnimLoad(setSearchAnim, SearchContainer, SearchJson, 1, 20);
+    AnimLoad(setSearchAnim, searchContainer, searchJson, 1, 20);
   }, []);
 
   const menuRef = useRef();
@@ -53,8 +53,8 @@ function SearchBar() {
             {dataState}
           </MenuCategory>
           <SearchButton
-            ref={SearchContainer}
-            onClick={() => SearchAnim.playSegments([0, 21], true)}
+            ref={searchContainer}
+            onClick={() => searchAnim.playSegments([0, 21], true)}
           />
         </Category>
       </Search>

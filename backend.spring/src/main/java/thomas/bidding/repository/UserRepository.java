@@ -1,15 +1,11 @@
 package thomas.bidding.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import thomas.bidding.model.User;
 
-public interface UserRepository extends CrudRepository<User, Long> {
-
-    Iterable<User> findAll();
-
-    Optional<User> findByuserId(int id);
+@Repository
+public interface UserRepository extends CrudRepository<User, Integer> {
 
 }

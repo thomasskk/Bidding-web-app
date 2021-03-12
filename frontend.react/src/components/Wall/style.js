@@ -11,42 +11,42 @@ export const Container = styled.div`
 export const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border: thin solid gray;
   margin: 40px;
   border-radius: 10px;
+  box-shadow:0 0 0 1px hsla(0, 0%, 47.8%, 0.5);;  
   align-items: center;
-  padding: 30px 30px 8px 30px;
+  padding: 30px 30px 5px 30px;
+  background:white;
   > img {
-    border-radius:10px;
+    border-radius: 10px;
   }
-
-    // name price
-    div:first-of-type {
+  div:first-of-type {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 30px;
+    margin: 5px 0 50px 0;
+    // name
     label:first-of-type {
       font-size: 18px;
+      margin-bottom: 12px;
     }
+    // price
     label:last-of-type {
       font-size: 15px;
       font-weight: bold;
     }
   }
 
-
-  // date bookmark bid
+  // date
   div:last-of-type {
     display: flex;
     width: 100%;
     justify-content: space-between;
-
     label {
       font-size: 12px;
     }
     img {
-      width:20px;
+      width: 20px;
     }
     button {
       justify-content: space-evenly;
@@ -55,16 +55,7 @@ export const ItemContainer = styled.div`
       cursor: pointer;
       border: none;
       outline: none;
-      :first-of-type{
-        border-radius:50%;
-        width: 30px;
-        height: 30px;
-        img{
-          width:100%;
-          height:100%;
-        }
-
-      }
+      // bid
       :last-of-type {
         background-color: dodgerblue;
         color: white;
