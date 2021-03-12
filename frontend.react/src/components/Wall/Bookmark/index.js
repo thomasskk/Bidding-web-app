@@ -28,9 +28,9 @@ function Bookmark() {
     bookmarkOn.current = !bookmarkOn.current
     if (bookmarkAnim) {
         bookmarkOn.current ?
-        bookmarkAnim.playSegments([108, 0], true)
-        : 
         bookmarkAnim.playSegments([0, 108], true)
+        : 
+        bookmarkAnim.playSegments([45,0], true)
     }
   };
 

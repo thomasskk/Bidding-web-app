@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-export const Container = styled.div`
+export const Container = styled(InfiniteScroll)`
   margin-top: 10%;
   display: flex;
   flex-wrap: wrap;

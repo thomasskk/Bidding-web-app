@@ -2,37 +2,44 @@ import { useState, useEffect, useRef } from "react";
 import { Container, ItemContainer } from "./style";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Bookmark from "./Bookmark";
-import imgJson from "./img.json";
-import axios from "axios"
-import shortid from 'shortid'
+import axios from "axios";
 
 function Wall() {
+  const [item, setItem] = useState([]);
 
+  useEffect(() => {
+    async function getData() {
+      const data = await axios("http://localhost:8080/item");
+      setItem(data.data);
+    }
+    getData();
+  }, []);
 
-  useEffect(() =>{
-    const data = axios(imgJson)
-    console.log(data);
-  },[])
+  const returnItem = () => {
+      return item.map(item => {
+        return (  
+          <ItemContainer key={item.itemId}> 
+            <img
+              src={`https://robohash.org/${item.itemId}/300/300`}
+              alt=""
+            />
+            <div>
+              <label>{item.name}</label>
+              <label> Current price : {item.initialPrice}$</label>
+            </div>
+            <div>
+              <label>Bidding ends : {item.biddingEndingDate}</label>
+              <button> Bid </button>
+            </div>
+          </ItemContainer>
+        );
+      })
+  }
 
   return (
     <>
-    <Container>
-        {imgJson.map((image) => {
-          return (
-            <ItemContainer >
-              <img src={`https://picsum.photos/id/${image.id}/300/300`} alt="" />
-              <div>
-                <label>Wonderful antique pottery</label>
-                <label> Current price : 1240e</label>
-              </div>
-              <div>
-                <label>Bidding ends : 2j 10:50:24</label>
-                <Bookmark/>
-                <button> Bid </button>
-              </div>
-            </ItemContainer>
-          );
-        })}
+      <Container dataLength={item.length}>
+        {returnItem()}
       </Container>
     </>
   );

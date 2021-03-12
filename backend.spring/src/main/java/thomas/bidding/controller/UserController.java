@@ -14,9 +14,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping("/registerAll")
+	@PostMapping("/registerAllUser")
 	public void saveAll(@RequestBody Iterable<User> IterableUser) {
-		System.out.println("fdss");
 		userService.SaveAllUser(IterableUser);
 	}
 

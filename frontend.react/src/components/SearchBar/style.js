@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { Menu, MenuButton } from "../Navbar/style";
 
-
 export const Container = styled.div`
-  z-index:1;
+  z-index: 1;
   top: -50px;
   height: 0;
   position: sticky;
@@ -11,7 +10,7 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
-export const Search = styled.button`
+export const Search = styled.div`
   margin-top: 65px;
   border: none;
   outline: none;
@@ -91,13 +90,12 @@ export const SearchButton = styled.div`
     background: #ce3434;
   }
   &:hover {
-   height: 42px;
-   width: 42px;
+    height: 42px;
+    width: 42px;
   }
 `;
 
-export const MenuCategory=styled(Menu)`
-  top : 140px;
-  right:39%;
-  `
-  
+export const MenuCategory = styled(Menu)`
+  top: 140px;
+  right: 39%;
+`;

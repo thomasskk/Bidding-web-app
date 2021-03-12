@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef} from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Search,
   Container,
@@ -6,15 +6,13 @@ import {
   SearchButton,
   Separator,
   Category,
-  MenuCategory
+  MenuCategory,
 } from "./style";
-import {  MenuButton } from "../Navbar/style";
+import { MenuButton } from "../Navbar/style";
 import AnimLoad from "../../utils/AnimLoad";
 import searchJson from "./img/search.json";
 import { ClickOutsideListener } from "../../utils/ClickOutsideListener";
-import dataJson from './data.json'
-
-
+import axios from "axios";
 
 function SearchBar() {
   const searchContainer = useRef(null);
@@ -28,17 +26,28 @@ function SearchBar() {
   const onClick = () => setIsActive(!isActive);
   const [isActive, setIsActive] = ClickOutsideListener(menuRef, false);
 
-  const [dataState, updateDataState] = useState();
+  const [category, setCategory] = useState([]);
 
-  useEffect( () => {
-    async function fetchData() {
-      var data = dataJson.map(category => <MenuButton key={category.id}>{category.label}</MenuButton>)
-      updateDataState(data)
+  useEffect(() => {
+    async function getData() {
+      const data = await axios("http://localhost:8080/category");
+      setCategory(data.data);
     }
-    isActive && fetchData();
-  }, [isActive])
+    isActive && getData();
+  }, [isActive]);
 
+  const returnCategory = () => {
+    return category.map(category => {
+      return (
+        <MenuButton key={category.categoryId}>
+          {category.name}
+        </MenuButton>
+      );
+    })
+  }
+  
   return (
+    <>
     <Container>
       <Search>
         <SearchItem>
@@ -49,8 +58,11 @@ function SearchBar() {
         <Separator />
         <Category onClick={onClick}>
           <label htmlFor="">Catégorie : Toutes</label>
-          <MenuCategory className={`${isActive ? "active" : "inactive"}`} ref={menuRef}>
-            {dataState}
+          <MenuCategory
+            className={`${isActive ? "active" : "inactive"}`}
+            ref={menuRef}
+          >
+            {returnCategory()}
           </MenuCategory>
           <SearchButton
             ref={searchContainer}
@@ -59,6 +71,7 @@ function SearchBar() {
         </Category>
       </Search>
     </Container>
+    </>
   );
 }
 export default SearchBar;
