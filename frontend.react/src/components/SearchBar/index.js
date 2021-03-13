@@ -27,7 +27,7 @@ function SearchBar() {
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    isActive && (async () => setCategory(await(await axios("http://localhost:8080/category")).data))()
+    isActive && (async () => setCategory((await axios("http://localhost:8080/category")).data))()
   }, [isActive]);
 
   const returnCategory = () => {

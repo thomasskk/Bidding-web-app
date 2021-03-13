@@ -12,12 +12,11 @@ function Wall() {
 
 
   useEffect(() => {
-    (async ()  => setItemData(await (await axios("http://localhost:8080/item")).data))()
+    (async ()  => setItemData((await axios("http://localhost:8080/item")).data))()
   }, []);
 
   useEffect(() => {
-    setItem(itemData.slice(0, slice + 10).map((item) => {
-      return (
+    setItem(itemData.slice(0, slice + 10).map(item =>
         <ItemContainer key={shortid.generate()}>
           <img src={`https://robohash.org/${item.itemId}/300/300`} alt="" />
           <div>
@@ -30,8 +29,7 @@ function Wall() {
             <button> Bid </button>
           </div>
         </ItemContainer>
-      );
-    }))
+    ))
   }, [itemData, slice]);
 
   return (
