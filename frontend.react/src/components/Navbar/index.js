@@ -29,21 +29,13 @@ function Navbar() {
   const menuRef = useRef();
   const onClick = () => {
     setIsActive(!isActive);
-    if (dropDownAnim) {
-      dropDownAnim.playSegments([0, 60], true);
-    }
+    dropDownAnim ?? dropDownAnim.playSegments([0, 60], true);
   };
 
-  const dropDownAnimClose = () => {
-    if (dropDownAnim) {
-      dropDownAnim.playSegments([60, 120], true);
-    }
-  };
-  
   const [isActive, setIsActive] = ClickOutsideListener(
     menuRef,
     false,
-    dropDownAnimClose
+    (() => dropDownAnim ?? dropDownAnim.playSegments([60, 120], true))
   );
   return (
     <>

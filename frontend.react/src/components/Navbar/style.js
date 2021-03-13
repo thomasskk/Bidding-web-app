@@ -7,6 +7,7 @@ export const Nav = styled.nav`
   align-items: center;
   background-color: black;
   max-height: 90px;
+  
 `;
 
 export const Logo = styled.div`
@@ -66,7 +67,10 @@ transform: translateY(-20px);
 }
 `;
 
-export const MenuButton = styled.button`
+export const MenuButton = styled.option`  
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   width: 231px;
   height: 40px;

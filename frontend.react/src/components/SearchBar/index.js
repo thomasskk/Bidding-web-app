@@ -23,27 +23,19 @@ function SearchBar() {
   }, []);
 
   const menuRef = useRef();
-  const onClick = () => setIsActive(!isActive);
   const [isActive, setIsActive] = ClickOutsideListener(menuRef, false);
-
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    async function getData() {
-      const data = await axios("http://localhost:8080/category");
-      setCategory(data.data);
-    }
-    isActive && getData();
+    isActive && (async () => setCategory(await(await axios("http://localhost:8080/category")).data))()
   }, [isActive]);
 
   const returnCategory = () => {
-    return category.map(category => {
-      return (
+    return category.map(category => 
         <MenuButton key={category.categoryId}>
           {category.name}
         </MenuButton>
-      );
-    })
+    )
   }
   
   return (
@@ -52,12 +44,12 @@ function SearchBar() {
       <Search>
         <SearchItem>
           <div>
-            <input type="text" placeholder="Que cherchez vous ?" />
+            <input type="text" placeholder="Search" />
           </div>
         </SearchItem>
         <Separator />
-        <Category onClick={onClick}>
-          <label htmlFor="">Catégorie : Toutes</label>
+        <Category onClick={() => setIsActive(!isActive)}>
+          <label >Category : All</label>
           <MenuCategory
             className={`${isActive ? "active" : "inactive"}`}
             ref={menuRef}

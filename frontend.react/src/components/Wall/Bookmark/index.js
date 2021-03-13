@@ -18,25 +18,13 @@ function Bookmark() {
   const bookmarkOn = useRef(false);
 
   useEffect(() => {
-    async function load() {
-      AnimLoad(setBookmarkAnim, bookmarkContainer, bookmarkJson, 1, 0);
-    }
-    load()
+      AnimLoad(setBookmarkAnim, bookmarkContainer, bookmarkJson, 1, 0)
   }, []);
 
-  const Onclick = () =>  {
-    bookmarkOn.current = !bookmarkOn.current
-    if (bookmarkAnim) {
-        bookmarkOn.current ?
-        bookmarkAnim.playSegments([0, 108], true)
-        : 
-        bookmarkAnim.playSegments([45,0], true)
-    }
-  };
 
   return (
     <>
-      <BookmarkStyled onClick={Onclick} ref={bookmarkContainer} />
+      <BookmarkStyled  ref={bookmarkContainer} />
     </>
   );
 }
