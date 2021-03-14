@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-export const ClickOutsideListener = (
+const ClickOutsideListener = (
   ref,
   initialState,
-  callback = () => null
+  callback = () => {}
 ) => {
   const [isActive, setIsActive] = useState(initialState);
 
@@ -14,8 +14,10 @@ export const ClickOutsideListener = (
         setIsActive(!isActive);
       }
     };
-    isActive ?? window.addEventListener("click", onClick);
-
+    
+    isActive && window.addEventListener("click", onClick);
+    
+    
     return () => {
       window.removeEventListener("click", onClick);
     };
@@ -23,3 +25,5 @@ export const ClickOutsideListener = (
 
   return [isActive, setIsActive];
 };
+
+export default ClickOutsideListener

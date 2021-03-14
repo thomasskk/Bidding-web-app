@@ -1,9 +1,10 @@
-package thomas.bidding.service;
+package thomas.bidding.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import thomas.bidding.model.User;
-import thomas.bidding.repository.UserRepository;
+
+import thomas.bidding.Model.User;
+import thomas.bidding.Repository.UserRepository;
 
 @Service
 public class UserService {
@@ -18,4 +19,6 @@ public class UserService {
     public void SaveAllUser(Iterable<User> IterableUser) {
         userRepository.saveAll(IterableUser);
     }
+
+    
 }

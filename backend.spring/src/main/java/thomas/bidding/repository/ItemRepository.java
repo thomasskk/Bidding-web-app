@@ -1,11 +1,11 @@
-package thomas.bidding.repository;
+package thomas.bidding.Repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
-
-import thomas.bidding.model.Item;
+import thomas.bidding.Model.Item;
 
 @Repository
-public interface ItemRepository extends CrudRepository<Item, Integer> {
+public interface ItemRepository extends JpaRepository<Item, Integer>, JpaSpecificationExecutor<Item> {
 
 }

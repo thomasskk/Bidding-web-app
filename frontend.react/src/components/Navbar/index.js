@@ -12,9 +12,9 @@ import logoImg from "./img/logo.png";
 import AnimLoad from "../../utils/AnimLoad";
 import dropdownJson from "./img/dropdown.json";
 import profileJson from "./img/profile.json";
-import { ClickOutsideListener } from "../../utils/ClickOutsideListener";
+import ClickOutsideListener from "../../utils/ClickOutsideListener";
 
-function Navbar() {
+export default function Navbar() {
   const profileContainer = useRef(null);
   const [profileAnim, setProfileAnim] = useState(null);
 
@@ -29,17 +29,19 @@ function Navbar() {
   const menuRef = useRef();
   const onClick = () => {
     setIsActive(!isActive);
-    dropDownAnim ?? dropDownAnim.playSegments([0, 60], true);
+    dropDownAnim && dropDownAnim.playSegments([0, 60], true)
   };
 
   const [isActive, setIsActive] = ClickOutsideListener(
     menuRef,
     false,
-    (() => dropDownAnim ?? dropDownAnim.playSegments([60, 120], true))
-  );
+    (() => dropDownAnim && dropDownAnim.playSegments([60, 120], true))
+  
+  )
+
   return (
-    <>
-      <Nav>
+    
+      <Nav >
         <Logo>
           <img src={logoImg} alt="" />
         </Logo>
@@ -55,8 +57,6 @@ function Navbar() {
           </Menu>
         </Button>
       </Nav>
-    </>
+    
   );
 }
-
-export default Navbar;

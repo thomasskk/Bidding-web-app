@@ -1,9 +1,10 @@
-package thomas.bidding.service;
+package thomas.bidding.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import thomas.bidding.model.Category;
-import thomas.bidding.repository.CategoryRepository;
+
+import thomas.bidding.Model.Category;
+import thomas.bidding.Repository.CategoryRepository;
 
 @Service
 public class CategoryService {

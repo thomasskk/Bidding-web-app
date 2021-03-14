@@ -8,6 +8,9 @@ const  AnimLoad =  (state, container, path, speed=1, initialSegment=null) => {
     autoplay: false,
     animationData: path ,
     initialSegment: [initialSegment],
+    rendererSettings: {
+      progressiveLoad:true
+    }
   });
   anim.setSpeed(speed);
   state(anim);
