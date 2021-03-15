@@ -8,4 +8,5 @@ import thomas.bidding.Model.Item;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer>, JpaSpecificationExecutor<Item> {
 
+    
 }

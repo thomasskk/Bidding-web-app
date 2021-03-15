@@ -29,34 +29,31 @@ export default function Navbar() {
   const menuRef = useRef();
   const onClick = () => {
     setIsActive(!isActive);
-    dropDownAnim && dropDownAnim.playSegments([0, 60], true)
+    dropDownAnim && dropDownAnim.playSegments([0, 60], true);
   };
 
   const [isActive, setIsActive] = ClickOutsideListener(
     menuRef,
     false,
-    (() => dropDownAnim && dropDownAnim.playSegments([60, 120], true))
-  
-  )
+    () => dropDownAnim && dropDownAnim.playSegments([60, 120], true)
+  );
 
   return (
-    
-      <Nav >
-        <Logo>
-          <img src={logoImg} alt="" />
-        </Logo>
-        <Button
-          onClick={onClick}
-          onMouseEnter={() => profileAnim.playSegments([0, 122], true)}
-        >
-          <Dropdown ref={dropDownContainer} />
-          <Profile ref={profileContainer} />
-          <Menu className={`${isActive ? "active" : "inactive"}`} ref={menuRef}>
-            <MenuButton>Log in</MenuButton>
-            <MenuButton>Sign up</MenuButton>
-          </Menu>
-        </Button>
-      </Nav>
-    
+    <Nav>
+      <Logo>
+        <img src={logoImg} alt="" />
+      </Logo>
+      <Button
+        onClick={onClick}
+        onMouseEnter={() => profileAnim.playSegments([0, 122], true)}
+      >
+        <Dropdown ref={dropDownContainer} />
+        <Profile ref={profileContainer} />
+        <Menu className={`${isActive ? "active" : "inactive"}`} ref={menuRef}>
+          <MenuButton>Log in</MenuButton>
+          <MenuButton>Sign up</MenuButton>
+        </Menu>
+      </Button>
+    </Nav>
   );
 }

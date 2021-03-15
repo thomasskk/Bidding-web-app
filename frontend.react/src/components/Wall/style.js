@@ -12,17 +12,17 @@ export const Container = styled(InfiniteScroll)`
 export const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width:400px;
+  width: 400px;
   margin: 30px;
   border-radius: 10px;
-  box-shadow:0 0 0 1px hsla(0, 0%, 47.8%, 0.5);  
+  box-shadow: 0 0 0 1px hsla(0, 0%, 47.8%, 0.5);
   align-items: center;
   padding: 30px 30px 5px 30px;
-  background:white;
+  background: white;
   > img {
     border-radius: 10px;
-    box-shadow:0 0 0 1px hsla(0, 0%, 47.8%, 0.5); 
-    background:url(https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/vector-seamless-texture-with-abstract-flowers-endless-background-ethnic-sea_M1h0rTqO_thumb.jpg);
+    box-shadow: 0 0 0 1px hsla(0, 0%, 47.8%, 0.5);
+    background: url(https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/vector-seamless-texture-with-abstract-flowers-endless-background-ethnic-sea_M1h0rTqO_thumb.jpg);
   }
   div:first-of-type {
     display: flex;

@@ -1,19 +1,19 @@
 import lottie from "lottie-web";
 
-const  AnimLoad =  (state, container, path, speed=1, initialSegment=null) => {
+const AnimLoad = (state, container, path, speed = 1, initialSegment = null) => {
   const anim = lottie.loadAnimation({
     container: container.current,
     renderer: "svg",
     loop: false,
     autoplay: false,
-    animationData: path ,
+    animationData: path,
     initialSegment: [initialSegment],
     rendererSettings: {
-      progressiveLoad:true
-    }
+      progressiveLoad: true,
+    },
   });
   anim.setSpeed(speed);
   state(anim);
-}
+};
 
 export default AnimLoad;

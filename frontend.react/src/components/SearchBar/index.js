@@ -13,18 +13,20 @@ import AnimLoad from "../../utils/AnimLoad";
 import searchJson from "./img/search.json";
 import ClickOutsideListener from "../../utils/ClickOutsideListener";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 export default function SearchBar() {
   const searchContainer = useRef(null);
+  const categoryRef = useRef("All");
+  const menuRef = useRef();
   const [searchAnim, setSearchAnim] = useState(null);
+  const [isActive, setIsActive] = ClickOutsideListener(menuRef, false);
+  const [category, setCategory] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     AnimLoad(setSearchAnim, searchContainer, searchJson, 1, 20);
   }, []);
-
-  const menuRef = useRef();
-  const [isActive, setIsActive] = ClickOutsideListener(menuRef, false);
-  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     isActive &&
@@ -34,34 +36,55 @@ export default function SearchBar() {
 
   const returnCategory = () => {
     return category.map((category) => (
-      <MenuButton key={category.categoryId}>{category.name}</MenuButton>
+      <MenuButton key={category.categoryId} onClick={(e) => onClickCategory(e)}>
+        {category.name}
+      </MenuButton>
     ));
   };
 
-  return (
+  const onClickCategory = (e) => {
+    categoryRef.current = e.target.value;
+    dispatch({
+      type: "SET_SEARCH_CATEGORY",
+      payload: e.target.value,
+    });
+  };
 
-      <Container>
-        <Search>
-          <SearchItem>
-            <div>
-              <input type="text" placeholder="Search" />
-            </div>
-          </SearchItem>
-          <Separator />
-          <Category onClick={() => setIsActive(!isActive)}>
-            <label>Category : All</label>
-            <MenuCategory
-              className={`${isActive ? "active" : "inactive"}`}
-              ref={menuRef}
-            >
-              {returnCategory()}
-            </MenuCategory>
-            <SearchButton
-              ref={searchContainer}
-              onClick={() => searchAnim.playSegments([0, 21], true)}
+  const handleChange = (e) => {
+    e.persist();
+    dispatch({
+      type: "SET_SEARCH_NAME",
+      payload: e.target.value,
+    });
+  };
+
+  return (
+    <Container>
+      <Search>
+        <SearchItem>
+          <div>
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => handleChange(e)}
             />
-          </Category>
-        </Search>
-      </Container>
+          </div>
+        </SearchItem>
+        <Separator />
+        <Category onClick={() => setIsActive(!isActive)}>
+          <label>Category : {categoryRef.current}</label>
+          <MenuCategory
+            className={`${isActive ? "active" : "inactive"}`}
+            ref={menuRef}
+          >
+            {returnCategory()}
+          </MenuCategory>
+          <SearchButton
+            ref={searchContainer}
+            onClick={() => searchAnim.playSegments([0, 21], true)}
+          />
+        </Category>
+      </Search>
+    </Container>
   );
 }

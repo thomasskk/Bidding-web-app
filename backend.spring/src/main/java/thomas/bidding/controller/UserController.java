@@ -15,9 +15,4 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping("/registerAllUser")
-	public void saveAll(@RequestBody Iterable<User> IterableUser) {
-		userService.SaveAllUser(IterableUser);
-	}
-
 }

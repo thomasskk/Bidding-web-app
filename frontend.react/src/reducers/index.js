@@ -1,5 +1,27 @@
-function rootReducer(state = 0, action) {
-  return state;
-}
+import reducerFactory from "./reducerFactory";
 
-export default rootReducer;
+const handlers = {};
+
+const actions = {
+  SET_SEARCH_NAME: "SET_SEARCH_NAME",
+  SET_SEARCH_CATEGORY: "SET_SEARCH_CATEGORY",
+};
+
+const initialState = {
+  searchName: "",
+  searchCategory: "",
+};
+
+const changeState = (key) => {
+  return (state, action) => {
+    return {
+      ...state,
+      [key]: action.payload,
+    };
+  };
+};
+
+handlers[actions.SET_SEARCH_NAME] = changeState("searchName");
+handlers[actions.SET_SEARCH_CATEGORY] = changeState("searchCategory");
+
+export default reducerFactory(initialState, handlers);

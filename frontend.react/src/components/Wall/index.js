@@ -3,14 +3,23 @@ import { Container, ItemContainer } from "./style";
 import Bookmark from "./Bookmark";
 import axios from "axios";
 import shortid from "shortid";
+import { useSelector } from "react-redux";
 
 export default function Wall() {
   const [item, setItem] = useState([]);
   const [slice, setSlice] = useState(0);
-  
+  const searchValue = useSelector((state) => state.searchName);
+
+  useEffect(() => {
+    setItem([]);
+    setSlice(0);
+  }, [searchValue]);
+
   useEffect(() => {
     (async () => {
-      const data = (await axios(`http://localhost:8080/item/${slice}`)).data;
+      const data = (
+        await axios(`http://localhost:8080/item/${slice}/${searchValue}`)
+      ).data;
       setItem((item) => [
         ...item,
         ...data.map((item) => (
@@ -21,7 +30,7 @@ export default function Wall() {
               <label> {item.description}</label>
               <label> Current price : {item.initialPrice}$</label>
             </div>
-            <Bookmark/>
+            <Bookmark />
             <div>
               <label>Bidding ends : {item.biddingEndingDate}</label>
               <button> Bid </button>
@@ -30,16 +39,16 @@ export default function Wall() {
         )),
       ]);
     })();
-  }, [slice]);
+  }, [searchValue, slice]);
 
   return (
-      <Container
-        dataLength={item.length}
-        next={() => setSlice(slice + 10)}
-        scrollThreshold={0.8}
-        hasMore={slice >= item.length ? false : true}
-      >
-        {item}
-      </Container>
+    <Container
+      dataLength={item.length}
+      next={() => setSlice(slice + 1)}
+      scrollThreshold={0.8}
+      hasMore={slice >= item.length ? false : true}
+    >
+      {item}
+    </Container>
   );
 }

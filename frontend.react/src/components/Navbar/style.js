@@ -7,15 +7,14 @@ export const Nav = styled.nav`
   align-items: center;
   background-color: black;
   max-height: 90px;
-  
 `;
 
 export const Logo = styled.div`
   margin: 5%;
   height: 90px;
-  display:flex;
+  display: flex;
   img {
-    width:150px;
+    width: 150px;
     object-fit: cover;
   }
 `;
@@ -45,29 +44,29 @@ export const Profile = styled.div`
 `;
 
 export const Menu = styled.div`
-padding-top: 9px 0px 9px;
-overflow: hidden;
-display: flex;
-flex-direction: column;
-position: absolute;
-background-color: white;
-border-radius: 15px;
-box-shadow: 5px 5px 10px;
-top: 78px;
-right: 5%;
-opacity: 0;
-visibility: hidden;
-transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-transform: translateY(-20px);
+  padding-top: 9px 0px 9px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px;
+  top: 78px;
+  right: 5%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+  transform: translateY(-20px);
 
-&.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 `;
 
-export const MenuButton = styled.option`  
+export const MenuButton = styled.option`
   display: flex;
   align-items: center;
   justify-content: center;
