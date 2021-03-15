@@ -6,7 +6,7 @@ import {
   Button,
   Profile,
   Menu,
-  MenuButton,
+  MenuOption,
 } from "./style";
 import logoImg from "./img/logo.png";
 import AnimLoad from "../../utils/AnimLoad";
@@ -50,8 +50,8 @@ export default function Navbar() {
         <Dropdown ref={dropDownContainer} />
         <Profile ref={profileContainer} />
         <Menu className={`${isActive ? "active" : "inactive"}`} ref={menuRef}>
-          <MenuButton>Log in</MenuButton>
-          <MenuButton>Sign up</MenuButton>
+          <MenuOption>Log in</MenuOption>
+          <MenuOption>Sign up</MenuOption>
         </Menu>
       </Button>
     </Nav>

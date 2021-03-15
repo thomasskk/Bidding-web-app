@@ -66,7 +66,7 @@ export const Menu = styled.div`
   }
 `;
 
-export const MenuButton = styled.option`
+export const MenuOption = styled.option`
   display: flex;
   align-items: center;
   justify-content: center;

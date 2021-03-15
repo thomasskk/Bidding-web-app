@@ -5,11 +5,13 @@ const handlers = {};
 const actions = {
   SET_SEARCH_NAME: "SET_SEARCH_NAME",
   SET_SEARCH_CATEGORY: "SET_SEARCH_CATEGORY",
+  SET_CATEGORY: "SET_CATEGORY"
 };
 
 const initialState = {
   searchName: "",
-  searchCategory: "",
+  searchCategory: "9",
+  category:[],
 };
 
 const changeState = (key) => {
@@ -23,5 +25,6 @@ const changeState = (key) => {
 
 handlers[actions.SET_SEARCH_NAME] = changeState("searchName");
 handlers[actions.SET_SEARCH_CATEGORY] = changeState("searchCategory");
+handlers[actions.SET_CATEGORY] = changeState("category");
 
 export default reducerFactory(initialState, handlers);

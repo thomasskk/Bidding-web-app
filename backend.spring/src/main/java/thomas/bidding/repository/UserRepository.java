@@ -10,4 +10,6 @@ import thomas.bidding.Model.User;
 public interface UserRepository extends JpaRepository<User,Integer>, JpaSpecificationExecutor<User> {
 
     
+
+    
 }

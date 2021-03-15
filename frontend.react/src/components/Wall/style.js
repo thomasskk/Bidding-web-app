@@ -44,14 +44,8 @@ export const ItemContainer = styled.div`
   // date
   div:last-of-type {
     display: flex;
-    width: 100%;
+    height: 30px;
     justify-content: space-between;
-    label {
-      font-size: 12px;
-    }
-    img {
-      width: 20px;
-    }
     button {
       justify-content: space-evenly;
       display: flex;
@@ -59,14 +53,11 @@ export const ItemContainer = styled.div`
       cursor: pointer;
       border: none;
       outline: none;
-      // bid
-      :last-of-type {
-        background-color: dodgerblue;
-        color: white;
-        border-radius: 10px;
-        width: 55px;
-        height: 20px;
-      }
+      background-color: dodgerblue;
+      color: white;
+      border-radius: 10px;
+      width: 55px;
+      height: 20px;
     }
   }
 `;
