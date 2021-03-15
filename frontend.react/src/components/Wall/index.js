@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
-import { Container, ItemContainer } from "./style";
-import Bookmark from "./Bookmark";
+import {
+  Container,
+  ItemContainer,
+  LabelTime,
+  ItemImage,
+  ItemFooter,
+  ItemCore,
+} from "./style";
+import Bookmark from "./Bookmark.js";
 import axios from "axios";
 import shortid from "shortid";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import styled from "styled-components";
 
-const labelDate = styled.label`
-  font-size: 5px;
-`;
 
 function LabelDate({ endingDate }) {
   var [date, setDate] = useState(
@@ -27,11 +30,11 @@ function LabelDate({ endingDate }) {
   }, [date, endingDate]);
 
   return (
-    <labelDate>
+    <LabelTime>
       Bidding ends in : {date.days() !== 0 && date.days() + "d"}{" "}
       {date.hours() !== 0 && date.hours()}h{" "}
       {date.minutes() !== 0 && date.minutes()}m {date.seconds()}s
-    </labelDate>
+    </LabelTime>
   );
 }
 
@@ -58,18 +61,20 @@ export default function Wall() {
         ...item,
         ...data.map((item) => (
           <ItemContainer key={shortid.generate()}>
-            <img src={`https://robohash.org/${item.itemId}/300/300`} alt="" />
-            <div>
+            <ItemImage>
+              <img src={`https://robohash.org/${item.itemId}/300/300`} alt="" />
+            </ItemImage>
+            <ItemCore>
               <label>{item.name}</label>
               <label> {item.description}</label>
               <label> Current price : {item.initialPrice}$</label>
               <label> {category[item.categoryId - 1].name}</label>
-            </div>
-            <div>
+            </ItemCore>
+            <ItemFooter>
               <LabelDate endingDate={item.biddingEndingDate} />
               <Bookmark />
               <button> Bid </button>
-            </div>
+            </ItemFooter>
           </ItemContainer>
         )),
       ]);

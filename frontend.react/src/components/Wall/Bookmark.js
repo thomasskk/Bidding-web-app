@@ -1,13 +1,12 @@
 import bookmarkJson from "./img/bookmark.json";
-import AnimLoad from "../../../utils/AnimLoad";
+import AnimLoad from "../../utils/AnimLoad";
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const BookmarkStyled = styled.div`
-  margin:0;
-  flex-basis: 29px;
-  display: flex;
+  flex-basis: 40px;
   cursor: pointer;
+  display:flex;
 `;
 
 export default function Bookmark() {

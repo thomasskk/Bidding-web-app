@@ -20,7 +20,7 @@ export default App;
 const GlobalStyle = createGlobalStyle`
 * {
   box-sizing:border-box;
-  font-family: system-ui; 
+  font-family: Arial, Helvetica, sans-serif;
 }
 body {
   background:#f7f7f7
