@@ -25,8 +25,4 @@ public class ItemController {
 	public Iterable<Item> findByNameSlice(@PathVariable int category, @PathVariable int slice) {
 		return itemService.SearchByCategory(slice, category);
 	}
-	@PostMapping("/registerAllItem")
-	public void saveAll(@RequestBody Iterable<Item> IterableItem) {
-		itemService.SaveAllItem(IterableItem);	
-	}
 }

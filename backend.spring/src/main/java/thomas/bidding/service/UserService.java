@@ -20,5 +20,9 @@ public class UserService {
         userRepository.saveAll(IterableUser);
     }
 
-    
+    public void login(String username, String password) {
+    }
+
+    public void register(User user) {
+    }
 }

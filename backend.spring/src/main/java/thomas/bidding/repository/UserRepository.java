@@ -9,7 +9,6 @@ import thomas.bidding.Model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer>, JpaSpecificationExecutor<User> {
 
-    
-
+    public User findByUsername(String username);
     
 }

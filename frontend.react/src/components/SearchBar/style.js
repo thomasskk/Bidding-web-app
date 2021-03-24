@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Menu } from "../Navbar/style";
 
 export const Container = styled.div`
   z-index: 1;
@@ -59,4 +60,27 @@ export const SearchItem = styled.button`
 export const Separator = styled.div`
   height: 20px;
   border-left: 1px solid gray;
+`;
+
+export const MenuCategory = styled(Menu)`
+  top: 140px;
+  right: 39%;
+`;
+
+export const Category = styled.button`
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  outline: none;
+  border: none;
+  border-radius: 21px;
+  background: white;
+  label {
+    margin-left: 30px;
+  }
+  &:hover {
+    background: whitesmoke;
+  }
 `;

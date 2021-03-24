@@ -21,6 +21,7 @@ public class ItemService {
         return page.getContent();
     }
 
+
     public Specification<Item> nameLike(String name) {
         System.out.println(name);
         return (Item, query, cb) -> name != "null" ? cb.like(Item.get("name"), "%" + name + "%") : null;
@@ -30,6 +31,8 @@ public class ItemService {
         return (Item, query, cb) -> category != 9 ? cb.equal(Item.get("categoryId"), category) : null;
     }
 
+
+
     public Iterable<Item> SearchByNameCategory(String name, int slice, int category) {
         Pageable limit = PageRequest.of(slice, 10);
         Specification<Item> spec = Specification.where((nameLike(name)).and(categoryEqual(category)));
@@ -37,6 +40,8 @@ public class ItemService {
         return page.getContent();
     }
 
+
+    
     public Iterable<Item> SearchByCategory(int slice, int category) {
         Pageable limit = PageRequest.of(slice, 10);
         Page<Item> page = itemRepository.findAll(categoryEqual(category), limit);
