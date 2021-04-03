@@ -1,3 +1,1 @@
-First time using React and Spring
-
-![](Capture.PNG)
+First time using React and Spring.
