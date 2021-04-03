@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Menu } from "../Navbar/style";
+import styled from 'styled-components'
+import { Menu } from '../Navbar/style'
 
 export const Container = styled.div`
   z-index: 1;
@@ -8,7 +8,7 @@ export const Container = styled.div`
   position: sticky;
   display: flex;
   justify-content: center;
-`;
+`
 
 export const Search = styled.div`
   margin-top: 65px;
@@ -22,7 +22,7 @@ export const Search = styled.div`
   display: flex;
   padding: 0;
   align-items: center;
-`;
+`
 
 export const SearchItem = styled.button`
   align-items: center;
@@ -55,17 +55,17 @@ export const SearchItem = styled.button`
       text-align: center;
     }
   }
-`;
+`
 
 export const Separator = styled.div`
   height: 20px;
   border-left: 1px solid gray;
-`;
+`
 
 export const MenuCategory = styled(Menu)`
   top: 140px;
   right: 39%;
-`;
+`
 
 export const Category = styled.button`
   justify-content: space-between;
@@ -83,4 +83,4 @@ export const Category = styled.button`
   &:hover {
     background: whitesmoke;
   }
-`;
+`

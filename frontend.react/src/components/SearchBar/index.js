@@ -1,10 +1,9 @@
-import { Search, Container, SearchItem, Separator } from "./style";
-import { MenuOption } from "../Navbar/style";
-import { useDispatch } from "react-redux";
-import { useState, useEffect, useRef } from "react";
-import ClickOutsideListener from "../../utils/ClickOutsideListener";
-import { Category, MenuCategory } from "./style";
 import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import ClickOutsideListener from "../../utils/ClickOutsideListener";
+import { MenuOption } from "../Navbar/style";
+import { Category, Container, MenuCategory, Search, SearchItem, Separator } from "./style";
 
 export default function SearchBar() {
   const dispatch = useDispatch();

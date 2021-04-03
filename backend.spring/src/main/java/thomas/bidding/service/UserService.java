@@ -4,23 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import thomas.bidding.Model.User;
-import thomas.bidding.Repository.UserRepository;
+import thomas.bidding.RepoSpec.UserRepoSpec;
 
 @Service
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
-
-    public Iterable<User> findAllUser() {
-        return userRepository.findAll();
-    }
-
-    public void SaveAllUser(Iterable<User> IterableUser) {
-        userRepository.saveAll(IterableUser);
-    }
-
+    private UserRepoSpec userRepoSpec;
+    
     public void login(String username, String password) {
+        
     }
 
     public void register(User user) {

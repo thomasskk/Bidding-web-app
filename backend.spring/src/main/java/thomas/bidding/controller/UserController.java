@@ -8,6 +8,7 @@ import thomas.bidding.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class UserController {
@@ -15,9 +16,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping("user/login/{username}/{password}")
-	public void login(@PathVariable String username,@PathVariable String password ) {
-		userService.login(username, password);
+	@PostMapping("user/login")
+	public void login(@RequestBody User user) {
+		userService.login(useernam, password);
 	}
 
 	@PostMapping("user/register/")
@@ -26,4 +27,4 @@ public class UserController {
 	}
 
 
-}
+}	

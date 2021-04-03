@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 const ClickOutsideListener = (ref, initialState, callback = () => {}) => {
-  const [isActive, setIsActive] = useState(initialState);
+  const [isActive, setIsActive] = useState(initialState)
 
   useEffect(() => {
     const onClick = (e) => {
       if (ref.current !== null && !ref.current.contains(e.target)) {
-        callback();
-        setIsActive(!isActive);
+        callback()
+        setIsActive(!isActive)
       }
-    };
+    }
 
-    isActive && window.addEventListener("click", onClick);
+    isActive && window.addEventListener('click', onClick)
 
     return () => {
-      window.removeEventListener("click", onClick);
-    };
-  }, [callback, isActive, ref]);
+      window.removeEventListener('click', onClick)
+    }
+  }, [callback, isActive, ref])
 
-  return [isActive, setIsActive];
-};
+  return [isActive, setIsActive]
+}
 
-export default ClickOutsideListener;
+export default ClickOutsideListener

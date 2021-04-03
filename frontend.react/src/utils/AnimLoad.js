@@ -1,9 +1,9 @@
-import lottie from "lottie-web";
+import lottie from 'lottie-web'
 
 const AnimLoad = (state, container, path, speed = 1, initialSegment = null) => {
   const anim = lottie.loadAnimation({
     container: container.current,
-    renderer: "svg",
+    renderer: 'svg',
     loop: false,
     autoplay: false,
     animationData: path,
@@ -11,9 +11,9 @@ const AnimLoad = (state, container, path, speed = 1, initialSegment = null) => {
     rendererSettings: {
       progressiveLoad: true,
     },
-  });
-  anim.setSpeed(speed);
-  state(anim);
-};
+  })
+  anim.setSpeed(speed)
+  state(anim)
+}
 
-export default AnimLoad;
+export default AnimLoad
