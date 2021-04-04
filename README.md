@@ -1,1 +1,1 @@
-First time using React and Spring.
+Project made while learning React and Spring.
