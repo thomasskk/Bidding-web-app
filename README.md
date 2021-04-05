@@ -1,3 +1,1 @@
-# bidding-web-app
-
-![](Capture.PNG)
+Project made while learning React and Spring.
