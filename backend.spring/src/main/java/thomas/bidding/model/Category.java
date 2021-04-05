@@ -10,8 +10,6 @@ import lombok.Data;
 @Data
 @Table(name = "CATEGORY")
 public class Category {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int categoryId;
-	public String name;
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY) public int categoryId;
+  public String name;
 }

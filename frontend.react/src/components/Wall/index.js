@@ -1,62 +1,27 @@
-import { useState, useEffect } from "react";
-import {
-  Container,
-  ItemContainer,
-  LabelTime,
-  ItemImage,
-  ItemFooter,
-  ItemCore,
-} from "./style";
-import Bookmark from "./Bookmark.js";
-import axios from "axios";
-import shortid from "shortid";
-import { useSelector } from "react-redux";
-import moment from "moment";
-
-
-function LabelDate({ endingDate }) {
-  var [date, setDate] = useState(
-    moment.duration(moment(endingDate).diff(moment()))
-  );
-
-  useEffect(() => {
-    var timer = setInterval(
-      () => setDate(moment.duration(moment(endingDate).diff(moment()))),
-      1000
-    );
-    return function cleanup() {
-      clearInterval(timer);
-    };
-  }, [date, endingDate]);
-
-  return (
-    <LabelTime>
-      Bidding ends in : {date.days() !== 0 && date.days() + "d"}{" "}
-      {date.hours() !== 0 && date.hours()}h{" "}
-      {date.minutes() !== 0 && date.minutes()}m {date.seconds()}s
-    </LabelTime>
-  );
-}
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import shortid from 'shortid'
+import Bookmark from './Bookmark.js'
+import { Container, ItemContainer, ItemCore, ItemFooter, ItemImage } from './style'
+import LabelDate from './LabelDate'
 
 export default function Wall() {
-  const [item, setItem] = useState([]);
-  const [slice, setSlice] = useState(0);
-  const searchName = useSelector((state) => state.searchName);
-  const searchCategory = useSelector((state) => state.searchCategory);
+  const [item, setItem] = useState([])
+  const [slice, setSlice] = useState(0)
+  const searchName = useSelector((state) => state.searchName)
+  const searchCategory = useSelector((state) => state.searchCategory)
 
   useEffect(() => {
-    setItem([]);
-    setSlice(0);
-  }, [searchName, searchCategory]);
+    setItem([])
+    setSlice(0)
+  }, [searchName, searchCategory])
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const data = (
-        await axios(
-          `http://localhost:8080/item/${searchCategory}/${slice}/${searchName}`
-        )
-      ).data;
-      const category = (await axios(`http://localhost:8080/category`)).data;
+        await axios(process.env.REACT_APP_API_URL + `item/${searchCategory}/${slice}/${searchName}`)
+      ).data
       setItem((item) => [
         ...item,
         ...data.map((item) => (
@@ -68,7 +33,7 @@ export default function Wall() {
               <label>{item.name}</label>
               <label> {item.description}</label>
               <label> Current price : {item.initialPrice}$</label>
-              <label> {category[item.categoryId - 1].name}</label>
+              <label> {item.category.name}</label>
             </ItemCore>
             <ItemFooter>
               <LabelDate endingDate={item.biddingEndingDate} />
@@ -77,9 +42,9 @@ export default function Wall() {
             </ItemFooter>
           </ItemContainer>
         )),
-      ]);
-    })();
-  }, [searchCategory, searchName, slice]);
+      ])
+    })()
+  }, [searchCategory, searchName, slice])
 
   return (
     <Container
@@ -90,5 +55,5 @@ export default function Wall() {
     >
       {item}
     </Container>
-  );
+  )
 }

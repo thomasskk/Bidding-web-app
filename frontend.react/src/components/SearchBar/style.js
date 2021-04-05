@@ -8,13 +8,21 @@ export const Container = styled.div`
   position: sticky;
   display: flex;
   justify-content: center;
+  @media (max-width: 1000px) {
+    top: -85px;
+  }
 `
 
 export const Search = styled.div`
-  margin-top: 65px;
+  display: flex;
+  flex: 1;
+  @media (max-width: 1000px) {
+    margin-top: 100px;
+  }
+  margin: 65px 10px 0px 10px;
   border: none;
   outline: none;
-  width: 500px;
+  max-width: 500px;
   height: 50px;
   border-radius: 21px;
   background: white;
@@ -26,11 +34,11 @@ export const Search = styled.div`
 
 export const SearchItem = styled.button`
   align-items: center;
-  height: 100%;
   outline: none;
   border: none;
   border-radius: 21px;
   background: white;
+  flex: 1;
   &:hover {
     &,
     * {
@@ -45,6 +53,7 @@ export const SearchItem = styled.button`
     }
   }
   input {
+    width: 100%;
     padding: 10px;
     border: none;
     outline: none;
@@ -63,11 +72,12 @@ export const Separator = styled.div`
 `
 
 export const MenuCategory = styled(Menu)`
-  top: 140px;
-  right: 39%;
+  position: absolute;
+  top: 70px;
 `
 
 export const Category = styled.button`
+  position: relative;
   justify-content: space-between;
   display: flex;
   align-items: center;

@@ -1,21 +1,9 @@
-import React from "react";
-import Navbar from "./components/Navbar";
-import Wall from "./components/Wall";
-import SearchBar from "./components/SearchBar";
-import { createGlobalStyle } from "styled-components";
-
-function App() {
-  return (
-    <>
-      <GlobalStyle />
-      <SearchBar />
-      <Navbar />
-      <Wall />
-    </>
-  );
-}
-
-export default App;
+import React from 'react'
+import { createGlobalStyle } from 'styled-components'
+import Navbar from './components/Navbar'
+import SearchBar from './components/SearchBar'
+import Wall from './components/Wall'
+import tokenInterceptor from './utils/tokenInterceptor'
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -25,4 +13,19 @@ const GlobalStyle = createGlobalStyle`
 body {
   background:#f7f7f7
 }
-`;
+`
+
+function App() {
+  tokenInterceptor()
+
+  return (
+    <>
+      <GlobalStyle />
+      <SearchBar />
+      <Navbar />
+      <Wall />
+    </>
+  )
+}
+
+export default App

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Nav = styled.nav`
   width: 100%;
@@ -7,7 +7,7 @@ export const Nav = styled.nav`
   align-items: center;
   background-color: black;
   max-height: 90px;
-`;
+`
 
 export const Logo = styled.div`
   margin: 5%;
@@ -17,7 +17,7 @@ export const Logo = styled.div`
     width: 150px;
     object-fit: cover;
   }
-`;
+`
 
 export const Button = styled.button`
   cursor: pointer;
@@ -31,17 +31,17 @@ export const Button = styled.button`
   border-radius: 21px;
   padding: 5px 7px 5px 15px;
   margin: 5%;
-`;
+`
 
 export const Dropdown = styled.div`
   flex-basis: 18px;
   display: flex;
-`;
+`
 
 export const Profile = styled.div`
   flex-basis: 29px;
   display: flex;
-`;
+`
 
 export const Menu = styled.div`
   padding-top: 9px 0px 9px;
@@ -64,7 +64,7 @@ export const Menu = styled.div`
     visibility: visible;
     transform: translateY(0);
   }
-`;
+`
 
 export const MenuOption = styled.option`
   display: flex;
@@ -79,4 +79,4 @@ export const MenuOption = styled.option`
   &:hover {
     background: whitesmoke;
   }
-`;
+`

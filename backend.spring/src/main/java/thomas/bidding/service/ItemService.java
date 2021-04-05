@@ -23,14 +23,14 @@ public class ItemService implements ItemSpecification{
         return page.getContent();
     }
 
-    public Iterable<Item> SearchByNameCategory(String name, int slice, int category) {
+    public Iterable<Item> SearchByNameCategory(String name, int slice, String category) {
         Pageable limit = PageRequest.of(slice, 10);
         Specification<Item> spec = Specification.where((nameLike(name)).and(categoryLike(category)));
         Page<Item> page = itemRepoSpec.findAll(spec, limit);
         return page.getContent();
     }
 
-    public Iterable<Item> SearchByCategory(int slice, int category) {
+    public Iterable<Item> SearchByCategory(int slice, String category) {
         Pageable limit = PageRequest.of(slice, 10);
         Page<Item> page = itemRepoSpec.findAll(categoryLike(category), limit);
         return page.getContent();

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteScroll from 'react-infinite-scroll-component'
+import styled from 'styled-components'
 
 export const Container = styled(InfiniteScroll)`
   margin-top: 10%;
@@ -7,7 +7,7 @@ export const Container = styled(InfiniteScroll)`
   flex-wrap: wrap;
   justify-content: space-evenly;
   padding: 20px;
-`;
+`
 
 export const ItemContainer = styled.div`
   display: flex;
@@ -18,8 +18,13 @@ export const ItemContainer = styled.div`
   align-items: center;
   padding: 30px 30px 5px 30px;
   background: white;
-  width:400px;
-`;
+  max-width: 400px;
+  @media (max-width: 500px) {
+    margin: 30px 0 0 0;
+    padding: 10px 10px 0 10px;
+  }
+
+`
 
 export const ItemCore = styled.label`
   display: flex;
@@ -48,17 +53,16 @@ export const ItemCore = styled.label`
   label:nth-of-type(4) {
     font-size: 15px;
     font-weight: bold;
-    display:none;
-
+    display: none;
   }
-`;
+`
 
 export const ItemFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   button {
-    align-items:center;
+    align-items: center;
     justify-content: space-evenly;
     display: flex;
     justify-content: center;
@@ -71,25 +75,30 @@ export const ItemFooter = styled.div`
     width: 55px;
     height: 20px;
   }
-`;
+`
 
 export const ItemImage = styled.div`
-    width:100%;
-    height:100%;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
 
   img {
     border-radius: 10px;
     box-shadow: 0 0 0 1px hsla(0, 0%, 47.8%, 0.5);
     background: url(https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/vector-seamless-texture-with-abstract-flowers-endless-background-ethnic-sea_M1h0rTqO_thumb.jpg);
     background-size: 100% 100%;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
   }
-`;
+`
 
 export const LabelTime = styled.label`
-  width:230px;
+  flex: 1;
+  max-width: 230px;
   display: inline-block;
   font-size: 12px;
   color: #232323;
-`;
+`
