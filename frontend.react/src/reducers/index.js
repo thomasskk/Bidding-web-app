@@ -9,7 +9,7 @@ const actions = {
 
 const initialState = {
   searchName: '',
-  searchCategory: 'All'
+  searchCategory: 'All',
 }
 
 const changeState = (key) => {

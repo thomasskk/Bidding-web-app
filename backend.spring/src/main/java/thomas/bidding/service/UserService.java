@@ -1,11 +1,12 @@
-package thomas.bidding.Service;
+package thomas.bidding.service;
 
 import javax.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import thomas.bidding.Model.User;
-import thomas.bidding.RepoSpec.UserRepoSpec;
+import thomas.bidding.model.User;
+import thomas.bidding.repoSpec.UserRepoSpec;
+
 
 @Service
 public class UserService {

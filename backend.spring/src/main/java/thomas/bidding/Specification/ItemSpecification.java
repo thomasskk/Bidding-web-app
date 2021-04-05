@@ -1,6 +1,7 @@
-package thomas.bidding.Specification;
+package thomas.bidding.specification;
 import org.springframework.data.jpa.domain.Specification;
-import thomas.bidding.Model.Item;
+import thomas.bidding.model.Item;
+
 
 public interface ItemSpecification {
 

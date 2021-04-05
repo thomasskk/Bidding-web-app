@@ -1,4 +1,4 @@
-package thomas.bidding.Security;
+package thomas.bidding.security;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.FilterChain;
@@ -13,7 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import thomas.bidding.RepoSpec.UserRepoSpec;
+import thomas.bidding.repoSpec.UserRepoSpec;
+
 
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {

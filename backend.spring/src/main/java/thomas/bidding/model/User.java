@@ -1,4 +1,4 @@
-package thomas.bidding.Model;
+package thomas.bidding.model;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 
 @Entity
 @Data

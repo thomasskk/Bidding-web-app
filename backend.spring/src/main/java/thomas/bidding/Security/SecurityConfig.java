@@ -1,4 +1,5 @@
-package thomas.bidding.Security;
+package thomas.bidding.security;
+
 import static java.lang.String.format;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import thomas.bidding.RepoSpec.UserRepoSpec;
+import thomas.bidding.repoSpec.UserRepoSpec;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -55,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                .and();
 
     http.authorizeRequests()
-        .antMatchers("/category","/item/**", "/login", "/register")
+        .antMatchers("/category", "/item/**", "/login", "/register")
         .permitAll()
         .anyRequest()
         .authenticated();

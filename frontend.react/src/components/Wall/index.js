@@ -20,7 +20,9 @@ export default function Wall() {
   useEffect(() => {
     ;(async () => {
       const data = (
-        await axios(process.env.REACT_APP_API_URL + `item/${searchCategory}/${slice}/${searchName}`)
+        await axios(
+          process.env.REACT_APP_API_URL + `item/${searchCategory}/${slice}/${searchName}`
+        )
       ).data
       setItem((item) => [
         ...item,

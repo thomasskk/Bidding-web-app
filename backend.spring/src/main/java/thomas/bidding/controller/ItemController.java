@@ -1,11 +1,12 @@
-package thomas.bidding.Controller;
+package thomas.bidding.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import thomas.bidding.Model.Item;
-import thomas.bidding.Service.ItemService;
+import thomas.bidding.model.Item;
+import thomas.bidding.service.ItemService;
+
 
 @RestController
 public class ItemController {

@@ -23,7 +23,6 @@ export const ItemContainer = styled.div`
     margin: 30px 0 0 0;
     padding: 10px 10px 0 10px;
   }
-
 `
 
 export const ItemCore = styled.label`

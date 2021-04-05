@@ -1,4 +1,4 @@
-package thomas.bidding.Model;
+package thomas.bidding.model;
 
 import lombok.Data;
 import org.springframework.lang.NonNull;

@@ -1,10 +1,11 @@
-package thomas.bidding.Controller;
+package thomas.bidding.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import thomas.bidding.Model.Category;
-import thomas.bidding.Service.CategoryService;
+import thomas.bidding.model.Category;
+import thomas.bidding.service.CategoryService;
+
 
 @RestController
 public class CategoryController {

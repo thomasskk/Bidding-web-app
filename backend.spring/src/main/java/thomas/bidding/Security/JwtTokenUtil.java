@@ -1,7 +1,6 @@
-package thomas.bidding.Security;
+package thomas.bidding.security;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
@@ -37,7 +36,8 @@ public class JwtTokenUtil {
 
   public boolean verifyToken(String token) {
     try {
-      Jwts.parserBuilder().setSigningKey(this.key).build().parseClaimsJws(token);
+      Jwts.parserBuilder().setSigningKey(this.key).build().parseClaimsJws(
+          token);
       return true;
     } catch (Exception e) {
       System.out.println(e);

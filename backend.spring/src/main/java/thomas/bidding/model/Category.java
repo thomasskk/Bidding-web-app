@@ -1,4 +1,4 @@
-package thomas.bidding.Model;
+package thomas.bidding.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

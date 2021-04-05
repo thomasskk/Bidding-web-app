@@ -1,4 +1,4 @@
-package thomas.bidding.Model;
+package thomas.bidding.model;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
-
 
 @Entity
 @Data

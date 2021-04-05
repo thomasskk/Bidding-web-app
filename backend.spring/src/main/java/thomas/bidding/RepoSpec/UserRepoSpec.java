@@ -1,10 +1,11 @@
-package thomas.bidding.RepoSpec;
+package thomas.bidding.repoSpec;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
-import thomas.bidding.Model.User;
+import thomas.bidding.model.User;
+
 
 @Repository
 public interface UserRepoSpec

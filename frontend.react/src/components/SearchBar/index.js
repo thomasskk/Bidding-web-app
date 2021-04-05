@@ -13,7 +13,8 @@ export default function SearchBar() {
   const [category, setCategory] = useState([])
 
   useEffect(() => {
-    (async () => setCategory((await axios(process.env.REACT_APP_API_URL + "category")).data))()
+    ;(async () =>
+      setCategory((await axios(process.env.REACT_APP_API_URL + 'category')).data))()
   }, [])
 
   const returnCategory = () => {
@@ -49,11 +50,15 @@ export default function SearchBar() {
       <Search>
         <SearchItem>
           <div>
-            <input type="text" placeholder="Search" onChange={(e) => OnChangeInputSearch(e)} />
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => OnChangeInputSearch(e)}
+            />
           </div>
         </SearchItem>
         <Separator />
-        <Category onClick={()=>setIsActive(!isActive)}>
+        <Category onClick={() => setIsActive(!isActive)}>
           <label>Category : {categoryRef.current}</label>
           <MenuCategory className={`${isActive ? 'active' : 'inactive'}`} ref={menuRef}>
             {returnCategory()}
