@@ -4,6 +4,8 @@ import Navbar from './components/Navbar'
 import SearchBar from './components/SearchBar'
 import Wall from './components/Wall'
 import tokenInterceptor from './utils/tokenInterceptor'
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -17,7 +19,12 @@ body {
 
 function App() {
   tokenInterceptor()
-
+  const dispatch = useDispatch()
+  localStorage.getItem('token') &&
+    dispatch({
+      type: 'AUTHENTICATED',
+      payload: true,
+    })
   return (
     <>
       <GlobalStyle />

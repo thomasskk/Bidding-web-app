@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import shortid from 'shortid'
-import Bookmark from './Bookmark.js'
+import Bookmark from '../Bookmark/index.js'
 import { Container, ItemContainer, ItemCore, ItemFooter, ItemImage } from './style'
 import LabelDate from './LabelDate'
 import { useDispatch } from 'react-redux'
@@ -13,29 +13,36 @@ export default function Wall() {
   const searchName = useSelector((state) => state.searchName)
   const searchCategory = useSelector((state) => state.searchCategory)
   const dispatch = useDispatch()
+  const bookmark = useRef([])
+  const authenticated = useSelector((state) => state.authenticated)
 
   useEffect(() => {
-    setItem([])
-    setSlice(0)
-  }, [searchName, searchCategory])
-
-  useEffect(() => {
-    ;(async () => {
-      const data = await (
-        await axios(
-          process.env.REACT_APP_API_URL + `item/${searchCategory}/${slice}/${searchName}`
-        )
+    (async () => {
+      bookmark.current = await (
+        await axios(process.env.REACT_APP_API_URL + 'bookmark/get')
       ).data
-      const bookmark = await (await axios(process.env.REACT_APP_API_URL + 'bookmark/get'))
-        .data
 
-      await bookmark.map((bookmark) => {
+      bookmark.current.map((bookmark) => {
         dispatch({
           type: 'ADD_BOOKMARK',
           payload: bookmark.itemId,
         })
       })
+    })()
+  }, [dispatch])
 
+  useEffect(() => {
+    setItem([])
+    setSlice(0)
+  }, [searchName, searchCategory,authenticated])
+
+  useEffect(() => {
+    (async () => {
+      const data = await (
+        await axios(
+          process.env.REACT_APP_API_URL + `item/${searchCategory}/${slice}/${searchName}`
+        )
+      ).data
       setItem((item) => [
         ...item,
         ...data.map((item) => (
@@ -47,21 +54,27 @@ export default function Wall() {
               <label>{item.name}</label>
               <label> {item.description}</label>
               <label> Current price : {item.initialPrice}$</label>
-              <label> {item.category.name}</label>
+              <label> Category : {item.category.name}</label>
             </ItemCore>
             <ItemFooter>
               <LabelDate endingDate={item.biddingEndingDate} />
-              <Bookmark
-                itemId={item.id}
-                bookmark={bookmark.some((bookmark) => bookmark.itemId === item.id)}
-              />
-              <button> Bid </button>
+              {authenticated && (
+                <>
+                  <Bookmark
+                    itemId={item.id}
+                    bookmark={bookmark.current.some(
+                      (bookmark) => bookmark.itemId === item.id
+                    )}
+                  />
+                  <button> Bid </button>
+                </>
+              )}
             </ItemFooter>
           </ItemContainer>
         )),
       ])
     })()
-  }, [dispatch, searchCategory, searchName, slice])
+  }, [authenticated, searchCategory, searchName, slice])
 
   return (
     <Container

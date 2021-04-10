@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import AnimLoad from '../../utils/animLoad'
-import bookmarkJson from './img/bookmark.json'
+import bookmarkJson from '../Wall/img/bookmark.json'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 

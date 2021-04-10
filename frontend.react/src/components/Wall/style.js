@@ -49,7 +49,6 @@ export const ItemCore = styled.label`
   label:nth-of-type(4) {
     font-size: 15px;
     font-weight: bold;
-    display: none;
   }
 `
 

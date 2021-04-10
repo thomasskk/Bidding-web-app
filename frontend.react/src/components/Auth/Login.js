@@ -4,9 +4,12 @@ import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { useRef } from 'react'
 import cross from './img/cross.png'
+import { useDispatch } from 'react-redux'
 
 export default function Login(props) {
   let loginErrorMessage = useRef('')
+  const dispatch = useDispatch()
+
   const {
     register,
     handleSubmit,
@@ -17,6 +20,10 @@ export default function Login(props) {
     try {
       const token = (await axios.post(process.env.REACT_APP_API_URL + 'login', data)).data
       localStorage.setItem('token', token)
+      dispatch({
+        type: 'AUTHENTICATED',
+        payload: true,
+      })
       props.show()
     } catch (error) {
       loginErrorMessage.current = 'Wrong username or password'
@@ -27,7 +34,7 @@ export default function Login(props) {
     <>
       <GlobalStyleForm />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
-        <Cross src={cross} alt="" onClick={props.show} ></Cross>
+        <Cross src={cross} alt="" onClick={props.show}></Cross>
         <span>{loginErrorMessage.current}</span>
         <InputDiv>
           <Input

@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { useRef } from 'react'
 import cross from './img/cross.png'
+import { useDispatch } from 'react-redux'
 
 export default function Register(props) {
   let registrationErrorMessage = useRef('')
@@ -21,12 +22,17 @@ export default function Register(props) {
     formState: { errors },
     getValues,
   } = useForm()
+  const dispatch = useDispatch()
 
   const onSubmit = async (data) => {
     try {
       const token = (await axios.post(process.env.REACT_APP_API_URL + 'register', data))
         .data
       localStorage.setItem('token', token)
+      dispatch({
+        type: 'AUTHENTICATED',
+        payload: true,
+      })
       props.show()
     } catch (error) {
       registrationErrorMessage.current = error.response.data.message
@@ -37,7 +43,7 @@ export default function Register(props) {
     <>
       <GlobalStyleForm />
       <RegisterForm onSubmit={handleSubmit(onSubmit)}>
-        <Cross src={cross} alt="" onClick={props.show} ></Cross>
+        <Cross src={cross} alt="" onClick={props.show}></Cross>
 
         <span>{registrationErrorMessage.current}</span>
         <InputDiv>
