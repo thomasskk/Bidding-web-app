@@ -5,7 +5,7 @@ const ClickOutsideListener = (ref, initialState, callback = () => {}) => {
 
   useEffect(() => {
     const onClick = (e) => {
-      if (ref.current !== null && !ref.current.contains(e.target)) {
+      if (ref.current !== null && ref.current !== e.target) {
         callback()
         setIsActive(!isActive)
       }

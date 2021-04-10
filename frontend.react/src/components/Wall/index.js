@@ -5,12 +5,14 @@ import shortid from 'shortid'
 import Bookmark from './Bookmark.js'
 import { Container, ItemContainer, ItemCore, ItemFooter, ItemImage } from './style'
 import LabelDate from './LabelDate'
+import { useDispatch } from 'react-redux'
 
 export default function Wall() {
   const [item, setItem] = useState([])
   const [slice, setSlice] = useState(0)
   const searchName = useSelector((state) => state.searchName)
   const searchCategory = useSelector((state) => state.searchCategory)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setItem([])
@@ -19,17 +21,27 @@ export default function Wall() {
 
   useEffect(() => {
     ;(async () => {
-      const data = (
+      const data = await (
         await axios(
           process.env.REACT_APP_API_URL + `item/${searchCategory}/${slice}/${searchName}`
         )
       ).data
+      const bookmark = await (await axios(process.env.REACT_APP_API_URL + 'bookmark/get'))
+        .data
+
+      await bookmark.map((bookmark) => {
+        dispatch({
+          type: 'ADD_BOOKMARK',
+          payload: bookmark.itemId,
+        })
+      })
+
       setItem((item) => [
         ...item,
         ...data.map((item) => (
           <ItemContainer key={shortid.generate()}>
             <ItemImage>
-              <img src={`https://robohash.org/${item.itemId}/300/300`} alt="" />
+              <img src={`https://robohash.org/${item.id}/300/300`} alt="" />
             </ItemImage>
             <ItemCore>
               <label>{item.name}</label>
@@ -39,14 +51,17 @@ export default function Wall() {
             </ItemCore>
             <ItemFooter>
               <LabelDate endingDate={item.biddingEndingDate} />
-              <Bookmark />
+              <Bookmark
+                itemId={item.id}
+                bookmark={bookmark.some((bookmark) => bookmark.itemId === item.id)}
+              />
               <button> Bid </button>
             </ItemFooter>
           </ItemContainer>
         )),
       ])
     })()
-  }, [searchCategory, searchName, slice])
+  }, [dispatch, searchCategory, searchName, slice])
 
   return (
     <Container

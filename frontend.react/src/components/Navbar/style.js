@@ -1,10 +1,8 @@
 import styled from 'styled-components'
+import mixins from '../../utils/mixins'
 
 export const Nav = styled.nav`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${mixins.flex('space-between', 'center')};
   background-color: black;
   max-height: 90px;
 `
@@ -20,14 +18,11 @@ export const Logo = styled.div`
 `
 
 export const Button = styled.button`
+  ${mixins.flex('space-between', 'center')};
+  ${mixins.border};
+  ${mixins.WH(77, 42)};
+  position: relative;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: none;
-  outline: none;
-  width: 77px;
-  height: 42px;
   border-radius: 21px;
   padding: 5px 7px 5px 15px;
   margin: 5%;
@@ -44,21 +39,20 @@ export const Profile = styled.div`
 `
 
 export const Menu = styled.div`
+  ${mixins.flex('none', 'none', 'column')};
+  z-index:2;
+  top: 50px;
+  right: 0;
   padding-top: 9px 0px 9px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   position: absolute;
   background-color: white;
   border-radius: 15px;
   box-shadow: 5px 5px 10px;
-  top: 78px;
-  right: 5%;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
   transform: translateY(-20px);
-
   &.active {
     opacity: 1;
     visibility: visible;
@@ -67,14 +61,10 @@ export const Menu = styled.div`
 `
 
 export const MenuOption = styled.option`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${mixins.flex('center', 'center')};
+  ${mixins.border};
+  ${mixins.WH(200, 40)};
   cursor: pointer;
-  width: 231px;
-  height: 40px;
-  border: none;
-  outline: none;
   background-color: white;
   &:hover {
     background: whitesmoke;

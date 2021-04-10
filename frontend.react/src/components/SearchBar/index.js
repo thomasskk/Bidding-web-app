@@ -13,7 +13,7 @@ export default function SearchBar() {
   const [category, setCategory] = useState([])
 
   useEffect(() => {
-    ;(async () =>
+    (async () =>
       setCategory((await axios(process.env.REACT_APP_API_URL + 'category')).data))()
   }, [])
 

@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 
 import AnimLoad from '../../utils/animLoad'
 import ClickOutsideListener from '../../utils/ClickOutsideListener'
-import Auth from '../Auth'
+import Login from '../Auth/Login'
+import Register from '../Auth/Register'
 
 import dropdownJson from './img/dropdown.json'
 import logoImg from './img/logo.png'
@@ -15,7 +16,8 @@ export default function Navbar() {
 
   const dropDownContainer = useRef(null)
   const [dropDownAnim, setdropDownAnim] = useState(null)
-  const [showAuth, setShowAuth] = useState(false)
+  const [showLogin, setshowLogin] = useState(false)
+  const [showRegister, setshowRegister] = useState(false)
 
   useEffect(() => {
     AnimLoad(setdropDownAnim, dropDownContainer, dropdownJson, 5.5)
@@ -24,18 +26,21 @@ export default function Navbar() {
 
   const menuRef = useRef()
   const onClickMenu = () => {
-    setIsActive(!isActive)
+    setMenuIsActive(!isMenuActive)
     dropDownAnim && dropDownAnim.playSegments([0, 60], true)
   }
 
-  const [isActive, setIsActive] = ClickOutsideListener(
+  const [isMenuActive, setMenuIsActive] = ClickOutsideListener(
     menuRef,
     false,
     () => dropDownAnim && dropDownAnim.playSegments([60, 120], true)
   )
 
-  const authSetState = () => {
-    setShowAuth(!showAuth)
+  const login = () => {
+    setshowLogin(!showLogin)
+  }
+  const register = () => {
+    setshowRegister(!showRegister)
   }
 
   return (
@@ -50,13 +55,14 @@ export default function Navbar() {
         >
           <Dropdown ref={dropDownContainer} />
           <Profile ref={profileContainer} />
-          <Menu className={`${isActive ? 'active' : 'inactive'}`} ref={menuRef}>
-            <MenuOption onClick={authSetState}>Login</MenuOption>
-            <MenuOption onClick={authSetState}>Sign up</MenuOption>
+          <Menu className={`${isMenuActive ? 'active' : 'inactive'}`} ref={menuRef}>
+            <MenuOption onClick={login}>Login</MenuOption>
+            <MenuOption onClick={register}>Sign up</MenuOption>
           </Menu>
         </Button>
       </Nav>
-      {showAuth && <Auth onSubmit={authSetState} />}
+      {showLogin && <Login show={login} />}
+      {showRegister && <Register show={register} />}
     </>
   )
 }

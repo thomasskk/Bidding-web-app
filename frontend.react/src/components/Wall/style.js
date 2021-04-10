@@ -1,21 +1,19 @@
 import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
+import mixins from '../../utils/mixins'
 
 export const Container = styled(InfiniteScroll)`
+  ${mixins.flex('space-evenly')};
   margin-top: 10%;
-  display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   padding: 20px;
 `
 
 export const ItemContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${mixins.flex('none', 'center', 'column', 'flex-grow')};
   margin: 30px;
   border-radius: 10px;
   box-shadow: 0 0 0 1px hsla(0, 0%, 47.8%, 0.5);
-  align-items: center;
   padding: 30px 30px 5px 30px;
   background: white;
   max-width: 400px;
@@ -26,8 +24,7 @@ export const ItemContainer = styled.div`
 `
 
 export const ItemCore = styled.label`
-  display: flex;
-  flex-direction: column;
+  ${mixins.flex('none', 'none', 'column')};
   width: 100%;
   margin: 20px 0 50px 0;
   // name
@@ -57,17 +54,11 @@ export const ItemCore = styled.label`
 `
 
 export const ItemFooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${mixins.flex('space-between', 'center')};
   button {
-    align-items: center;
-    justify-content: space-evenly;
-    display: flex;
-    justify-content: center;
+    ${mixins.flex('space-evenly', 'center', 'column')};
+    ${mixins.border};
     cursor: pointer;
-    border: none;
-    outline: none;
     background-color: dodgerblue;
     color: white;
     border-radius: 10px;
@@ -81,16 +72,17 @@ export const ItemImage = styled.div`
   min-width: 0;
   width: 100%;
   height: 100%;
+  display: flex;
 
   img {
     border-radius: 10px;
     box-shadow: 0 0 0 1px hsla(0, 0%, 47.8%, 0.5);
     background: url(https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/vector-seamless-texture-with-abstract-flowers-endless-background-ethnic-sea_M1h0rTqO_thumb.jpg);
     background-size: 100% 100%;
-    width: 100%;
-    height: 100%;
     min-height: 0;
     min-width: 0;
+    width: 100%;
+    height: 100%;
   }
 `
 
