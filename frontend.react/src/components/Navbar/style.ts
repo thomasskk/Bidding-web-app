@@ -38,9 +38,9 @@ export const Profile = styled.div`
   display: flex;
 `
 
-export const Menu = styled.div`
+export const Menu = styled.div<any>`
   ${mixins.flex('none', 'none', 'column')};
-  z-index:2;
+  z-index: 2;
   top: 50px;
   right: 0;
   padding-top: 9px 0px 9px;

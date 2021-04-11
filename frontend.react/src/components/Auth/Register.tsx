@@ -12,19 +12,21 @@ import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { useRef } from 'react'
 import cross from './img/cross.png'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '../../hook'
 
-export default function Register(props) {
-  let registrationErrorMessage = useRef('')
+export default function Register(props: { show: any }) {
+  let registrationErrorMessage = useRef<String>('')
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
   } = useForm()
-  const dispatch = useDispatch()
 
-  const onSubmit = async (data) => {
+  const dispatch = useAppDispatch()
+
+  const onSubmit = async (data: any) => {
     try {
       const token = (await axios.post(process.env.REACT_APP_API_URL + 'register', data))
         .data
@@ -44,11 +46,9 @@ export default function Register(props) {
       <GlobalStyleForm />
       <RegisterForm onSubmit={handleSubmit(onSubmit)}>
         <Cross src={cross} alt="" onClick={props.show}></Cross>
-
         <span>{registrationErrorMessage.current}</span>
         <InputDiv>
           <Input
-            name="firstName"
             type="text"
             placeholder="First name"
             {...register('firstName', {
@@ -67,7 +67,6 @@ export default function Register(props) {
         />
         <InputDiv>
           <Input
-            name="lastName"
             type="text"
             placeholder="Last name"
             {...register('lastName', {
@@ -92,7 +91,6 @@ export default function Register(props) {
         </InputDiv>
         <InputDiv>
           <Input
-            name="email"
             type="text"
             placeholder="Email"
             {...register('email', {
@@ -111,7 +109,6 @@ export default function Register(props) {
         />
         <InputDiv>
           <Input
-            name="phone"
             type="tel"
             placeholder="Phone number"
             {...register('phone', {
@@ -130,7 +127,6 @@ export default function Register(props) {
         />
         <InputDiv>
           <Input
-            name="street"
             type="text"
             placeholder="Street"
             {...register('street', {
@@ -149,7 +145,6 @@ export default function Register(props) {
         />
         <InputDiv>
           <Input
-            name="zip"
             type="text"
             placeholder="ZIP"
             {...register('zip', {
@@ -168,7 +163,6 @@ export default function Register(props) {
         />
         <InputDiv>
           <Input
-            name="city"
             type="text"
             placeholder="City"
             {...register('city', {
@@ -187,7 +181,6 @@ export default function Register(props) {
         />
         <InputDiv>
           <Input
-            name="username"
             type="text"
             placeholder="Username"
             {...register('username', {
@@ -210,7 +203,6 @@ export default function Register(props) {
         />
         <InputDiv>
           <Input
-            name="password"
             type="password"
             placeholder="Password"
             {...register('password', {
@@ -233,7 +225,6 @@ export default function Register(props) {
         />
         <InputDiv>
           <Input
-            name="passwordRepeat"
             type="password"
             placeholder="Password"
             {...register('passwordRepeat', {

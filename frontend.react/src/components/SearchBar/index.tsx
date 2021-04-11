@@ -1,25 +1,25 @@
 import axios from 'axios'
-import { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import shortid from 'shortid'
+import { useAppDispatch } from '../../hook'
 import ClickOutsideListener from '../../utils/ClickOutsideListener'
 import { MenuOption } from '../Navbar/style'
 import { Category, Container, MenuCategory, Search, SearchItem, Separator } from './style'
-import shortid from 'shortid'
 
 export default function SearchBar() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const categoryRef = useRef('All')
   const menuRef = useRef()
   const [isActive, setIsActive] = ClickOutsideListener(menuRef, false)
-  const [category, setCategory] = useState([])
+  const [category, setCategory] = useState<any[]>([])
 
   useEffect(() => {
-    (async () =>
+    ;(async () =>
       setCategory((await axios(process.env.REACT_APP_API_URL + 'category')).data))()
   }, [])
 
   const returnCategory = () => {
-    return category.map((category) => (
+    return category.map((category: any) => (
       <MenuOption
         key={shortid.generate()}
         id={category.name}
@@ -30,15 +30,15 @@ export default function SearchBar() {
     ))
   }
 
-  const onClickMenuOption = (e) => {
-    categoryRef.current = e.target.value
+  const onClickMenuOption = (e: React.MouseEvent<HTMLOptionElement, MouseEvent>) => {
+    categoryRef.current = e.currentTarget.value
     dispatch({
       type: 'SET_SEARCH_CATEGORY',
-      payload: e.target.id,
+      payload: e.currentTarget.id,
     })
   }
 
-  const OnChangeInputSearch = (e) => {
+  const OnChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist()
     dispatch({
       type: 'SET_SEARCH_NAME',

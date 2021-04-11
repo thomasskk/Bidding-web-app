@@ -1,43 +1,39 @@
 import { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
-
+import { useAppDispatch, useAppSelector } from '../../hook'
 import AnimLoad from '../../utils/animLoad'
 import ClickOutsideListener from '../../utils/ClickOutsideListener'
 import Login from '../Auth/Login'
 import Register from '../Auth/Register'
-import { useSelector } from 'react-redux'
 import dropdownJson from './img/dropdown.json'
 import logoImg from './img/logo.png'
 import profileJson from './img/profile.json'
 import { Button, Dropdown, Logo, Menu, MenuOption, Nav, Profile } from './style'
+import { AnimationItem } from 'lottie-web'
 
 export default function Navbar() {
-  const profileContainer = useRef(null)
-  const [profileAnim, setProfileAnim] = useState(null)
+  const profileContainer = useRef<HTMLDivElement | null>(null)
+  const [profileAnim, setProfileAnim] = useState<AnimationItem | null>(null)
 
-  const dropDownContainer = useRef(null)
-  const [dropDownAnim, setdropDownAnim] = useState(null)
-  const [showLogin, setshowLogin] = useState(false)
-  const [showRegister, setshowRegister] = useState(false)
-  const authenticated = useSelector((state) => state.authenticated)
-  const dispatch = useDispatch()
+  const dropDownContainer = useRef<HTMLDivElement | null>(null)
+  const [dropDownAnim, setdropDownAnim] = useState<AnimationItem | null>(null)
+  const [showLogin, setshowLogin] = useState<boolean>(false)
+  const [showRegister, setshowRegister] = useState<boolean>(false)
+  const authenticated = useAppSelector((state) => state.authenticated)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     AnimLoad(setdropDownAnim, dropDownContainer, dropdownJson, 5.5)
     AnimLoad(setProfileAnim, profileContainer, profileJson, 2)
   }, [])
-
-  const menuRef = useRef()
+  const menuRef = useRef(null)
   const onClickMenu = () => {
     setMenuIsActive(!isMenuActive)
-    dropDownAnim && dropDownAnim.playSegments([0, 60], true)
-    profileAnim.playSegments([0, 122], true)
+    dropDownAnim?.playSegments([0, 60], true)
+    profileAnim?.playSegments([0, 122], true)
   }
 
-  const [isMenuActive, setMenuIsActive] = ClickOutsideListener(
-    menuRef,
-    false,
-    () => dropDownAnim && dropDownAnim.playSegments([60, 120], true)
+  const [isMenuActive, setMenuIsActive] = ClickOutsideListener(menuRef, false, () =>
+    dropDownAnim?.playSegments([60, 120], true)
   )
 
   const login = () => {
@@ -60,9 +56,7 @@ export default function Navbar() {
         <Logo>
           <img src={logoImg} alt="" />
         </Logo>
-        <Button
-          onClick={onClickMenu}
-        >
+        <Button onClick={onClickMenu}>
           <Dropdown ref={dropDownContainer} />
           <Profile ref={profileContainer} />
           <Menu className={`${isMenuActive ? 'active' : 'inactive'}`} ref={menuRef}>

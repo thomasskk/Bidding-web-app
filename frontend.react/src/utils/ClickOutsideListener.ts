@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
-const ClickOutsideListener = (ref, initialState, callback = () => {}) => {
+const ClickOutsideListener = (ref:any, initialState:any, callback = () => {}) => {
   const [isActive, setIsActive] = useState(initialState)
 
   useEffect(() => {
-    const onClick = (e) => {
+    const onClick = (e:any) => {
       if (ref.current !== null && ref.current !== e.target) {
         callback()
         setIsActive(!isActive)

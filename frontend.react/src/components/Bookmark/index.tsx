@@ -1,9 +1,10 @@
+import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+import { useAppDispatch } from '../../hook'
 import AnimLoad from '../../utils/animLoad'
 import bookmarkJson from '../Wall/img/bookmark.json'
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
+import { AnimationItem } from 'lottie-web'
 
 const BookmarkStyled = styled.div`
   flex-basis: 40px;
@@ -11,11 +12,11 @@ const BookmarkStyled = styled.div`
   display: flex;
 `
 
-export default function Bookmark(props) {
-  const bookmarkContainer = useRef()
-  const [bookmarkAnim, setBookmarkAnim] = useState()
-  const bookmarkOn = useRef(props.bookmark)
-  const dispatch = useDispatch()
+export default function Bookmark(props: { itemId: number; bookmark: boolean }) {
+  const bookmarkContainer = useRef<HTMLDivElement | null>(null)
+  const [bookmarkAnim, setBookmarkAnim] = useState<AnimationItem | null>(null)
+  const bookmarkOn = useRef<boolean>(props.bookmark)
+  const dispatch = useAppDispatch()
   useEffect(() => {
     AnimLoad(
       setBookmarkAnim,
@@ -46,10 +47,10 @@ export default function Bookmark(props) {
     bookmarkOn.current = !bookmarkOn.current
     if (bookmarkOn.current) {
       addBookmark()
-      bookmarkAnim.playSegments([0, 50], true)
+      bookmarkAnim?.playSegments([0, 50], true)
     } else {
       removeBookmark()
-      bookmarkAnim.playSegments([0, 1], true)
+      bookmarkAnim?.playSegments([0, 1], true)
     }
   }
 

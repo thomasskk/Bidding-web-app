@@ -1,19 +1,18 @@
 import axios from 'axios'
-import { useEffect, useState, useRef } from 'react'
-import { useSelector } from 'react-redux'
-import { Container } from './style'
-import { useDispatch } from 'react-redux'
-import Item from '../Item'
+import React, { useEffect, useRef, useState } from 'react'
 import shortid from 'shortid'
+import { useAppDispatch, useAppSelector } from '../../hook'
+import Item from '../Item'
+import { Container } from './style'
 
 export default function Wall() {
-  const [item, setItem] = useState([])
+  const [item, setItem] = useState<any[]>([])
   const [slice, setSlice] = useState(0)
-  const searchName = useSelector((state) => state.searchName)
-  const searchCategory = useSelector((state) => state.searchCategory)
-  const dispatch = useDispatch()
-  const bookmark = useRef(null)
-  const authenticated = useSelector((state) => state.authenticated)
+  const searchName = useAppSelector((state) => state.searchName)
+  const searchCategory = useAppSelector((state) => state.searchCategory)
+  const dispatch = useAppDispatch()
+  const bookmark = useRef<any[] | null>(null)
+  const authenticated = useAppSelector((state) => state.authenticated)
 
   useEffect(() => {
     setItem([])
@@ -26,7 +25,7 @@ export default function Wall() {
         bookmark.current = await (
           await axios(process.env.REACT_APP_API_URL + 'bookmark/get')
         ).data
-        bookmark.current.map((bookmark) => {
+        bookmark?.current?.map((bookmark: any) => {
           return dispatch({
             type: 'ADD_BOOKMARK',
             payload: bookmark.itemId,
@@ -40,8 +39,13 @@ export default function Wall() {
       ).data
       setItem((item) => [
         ...item,
-        ...data.map((item) => (
-          <Item authenticated={authenticated} item={item} bookmark={bookmark.current} focus={false} key={shortid.generate()}/>
+        ...data.map((item: any) => (
+          <Item
+            authenticated={authenticated}
+            item={item}
+            bookmark={bookmark.current}
+            key={shortid.generate()}
+          />
         )),
       ])
     })()
@@ -53,6 +57,7 @@ export default function Wall() {
       next={() => setSlice(slice + 1)}
       scrollThreshold={0.8}
       hasMore={slice >= item.length ? false : true}
+      loader={null}
     >
       {item}
     </Container>

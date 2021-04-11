@@ -9,7 +9,8 @@ export const LabelTime = styled.label`
   color: #232323;
 `
 
-export const ItemContainer = styled.div`
+export const ItemContainer = styled.div<{ focus: boolean }>`
+  cursor: pointer;
   ${mixins.flex('none', 'center', 'column', 'flex-grow')};
   margin: 30px;
   border-radius: 10px;

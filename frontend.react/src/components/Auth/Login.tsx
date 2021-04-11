@@ -6,17 +6,22 @@ import { useRef } from 'react'
 import cross from './img/cross.png'
 import { useDispatch } from 'react-redux'
 
-export default function Login(props) {
-  let loginErrorMessage = useRef('')
+export default function Login(props: { show: any }) {
+  let loginErrorMessage = useRef<String>('')
   const dispatch = useDispatch()
+
+  type FormValues = {
+    username: string
+    password: string
+  }
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm<FormValues>()
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     try {
       const token = (await axios.post(process.env.REACT_APP_API_URL + 'login', data)).data
       localStorage.setItem('token', token)
@@ -38,7 +43,6 @@ export default function Login(props) {
         <span>{loginErrorMessage.current}</span>
         <InputDiv>
           <Input
-            name="username"
             type="text"
             placeholder="Username"
             {...register('username', {
@@ -53,7 +57,6 @@ export default function Login(props) {
         />
         <InputDiv>
           <Input
-            name="password"
             type="password"
             placeholder="Password"
             {...register('password', {
