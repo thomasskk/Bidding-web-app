@@ -37,12 +37,13 @@ const reducers = (key: string, effect: string) => {
       case 'ADD':
         return {
           ...state,
-          [key]: [...state.bookmark, action.payload],
+          [key]: [...state[key], action.payload],
         }
       case 'FILTER':
+        console.log(key)
         return {
           ...state,
-          [key]: state.bookmark.filter((i: any[]) => i !== action.payload),
+          [key]: state[key].filter((i: any[]) => i !== action.payload),
         }
     }
   }
