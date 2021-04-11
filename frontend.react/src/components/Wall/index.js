@@ -1,11 +1,10 @@
 import axios from 'axios'
 import { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import shortid from 'shortid'
-import Bookmark from '../Bookmark/index.js'
-import { Container, ItemContainer, ItemCore, ItemFooter, ItemImage } from './style'
-import LabelDate from './LabelDate'
+import { Container } from './style'
 import { useDispatch } from 'react-redux'
+import Item from '../Item'
+import shortid from 'shortid'
 
 export default function Wall() {
   const [item, setItem] = useState([])
@@ -13,31 +12,27 @@ export default function Wall() {
   const searchName = useSelector((state) => state.searchName)
   const searchCategory = useSelector((state) => state.searchCategory)
   const dispatch = useDispatch()
-  const bookmark = useRef([])
+  const bookmark = useRef(null)
   const authenticated = useSelector((state) => state.authenticated)
-
-  useEffect(() => {
-    (async () => {
-      bookmark.current = await (
-        await axios(process.env.REACT_APP_API_URL + 'bookmark/get')
-      ).data
-
-      bookmark.current.map((bookmark) => {
-        dispatch({
-          type: 'ADD_BOOKMARK',
-          payload: bookmark.itemId,
-        })
-      })
-    })()
-  }, [dispatch])
 
   useEffect(() => {
     setItem([])
     setSlice(0)
-  }, [searchName, searchCategory,authenticated])
+  }, [searchName, searchCategory, authenticated])
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
+      if (!bookmark.current && authenticated) {
+        bookmark.current = await (
+          await axios(process.env.REACT_APP_API_URL + 'bookmark/get')
+        ).data
+        bookmark.current.map((bookmark) => {
+          return dispatch({
+            type: 'ADD_BOOKMARK',
+            payload: bookmark.itemId,
+          })
+        })
+      }
       const data = await (
         await axios(
           process.env.REACT_APP_API_URL + `item/${searchCategory}/${slice}/${searchName}`
@@ -46,35 +41,11 @@ export default function Wall() {
       setItem((item) => [
         ...item,
         ...data.map((item) => (
-          <ItemContainer key={shortid.generate()}>
-            <ItemImage>
-              <img src={`https://robohash.org/${item.id}/300/300`} alt="" />
-            </ItemImage>
-            <ItemCore>
-              <label>{item.name}</label>
-              <label> {item.description}</label>
-              <label> Current price : {item.initialPrice}$</label>
-              <label> Category : {item.category.name}</label>
-            </ItemCore>
-            <ItemFooter>
-              <LabelDate endingDate={item.biddingEndingDate} />
-              {authenticated && (
-                <>
-                  <Bookmark
-                    itemId={item.id}
-                    bookmark={bookmark.current.some(
-                      (bookmark) => bookmark.itemId === item.id
-                    )}
-                  />
-                  <button> Bid </button>
-                </>
-              )}
-            </ItemFooter>
-          </ItemContainer>
+          <Item authenticated={authenticated} item={item} bookmark={bookmark.current} focus={false} key={shortid.generate()}/>
         )),
       ])
     })()
-  }, [authenticated, searchCategory, searchName, slice])
+  }, [authenticated, dispatch, searchCategory, searchName, slice])
 
   return (
     <Container

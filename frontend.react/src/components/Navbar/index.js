@@ -31,6 +31,7 @@ export default function Navbar() {
   const onClickMenu = () => {
     setMenuIsActive(!isMenuActive)
     dropDownAnim && dropDownAnim.playSegments([0, 60], true)
+    profileAnim.playSegments([0, 122], true)
   }
 
   const [isMenuActive, setMenuIsActive] = ClickOutsideListener(
@@ -61,7 +62,6 @@ export default function Navbar() {
         </Logo>
         <Button
           onClick={onClickMenu}
-          onMouseEnter={() => profileAnim.playSegments([0, 122], true)}
         >
           <Dropdown ref={dropDownContainer} />
           <Profile ref={profileContainer} />

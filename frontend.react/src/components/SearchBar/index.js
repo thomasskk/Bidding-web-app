@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import ClickOutsideListener from '../../utils/ClickOutsideListener'
 import { MenuOption } from '../Navbar/style'
 import { Category, Container, MenuCategory, Search, SearchItem, Separator } from './style'
+import shortid from 'shortid'
 
 export default function SearchBar() {
   const dispatch = useDispatch()
@@ -20,7 +21,7 @@ export default function SearchBar() {
   const returnCategory = () => {
     return category.map((category) => (
       <MenuOption
-        key={category.categoryId}
+        key={shortid.generate()}
         id={category.name}
         onClick={(e) => onClickMenuOption(e)}
       >
