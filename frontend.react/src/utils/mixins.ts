@@ -18,9 +18,11 @@ const mixins = {
     border: none;
     outline: none;
   `,
-  WH: (w: number, h: number) => css`
-    width: ${w + 'px'};
-    height: ${h + 'px'};
+  shadow: css`
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  `,
+  bold: css`
+    font-family: HMSansLatin-SemiBold;
   `,
 }
 

@@ -6,7 +6,7 @@ import Item from '../Item'
 import { Container } from './style'
 
 export default function Wall() {
-  const [item, setItem] = useState<any[]>([])
+  const [item, setItem] = useState<any[] | null>(null)
   const [slice, setSlice] = useState(0)
   const searchName = useAppSelector((state) => state.searchName)
   const searchCategory = useAppSelector((state) => state.searchCategory)
@@ -37,29 +37,31 @@ export default function Wall() {
           process.env.REACT_APP_API_URL + `item/${searchCategory}/${slice}/${searchName}`
         )
       ).data
-      setItem((item) => [
-        ...item,
-        ...data.map((item: any) => (
-          <Item
-            authenticated={authenticated}
-            item={item}
-            bookmark={bookmark.current}
-            key={shortid.generate()}
-          />
-        )),
-      ])
+      setItem(data)
     })()
   }, [authenticated, dispatch, searchCategory, searchName, slice])
 
+
   return (
-    <Container
-      dataLength={item.length}
-      next={() => setSlice(slice + 1)}
-      scrollThreshold={0.8}
-      hasMore={slice >= item.length ? false : true}
-      loader={null}
-    >
-      {item}
-    </Container>
+    <>
+      {item && (
+        <Container
+          dataLength={item.length}
+          next={() => setSlice(slice + 1)}
+          scrollThreshold={0.8}
+          hasMore={slice >= item.length ? false : true}
+          loader={null}
+        >
+          {item!.map((item: any) => (
+            <Item
+              authenticated={authenticated}
+              item={item}
+              bookmark={bookmark.current}
+              key={shortid.generate()}
+            />
+          ))}
+        </Container>
+      )}
+    </>
   )
 }

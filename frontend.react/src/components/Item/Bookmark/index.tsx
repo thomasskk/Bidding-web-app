@@ -1,10 +1,10 @@
 import axios from 'axios'
+import { AnimationItem } from 'lottie-web'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { useAppDispatch } from '../../hook'
-import AnimLoad from '../../utils/animLoad'
-import bookmarkJson from '../Wall/img/bookmark.json'
-import { AnimationItem } from 'lottie-web'
+import { useAppDispatch } from '../../../hook'
+import AnimLoad from '../../../utils/animLoad'
+import bookmarkJson from '../../Wall/img/bookmark.json'
 
 const BookmarkStyled = styled.div`
   flex-basis: 40px;
@@ -12,10 +12,10 @@ const BookmarkStyled = styled.div`
   display: flex;
 `
 
-export default function Bookmark(props: { itemId: number; bookmark: boolean }) {
+export default function Bookmark(props: { itemId: number; bookmark: boolean | null }) {
   const bookmarkContainer = useRef<HTMLDivElement | null>(null)
   const [bookmarkAnim, setBookmarkAnim] = useState<AnimationItem | null>(null)
-  const bookmarkOn = useRef<boolean>(props.bookmark)
+  const bookmarkOn = useRef<boolean | null>(props.bookmark)
   const dispatch = useAppDispatch()
   useEffect(() => {
     AnimLoad(

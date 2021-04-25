@@ -25,7 +25,7 @@ export default function Navbar() {
     AnimLoad(setdropDownAnim, dropDownContainer, dropdownJson, 5.5)
     AnimLoad(setProfileAnim, profileContainer, profileJson, 2)
   }, [])
-  const menuRef = useRef(null)
+  const menuRef = useRef<HTMLDivElement | null>(null)
   const onClickMenu = () => {
     setMenuIsActive(!isMenuActive)
     dropDownAnim?.playSegments([0, 60], true)

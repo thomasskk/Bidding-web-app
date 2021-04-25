@@ -4,7 +4,7 @@ import {
   Input,
   Submit,
   Select,
-  GlobalStyleForm,
+  BlurFocus,
   Cross,
 } from './style'
 import axios from 'axios'
@@ -43,7 +43,7 @@ export default function Register(props: { show: any }) {
 
   return (
     <>
-      <GlobalStyleForm />
+      <BlurFocus />
       <RegisterForm onSubmit={handleSubmit(onSubmit)}>
         <Cross src={cross} alt="" onClick={props.show}></Cross>
         <span>{registrationErrorMessage.current}</span>
@@ -226,7 +226,7 @@ export default function Register(props: { show: any }) {
         <InputDiv>
           <Input
             type="password"
-            placeholder="Password"
+            placeholder="Confirm"
             {...register('passwordRepeat', {
               required: 'This field is required.',
               validate: {

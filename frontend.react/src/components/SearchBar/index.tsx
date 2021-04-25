@@ -9,7 +9,7 @@ import { Category, Container, MenuCategory, Search, SearchItem, Separator } from
 export default function SearchBar() {
   const dispatch = useAppDispatch()
   const categoryRef = useRef('All')
-  const menuRef = useRef()
+  const menuRef = useRef<HTMLDivElement | null>(null)
   const [isActive, setIsActive] = ClickOutsideListener(menuRef, false)
   const [category, setCategory] = useState<any[]>([])
 
@@ -19,7 +19,7 @@ export default function SearchBar() {
   }, [])
 
   const returnCategory = () => {
-    return category.map((category: any) => (
+    return category?.map((category: any) => (
       <MenuOption
         key={shortid.generate()}
         id={category.name}

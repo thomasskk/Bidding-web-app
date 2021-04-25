@@ -1,20 +1,19 @@
-import styled from 'styled-components'
+import styled, { createGlobalStyle, css } from 'styled-components'
 import mixins from '../../utils/mixins'
 
 export const LabelTime = styled.label`
   flex: 1;
-  max-width: 230px;
+  width: 170px;
   display: inline-block;
   font-size: 12px;
   color: #232323;
 `
 
-export const ItemContainer = styled.div<{ focus: boolean }>`
-  cursor: pointer;
+export const ItemContainer = styled.div`
   ${mixins.flex('none', 'center', 'column', 'flex-grow')};
+  cursor: pointer;
   margin: 30px;
   border-radius: 10px;
-  box-shadow: 0 0 0 1px hsla(0, 0%, 47.8%, 0.5);
   padding: 30px 30px 5px 30px;
   background: white;
   max-width: 400px;
@@ -45,6 +44,9 @@ export const ItemCore = styled.label`
     font-size: 18px;
     margin-bottom: 12px;
     font-weight: 250;
+    span {
+      color: green;
+    }
   }
   //categorie
   label:nth-of-type(4) {

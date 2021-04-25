@@ -24,22 +24,24 @@ export const RegisterForm = styled(LoginForm)`
   flex-wrap: wrap;
 `
 
-export const GlobalStyleForm = createGlobalStyle`
-  #root > div,nav:not(${LoginForm}){ 
-    pointer-events: none;
-    filter: blur(10px);
+export const BlurFocus = createGlobalStyle`
+    #root > div,nav:not(LoginForm){
+      pointer-events: none;
+      filter: blur(10px);
     }
-  body{
-    overflow: hidden;
-  }
+    body {
+      overflow: hidden;
+    }
+
 `
 export const Cross = styled.img`
   position: absolute;
-  ${mixins.WH(15, 15)};
-  right:0;
-  top:0;
-  margin:10px;
-  cursor:pointer;
+  width: 15px;
+  height: 15px;
+  right: 0;
+  top: 0;
+  margin: 10px;
+  cursor: pointer;
 `
 
 export const InputDiv = styled.div`

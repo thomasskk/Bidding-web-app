@@ -20,7 +20,8 @@ export const Logo = styled.div`
 export const Button = styled.button`
   ${mixins.flex('space-between', 'center')};
   ${mixins.border};
-  ${mixins.WH(77, 42)};
+  width: 77px;
+  height: 42px;
   position: relative;
   cursor: pointer;
   border-radius: 21px;
@@ -38,7 +39,7 @@ export const Profile = styled.div`
   display: flex;
 `
 
-export const Menu = styled.div<any>`
+export const Menu = styled.div`
   ${mixins.flex('none', 'none', 'column')};
   z-index: 2;
   top: 50px;
@@ -63,7 +64,8 @@ export const Menu = styled.div<any>`
 export const MenuOption = styled.option`
   ${mixins.flex('center', 'center')};
   ${mixins.border};
-  ${mixins.WH(200, 40)};
+  width: 200px;
+  height: 40px;
   cursor: pointer;
   background-color: white;
   &:hover {

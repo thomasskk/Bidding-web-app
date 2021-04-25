@@ -40,7 +40,6 @@ const reducers = (key: string, effect: string) => {
           [key]: [...state[key], action.payload],
         }
       case 'FILTER':
-        console.log(key)
         return {
           ...state,
           [key]: state[key].filter((i: any[]) => i !== action.payload),

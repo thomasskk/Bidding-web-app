@@ -1,27 +1,22 @@
 package thomas.bidding.model;
-
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
-
 @Entity
 @Data
-@Table(name = "ITEMS")
-public class Item {
+@Table(name = "BID")
+public class Bid {
+
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY) public int id;
-  public String name;
-  public String description;
-  public Date biddingOpeningDate;
-  public Date biddingEndingDate;
-  public Long initialPrice;
-  public Long sellPrice;
-  public int userId;
-  @ManyToOne @JoinColumn(name = "categoryId") private Category category;
+  public Date date;
+  public Long price;
+  @OneToOne @JoinColumn(name = "userId") private User user;
+  @OneToOne @JoinColumn(name = "itemId") private Item item;
 }

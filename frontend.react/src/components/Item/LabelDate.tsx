@@ -17,9 +17,9 @@ export default function LabelDate(props: { endingDate: string }) {
 
   return (
     <LabelTime>
-      Ends in : {date.days() !== 0 && date.days() + 'd'}{' '}
-      {date.hours() !== 0 && date.hours()}h {date.minutes() !== 0 && date.minutes()}m{' '}
-      {date.seconds()}s
+      Ends in : <b>{date.days() !== 0 && date.days()}</b>Days{' '}
+      <b>{date.hours() !== 0 && date.hours()}</b>h <b>{date.minutes() !== 0 && date.minutes()}</b>m{' '}
+      <b>{date.seconds()}</b>s
     </LabelTime>
   )
 }

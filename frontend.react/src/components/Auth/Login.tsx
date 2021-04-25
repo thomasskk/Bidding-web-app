@@ -1,4 +1,4 @@
-import { LoginForm, InputDiv, Input, Submit, GlobalStyleForm, Cross } from './style'
+import { LoginForm, InputDiv, Input, Submit, BlurFocus, Cross } from './style'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
@@ -37,7 +37,7 @@ export default function Login(props: { show: any }) {
 
   return (
     <>
-      <GlobalStyleForm />
+      <BlurFocus />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <Cross src={cross} alt="" onClick={props.show}></Cross>
         <span>{loginErrorMessage.current}</span>

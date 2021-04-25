@@ -9,10 +9,14 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
     "@types/jest": "^26.0.22",
-    "@types/node": "^14.14.37",
+    "@types/node": "^14.14.41",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
+    "@types/react-infinite-scroll-component": "^4.2.5",
+    "@types/recharts": "^1.8.19",
+    "@types/tablesorter": "^2.31.1",
     "axios": "^0.21.1",
+    "create-react-app": "^4.0.3",
     "lottie-web": "^5.7.6",
     "moment": "^2.29.1",
     "react": "^17.0.1",
@@ -23,16 +27,18 @@
     "react-redux": "^7.2.2",
     "react-scripts": "4.0.3",
     "react-transition-group": "^4.4.1",
+    "recharts": "^2.0.9",
     "redux-devtools-extension": "^2.13.9",
     "shortid": "^2.2.16",
     "styled-components": "^5.2.1",
+    "tablesort": "^5.2.1",
     "typescript": "^4.2.4",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -54,8 +60,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.12.1",
     "@types/react-redux": "^7.1.16",
     "@types/shortid": "^0.0.29",
-    "@types/styled-components": "^5.1.9"
+    "@types/styled-components": "^5.1.9",
+    "babel-plugin-styled-components": "^1.12.0",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.1.8"
   }
 }
