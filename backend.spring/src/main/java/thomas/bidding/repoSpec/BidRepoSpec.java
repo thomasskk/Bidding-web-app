@@ -1,5 +1,7 @@
 package thomas.bidding.repoSpec;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -9,5 +11,5 @@ import thomas.bidding.model.Bid;
 public interface BidRepoSpec
     extends JpaRepository<Bid, Integer>, JpaSpecificationExecutor<Bid> {
 
-  public Iterable<Bid> findByItemId(int id);
+  public Page<Bid> findByItemIdOrderByDateAsc(int id, Pageable pageable);
 }

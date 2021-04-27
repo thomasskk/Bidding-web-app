@@ -10,7 +10,6 @@ import thomas.bidding.model.Item;
 import thomas.bidding.repoSpec.ItemRepoSpec;
 import thomas.bidding.specification.ItemSpecification;
 
-
 @Service
 public class ItemService implements ItemSpecification {
 

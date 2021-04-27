@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle, css } from 'styled-components'
 import mixins from '../../utils/mixins'
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts'
 
 export const BlurFocus = createGlobalStyle`
     #root > .infinite-scroll-component__outerdiv > div > *:not(#focus),
@@ -17,10 +18,15 @@ export const Wrapper = styled.div`
   ${mixins.flex('none', 'none', 'row')}
   position: fixed;
   z-index: 2;
-  left: 50%;
   top: 50%;
+  height: 600px;
+  width: 100%;
   transform: translate(-50%, -50%);
-  width: 1400px;
+  left: 50%;
+  @media screen and (max-width: 1400px) {
+    transform: translate(0, -50%);
+    left: 0;
+  }
   background: white;
   border-radius: 10px;
   padding: 10px;
@@ -30,56 +36,34 @@ export const Table = styled.table`
   ${mixins.shadow};
   max-width: 400px;
   width: 100%;
-  max-height:100px;
-  overflow: scroll;
   table-layout: fixed;
   border-style: hidden;
-  margin: 35px 0 0 0;
   border-radius: 10px;
   border-collapse: collapse;
 
-  tr {
-    background: #f8f8f8;
-    padding: 0.35em;
-  }
-
-  tbody:nth-of-type(odd) {
-    tr {
-      background: #e8e8e8;
-    }
-  }
-
-  th:first-child {
-    border-radius: 10px 0 0 0;
-  }
-
-  th:last-child {
-    border-radius: 0 10px 0 0;
-  }
-
-  tbody:last-child > tr > td:first-child {
-    border-radius: 0 0 0 10px;
-  }
-
-  tbody:last-child > tr > td:last-child {
-    border-radius: 0 0 10px 0;
+  tbody {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    max-height: 500px;
   }
 
   th,
   td {
-    padding: 0.625em;
+    padding: 5px;
     text-align: center;
+    width: 200px;
+  }
+  tr {
+    background: #f8f8f8;
+    padding: 0.35em;
+    display: block;
   }
 
   thead tr {
-    background: red;
-  }
-
-  th {
-    overflow: hidden;
-    font-size: 16px;
-    letter-spacing: 0.1em;
+    background: black;
     color: white;
+    display: block;
   }
 
   @media screen and (max-width: 600px) {
@@ -113,4 +97,13 @@ export const Table = styled.table`
       border-bottom: 0;
     }
   }
+`
+
+
+export const Res = styled(ResponsiveContainer)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import thomas.bidding.model.Bid;
 import thomas.bidding.service.BidService;
@@ -16,9 +17,10 @@ public class BidController {
 
   @Autowired private BidService bidService;
 
-  @GetMapping("get/{itemId}")
-  public Iterable<Bid> getBookmarkByUserId(@PathVariable int itemId) {
-    return bidService.getBidByItemId(itemId);
+  @GetMapping("get")
+  public Iterable<Bid> getBookmarkByUserId(@RequestParam int itemId,
+                                           @RequestParam int sliceWeeks) {
+    return bidService.getBidByItemId(itemId, sliceWeeks);
   }
 
   @PostMapping("add")
