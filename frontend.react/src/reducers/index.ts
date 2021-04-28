@@ -8,8 +8,12 @@ const actions = {
   REMOVE_BOOKMARK: 'REMOVE_BOOKMARK',
   AUTHENTICATED: 'AUTHENTICATED',
 }
+
 type Handler = Partial<{
-  [x: string]: (state: RootState, action: PayloadAction<any>) => Partial<InitialState>
+  [action: string]: (
+    state: RootState,
+    action: PayloadAction<any>
+  ) => Partial<InitialState>
 }>
 
 const handlers: Handler = {}

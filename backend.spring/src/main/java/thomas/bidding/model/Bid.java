@@ -17,6 +17,7 @@ public class Bid {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY) public int id;
   public Date date;
   public Long price;
+  public Long sellPrice;
   @OneToOne @JoinColumn(name = "userId") private User user;
   @OneToOne @JoinColumn(name = "itemId") private Item item;
 }

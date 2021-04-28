@@ -11,5 +11,5 @@ import thomas.bidding.model.Bid;
 public interface BidRepoSpec
     extends JpaRepository<Bid, Integer>, JpaSpecificationExecutor<Bid> {
 
-  public Page<Bid> findByItemIdOrderByDateAsc(int id, Pageable pageable);
+  public Page<Bid> findByItemIdOrderByDateDesc(int id, Pageable pageable);
 }

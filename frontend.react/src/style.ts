@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
   font-family: HMSansLatin-Regular;
 }
 body {
-  background:#f7f7f7
+  background:#f8f8f8;
 }
 `
 export default GlobalStyle

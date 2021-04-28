@@ -15,8 +15,8 @@ public class BidService {
   @Autowired private UserService userService;
 
   public Iterable<Bid> getBidByItemId(int itemId, int slice) {
-    Pageable limit = PageRequest.of(0, slice);
-    Page<Bid> page = bidRepoSpec.findByItemIdOrderByDateAsc(itemId, limit);
+    Pageable limit = PageRequest.of(slice, 30);
+    Page<Bid> page = bidRepoSpec.findByItemIdOrderByDateDesc(itemId, limit);
     return page.getContent();
   }
 

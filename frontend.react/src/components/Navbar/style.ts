@@ -52,7 +52,6 @@ export const Menu = styled.div`
   box-shadow: 5px 5px 10px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
   transform: translateY(-20px);
   &.active {
     opacity: 1;

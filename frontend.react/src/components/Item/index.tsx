@@ -1,6 +1,4 @@
-import React, { useRef, useState } from 'react'
-import cross from '../Auth/img/cross.png'
-import { Cross } from '../Auth/style'
+import React, { useState } from 'react'
 import Bookmark from './Bookmark/index'
 import LabelDate from './LabelDate'
 import { ItemContainer, ItemCore, ItemFooter, ItemImage } from './style'
@@ -14,14 +12,18 @@ export default function Item(props: {
 }) {
   const [focus, setFocus] = useState(false)
 
+  const percentagePrice = Math.floor(
+    ((props.item.sellPrice - props.item.initialPrice) / props.item.initialPrice) * 100
+  )
+
   return (
     <>
-      <ItemContainer
-        onClick={() => {
-          !props.focused && setFocus(!focus)
-        }}
-      >
-        <ItemImage>
+      <ItemContainer>
+        <ItemImage
+          onClick={() => {
+            !props.focused && setFocus(!focus)
+          }}
+        >
           <img src={`https://robohash.org/${props.item.id}/300/300`} alt="" />
         </ItemImage>
         <ItemCore>
@@ -29,14 +31,9 @@ export default function Item(props: {
           <label> {props.item.description}</label>
           <label>
             {' '}
-            Current price : {props.item.sellPrice}${' '}
-            <span>
-              &ensp; +
-              {(props.item.sellPrice - props.item.initialPrice) / props.item.initialPrice}
-              %
-            </span>{' '}
+            Current price : <span>{props.item.sellPrice}</span> <span>&#x2B27;</span> {' '}
+            <span>&ensp; +{percentagePrice}%</span>{' '}
           </label>
-          <label> Category : {props.item.category.name}</label>
         </ItemCore>
         <ItemFooter>
           <LabelDate endingDate={props.item.biddingEndingDate} />
@@ -50,7 +47,14 @@ export default function Item(props: {
                   ) || null
                 }
               />
-              <button> Bid </button>
+              <button
+                onClick={() => {
+                  !props.focused && setFocus(!focus)
+                }}
+              >
+                {' '}
+                Bid{' '}
+              </button>
             </>
           )}
         </ItemFooter>
