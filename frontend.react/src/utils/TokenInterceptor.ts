@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 
-const tokenInterceptor = () => {
+const TokenInterceptor = () => {
   axios.interceptors.request.use((config) => {
     const token = localStorage.getItem('token')
     if (token) {
@@ -9,9 +9,6 @@ const tokenInterceptor = () => {
     }
     return config
   })
-}
-
-const InvalidTokenInterceptor = () => {
   const dispatch = useDispatch()
   axios.interceptors.response.use(
     (response) => {
@@ -30,4 +27,4 @@ const InvalidTokenInterceptor = () => {
   )
 }
 
-export { tokenInterceptor, InvalidTokenInterceptor }
+export default TokenInterceptor

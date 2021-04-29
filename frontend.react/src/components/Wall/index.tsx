@@ -55,7 +55,7 @@ export default function Wall() {
         )),
       ])
     })()
-  }, [authenticated, dispatch, category, input, slice])
+  }, [dispatch, category, input, slice, authenticated])
 
   return (
     <Container

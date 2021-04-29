@@ -2,23 +2,17 @@ import React from 'react'
 import Navbar from './components/Navbar'
 import SearchBar from './components/SearchBar'
 import Wall from './components/Wall'
-import { tokenInterceptor, InvalidTokenInterceptor } from './utils/interceptors'
-import { useDispatch } from 'react-redux'
+import TokenInterceptor from './utils/TokenInterceptor'
 import GlobalStyle from './style'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './components/Auth/Login'
 import Register from './components/Auth/Register'
 import ItemDetails from 'components/ItemDetails'
+import SetAuth from 'utils/isAuth'
 
 function App() {
-  tokenInterceptor()
-  InvalidTokenInterceptor()
-  const dispatch = useDispatch()
-  localStorage.getItem('token') &&
-    dispatch({
-      type: 'AUTHENTICATED',
-      payload: true,
-    })
+  TokenInterceptor()
+  SetAuth()
 
   return (
     <BrowserRouter>
@@ -34,11 +28,9 @@ function App() {
             </>
           }
         >
-          <Routes>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="itemDetails/:id" element={<ItemDetails />} />
-          </Routes>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="itemDetails/:id" element={<ItemDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

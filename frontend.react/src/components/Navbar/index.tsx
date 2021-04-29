@@ -15,8 +15,6 @@ export default function Navbar() {
 
   const dropDownContainer = useRef<HTMLDivElement | null>(null)
   const [dropDownAnim, setdropDownAnim] = useState<AnimationItem | null>(null)
-  const [showLogin, setshowLogin] = useState<boolean>(false)
-  const [showRegister, setshowRegister] = useState<boolean>(false)
   const authenticated = useAppSelector((state) => state.authenticated)
   const dispatch = useAppDispatch()
 
@@ -35,12 +33,6 @@ export default function Navbar() {
     dropDownAnim?.playSegments([60, 120], true)
   )
 
-  const login = () => {
-    setshowLogin(!showLogin)
-  }
-  const register = () => {
-    setshowRegister(!showRegister)
-  }
   const logout = () => {
     localStorage.removeItem('token')
     dispatch({
@@ -67,7 +59,7 @@ export default function Navbar() {
                   <MenuOption>Login</MenuOption>
                 </Link>
                 <Link to="register">
-                  <MenuOption onClick={register}>Sign up</MenuOption>
+                  <MenuOption>Sign up</MenuOption>
                 </Link>
               </>
             )}

@@ -23,4 +23,7 @@ public class UserController {
   public String register(@RequestBody @Valid User req) {
     return userService.register(req);
   }
+
+  @PostMapping("tokenValidation")
+  public void tokenValidation() {}
 }

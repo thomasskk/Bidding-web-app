@@ -1,12 +1,6 @@
 import styled from 'styled-components'
 import mixins from '../../utils/mixins'
 
-export const LabelTime = styled.label`
-  flex: 1;
-  width: 170px;
-  display: inline-block;
-  font-size: 0.7em;
-`
 export const ItemContainer = styled.div`
   ${mixins.flex('none', 'center', 'column', 'flex-grow')};
   flex: 1 0 250px;

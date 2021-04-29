@@ -1,16 +1,10 @@
 import axios from 'axios'
 import { AnimationItem } from 'lottie-web'
 import { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
 import { useAppDispatch } from '../../../hook'
 import AnimLoad from '../../../utils/animLoad'
 import bookmarkJson from '../../Wall/img/bookmark.json'
-
-const BookmarkStyled = styled.div`
-  flex-basis: 40px;
-  cursor: pointer;
-  display: flex;
-`
+import { Container } from './style'
 
 export default function Bookmark(props: { itemId: number; bookmark: boolean | null }) {
   const bookmarkContainer = useRef<HTMLDivElement | null>(null)
@@ -32,7 +26,9 @@ export default function Bookmark(props: { itemId: number; bookmark: boolean | nu
       type: 'ADD_BOOKMARK',
       payload: props.itemId,
     })
-    await axios.post(process.env.REACT_APP_API_URL + `bookmark/add/${props.itemId}`)
+    await axios.post(process.env.REACT_APP_API_URL + 'bookmark', {
+      params: { id: props.itemId },
+    })
   }
 
   const removeBookmark = async () => {
@@ -40,7 +36,9 @@ export default function Bookmark(props: { itemId: number; bookmark: boolean | nu
       type: 'REMOVE_BOOKMARK',
       payload: props.itemId,
     })
-    await axios.post(process.env.REACT_APP_API_URL + `bookmark/remove/${props.itemId}`)
+    await axios.delete(process.env.REACT_APP_API_URL + 'bookmark', {
+      params: { id: props.itemId },
+    })
   }
 
   const onClick = () => {
@@ -54,5 +52,5 @@ export default function Bookmark(props: { itemId: number; bookmark: boolean | nu
     }
   }
 
-  return <BookmarkStyled ref={bookmarkContainer} onClick={onClick} />
+  return <Container ref={bookmarkContainer} onClick={onClick} />
 }
