@@ -1,6 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components'
 import mixins from '../../utils/mixins'
-import { ResponsiveContainer } from 'recharts'
 
 export const BlurFocus = createGlobalStyle`
     #root > .infinite-scroll-component__outerdiv > div > *:not(#focus),
@@ -99,20 +98,12 @@ export const Table = styled.table`
   }
 `
 
-export const Graph = styled.div`
-  margin-left: 50px;
-  min-width: 0;
-  max-width: 500px;
-  width: 100%;
-  height: 300px;
-  background: white;
-  padding: 10px;
-  border: 1px solid #d9cdcc;
-  ${mixins.shadow};
-`
-
 export const Stats = styled.div`
   ${mixins.flex()}
   min-width: 0;
   flex-shrink: 1;
+`
+export const Graph = styled.div`
+  width: 500px;
+  height: 400px;
 `

@@ -70,4 +70,5 @@ export const MenuOption = styled.option`
   &:hover {
     background: whitesmoke;
   }
+  
 `

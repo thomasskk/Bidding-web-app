@@ -5,8 +5,10 @@ import { ErrorMessage } from '@hookform/error-message'
 import { useRef } from 'react'
 import cross from './img/cross.png'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
-export default function Login(props: { show: any }) {
+export default function Login() {
+  let history = useHistory()
   let loginErrorMessage = useRef<String>('')
   const dispatch = useDispatch()
 
@@ -29,7 +31,7 @@ export default function Login(props: { show: any }) {
         type: 'AUTHENTICATED',
         payload: true,
       })
-      props.show()
+      history.goBack()
     } catch (error) {
       loginErrorMessage.current = 'Wrong username or password'
     }
@@ -39,7 +41,7 @@ export default function Login(props: { show: any }) {
     <>
       <BlurFocus />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
-        <Cross src={cross} alt="" onClick={props.show}></Cross>
+        <Cross src={cross} alt="" onClick={() => history.goBack()}></Cross>
         <span>{loginErrorMessage.current}</span>
         <InputDiv>
           <Input

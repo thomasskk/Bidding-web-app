@@ -1,21 +1,15 @@
-import {
-  RegisterForm,
-  InputDiv,
-  Input,
-  Submit,
-  Select,
-  BlurFocus,
-  Cross,
-} from './style'
+import { RegisterForm, InputDiv, Input, Submit, Select, BlurFocus, Cross } from './style'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { useRef } from 'react'
 import cross from './img/cross.png'
 import { useAppDispatch } from '../../hook'
+import { useHistory } from 'react-router-dom'
 
-export default function Register(props: { show: any }) {
+export default function Register() {
   let registrationErrorMessage = useRef<String>('')
+  let history = useHistory()
 
   const {
     register,
@@ -35,7 +29,7 @@ export default function Register(props: { show: any }) {
         type: 'AUTHENTICATED',
         payload: true,
       })
-      props.show()
+      history.goBack()
     } catch (error) {
       registrationErrorMessage.current = error.response.data.message
     }
@@ -45,7 +39,7 @@ export default function Register(props: { show: any }) {
     <>
       <BlurFocus />
       <RegisterForm onSubmit={handleSubmit(onSubmit)}>
-        <Cross src={cross} alt="" onClick={props.show}></Cross>
+        <Cross src={cross} alt="" onClick={() => history.goBack()}></Cross>
         <span>{registrationErrorMessage.current}</span>
         <InputDiv>
           <Input

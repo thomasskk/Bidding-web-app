@@ -16,14 +16,14 @@ public class ItemService implements ItemSpecification {
   @Autowired private ItemRepoSpec itemRepoSpec;
 
   public Iterable<Item> findAllItem(int slice) {
-    Pageable limit = PageRequest.of(slice, 10);
+    Pageable limit = PageRequest.of(slice, 12);
     Page<Item> page = itemRepoSpec.findAll(limit);
     return page.getContent();
   }
 
   public Iterable<Item> SearchByNameCategory(String name, int slice,
                                              String category) {
-    Pageable limit = PageRequest.of(slice, 10);
+    Pageable limit = PageRequest.of(slice, 12);
     Specification<Item> spec =
         Specification.where((nameLike(name)).and(categoryLike(category)));
     Page<Item> page = itemRepoSpec.findAll(spec, limit);
@@ -31,7 +31,7 @@ public class ItemService implements ItemSpecification {
   }
 
   public Iterable<Item> SearchByCategory(int slice, String category) {
-    Pageable limit = PageRequest.of(slice, 10);
+    Pageable limit = PageRequest.of(slice, 12);
     Page<Item> page = itemRepoSpec.findAll(categoryLike(category), limit);
     return page.getContent();
   }

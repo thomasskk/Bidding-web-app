@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Link, Route, Switch, useRouteMatch } from 'react-router-dom'
+import ItemDetails from '../ItemDetails'
 import Bookmark from './Bookmark/index'
 import LabelDate from './LabelDate'
 import { ItemContainer, ItemCore, ItemFooter, ItemImage } from './style'
-import ItemDetails from '../ItemDetails'
 
 export default function Item(props: {
   item: any
@@ -10,7 +11,7 @@ export default function Item(props: {
   bookmark: any[] | null
   focused?: boolean
 }) {
-  const [focus, setFocus] = useState(false)
+  let match = useRouteMatch()
 
   const percentagePrice = Math.floor(
     ((props.item.sellPrice - props.item.initialPrice) / props.item.initialPrice) * 100
@@ -19,19 +20,17 @@ export default function Item(props: {
   return (
     <>
       <ItemContainer>
-        <ItemImage
-          onClick={() => {
-            !props.focused && setFocus(!focus)
-          }}
-        >
-          <img src={`https://robohash.org/${props.item.id}/300/300`} alt="" />
-        </ItemImage>
+        <Link to={`${match.url}/ItemDetails/${props.item.id}`}>
+          <ItemImage>
+            <img src={`https://robohash.org/${props.item.id}/300/300`} alt="" />
+          </ItemImage>
+        </Link>
         <ItemCore>
           <label>{props.item.name}</label>
           <label> {props.item.description}</label>
           <label>
             {' '}
-            Current price : <span>{props.item.sellPrice}</span> <span>&#x2B27;</span> {' '}
+            Current price : <span>{props.item.sellPrice}</span> <span>&#x2B27;</span>{' '}
             <span>&ensp; +{percentagePrice}%</span>{' '}
           </label>
         </ItemCore>
@@ -47,26 +46,20 @@ export default function Item(props: {
                   ) || null
                 }
               />
-              <button
-                onClick={() => {
-                  !props.focused && setFocus(!focus)
-                }}
-              >
-                {' '}
-                Bid{' '}
-              </button>
+              <button> Bid </button>
             </>
           )}
         </ItemFooter>
       </ItemContainer>
-      {focus && (
-        <ItemDetails
-          setfocus={() => setFocus(!focus)}
-          item={props.item}
-          authenticated={props.authenticated}
-          bookmark={props.bookmark}
-        />
-      )}
+      <Switch>
+        <Route exact path={`${match.path}/ItemDetails/${props.item.id}`}>
+          <ItemDetails
+            item={props.item}
+            authenticated={props.authenticated}
+            bookmark={props.bookmark}
+          />
+        </Route>
+      </Switch>
     </>
   )
 }

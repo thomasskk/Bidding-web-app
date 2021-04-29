@@ -5,6 +5,7 @@ import Wall from './components/Wall'
 import { tokenInterceptor, InvalidTokenInterceptor } from './utils/interceptors'
 import { useDispatch } from 'react-redux'
 import GlobalStyle from './style'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 function App() {
   tokenInterceptor()
@@ -16,12 +17,16 @@ function App() {
       payload: true,
     })
   return (
-    <>
-      <GlobalStyle />
-      <SearchBar />
-      <Navbar />
-      <Wall />
-    </>
+    <Router>
+      <Switch>
+        <Route path="/home">
+          <GlobalStyle />
+          <SearchBar />
+          <Navbar />
+          <Wall />
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 

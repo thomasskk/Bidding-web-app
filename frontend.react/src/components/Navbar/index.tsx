@@ -1,4 +1,6 @@
+import { AnimationItem } from 'lottie-web'
 import { useEffect, useRef, useState } from 'react'
+import { Link, Route, Switch, useRouteMatch } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hook'
 import AnimLoad from '../../utils/animLoad'
 import ClickOutsideListener from '../../utils/ClickOutsideListener'
@@ -8,7 +10,6 @@ import dropdownJson from './img/dropdown.json'
 import logoImg from './img/logo.png'
 import profileJson from './img/profile.json'
 import { Button, Dropdown, Logo, Menu, MenuOption, Nav, Profile } from './style'
-import { AnimationItem } from 'lottie-web'
 
 export default function Navbar() {
   const profileContainer = useRef<HTMLDivElement | null>(null)
@@ -20,6 +21,8 @@ export default function Navbar() {
   const [showRegister, setshowRegister] = useState<boolean>(false)
   const authenticated = useAppSelector((state) => state.authenticated)
   const dispatch = useAppDispatch()
+
+  let match = useRouteMatch()
 
   useEffect(() => {
     AnimLoad(setdropDownAnim, dropDownContainer, dropdownJson, 5.5)
@@ -64,15 +67,26 @@ export default function Navbar() {
               <MenuOption onClick={logout}>Logout</MenuOption>
             ) : (
               <>
-                <MenuOption onClick={login}>Login</MenuOption>
-                <MenuOption onClick={register}>Sign up</MenuOption>
+                <Link to={`${match.url}/login`}>
+                  <MenuOption>Login</MenuOption>
+                </Link>
+                <Link to={`${match.url}/register`}>
+                  <MenuOption onClick={register}>Sign up</MenuOption>
+                </Link>
               </>
             )}
           </Menu>
         </Button>
       </Nav>
-      {showLogin && <Login show={login} />}
-      {showRegister && <Register show={register} />}
+
+      <Switch>
+        <Route path={`${match.path}/login`}>
+          <Login />
+        </Route>
+        <Route path={`${match.path}/login`}>
+          <Register />
+        </Route>
+      </Switch>
     </>
   )
 }

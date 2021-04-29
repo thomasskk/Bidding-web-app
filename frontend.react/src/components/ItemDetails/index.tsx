@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import { BlurFocus, Wrapper, Table, Graph, Stats } from './style'
-import Item from '../Item'
-import { Cross } from '../Auth/style'
-import cross from '../Auth/img/cross.png'
 import axios from 'axios'
-import shortid from 'shortid'
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts'
 import moment from 'moment'
+import React, { useEffect, useState } from 'react'
+import { Line } from 'react-chartjs-2'
+import { useHistory } from 'react-router-dom'
+import shortid from 'shortid'
+import cross from '../Auth/img/cross.png'
+import { Cross } from '../Auth/style'
+import Item from '../Item'
+import { BlurFocus, Graph, Stats, Table, Wrapper } from './style'
 
 export default function ItemDetails(props: {
   item: any
   authenticated: boolean
   bookmark: any[] | null
-  setfocus: () => void
 }) {
   const [bidData, setBidData] = useState<any[] | undefined>(undefined)
   const [priceData, setPriceData] = useState<any[]>([])
+  let history = useHistory()
 
   useEffect(() => {
     ;(async () => {
@@ -47,10 +48,26 @@ export default function ItemDetails(props: {
     })()
   }, [props])
 
+  const data = {
+    datasets: [
+      {
+        label: 'price',
+        data: priceData,
+      },
+    ],
+  }
+  const options = {
+    parsing: {
+      xAxisKey: 'date',
+      yAxisKey: 'price',
+    },
+    maintainAspectRatio: false,
+  }
+
   return (
     <>
       <Wrapper id="focus">
-        <Cross src={cross} onClick={props.setfocus} />
+        <Cross src={cross} onClick={() => history.goBack()} />
         <BlurFocus />
         <Item
           focused={true}
@@ -78,17 +95,7 @@ export default function ItemDetails(props: {
             </tbody>
           </Table>
           <Graph>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={priceData}>
-                <Line type="monotone" stroke="#8884d8" dataKey="price" />
-                <XAxis dataKey="date" tick={{ dy: 10, fontSize: 12 }} />
-                <YAxis
-                  dataKey="price"
-                  domain={[props.item.initialPrice, 'price']}
-                  tick={{ dx: -15, fontSize: 12 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <Line data={data} type="line" height={400} width={500} options={options} />
           </Graph>
         </Stats>
       </Wrapper>

@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle, css } from 'styled-components'
+import styled from 'styled-components'
 import mixins from '../../utils/mixins'
 
 export const LabelTime = styled.label`
@@ -72,7 +72,7 @@ export const ItemFooter = styled.div`
   padding: 3px 20px 3px 20px;
   background: white;
   border-radius: 0 0 10px 10px;
-  border: 3px solid black;
+  border: 3px solid #292827;
   button {
     ${mixins.flex('space-evenly', 'center', 'column')};
     ${mixins.border};
