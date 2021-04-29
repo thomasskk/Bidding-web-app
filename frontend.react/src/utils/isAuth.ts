@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 
-const SetAuth = () => {
+const SetAuth = (): void => {
   axios(process.env.REACT_APP_API_URL + 'tokenValidation')
   const dispatch = useDispatch()
   localStorage.getItem('token') &&

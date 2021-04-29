@@ -5,13 +5,20 @@ import { useAppDispatch } from '../../hook'
 import ClickOutsideListener from '../../utils/ClickOutsideListener'
 import { MenuOption } from '../Navbar/style'
 import { Category, Container, MenuCategory, Search, SearchItem, Separator } from './style'
+import React from 'react'
 
-export default function SearchBar() {
+export default function SearchBar(): JSX.Element {
   const dispatch = useAppDispatch()
   const categoryRef = useRef('All')
   const menuRef = useRef<HTMLDivElement | null>(null)
   const [isActive, setIsActive] = ClickOutsideListener(menuRef, false)
-  const [category, setCategory] = useState<any[]>([])
+
+  interface Category {
+    id: number
+    name: string
+  }
+
+  const [category, setCategory] = useState<Category[] | undefined>(undefined)
 
   useEffect(() => {
     ;(async () =>
@@ -19,7 +26,7 @@ export default function SearchBar() {
   }, [])
 
   const returnCategory = () => {
-    return category?.map((category: any) => (
+    return category?.map((category: Category) => (
       <MenuOption
         key={shortid.generate()}
         id={category.name}

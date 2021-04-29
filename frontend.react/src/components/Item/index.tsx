@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 import Bookmark from './Bookmark/index'
 import LabelDate from './LabelDate'
 import { ItemContainer, ItemCore, ItemFooter, ItemImage } from './style'
- 
+
 export default function Item(props: {
   item: any
   authenticated: boolean
   bookmark: any[] | null
-}) {
+}): JSX.Element {
   const percentagePrice = Math.floor(
     ((props.item.sellPrice - props.item.initialPrice) / props.item.initialPrice) * 100
   )

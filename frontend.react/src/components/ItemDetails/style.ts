@@ -103,7 +103,3 @@ export const Stats = styled.div`
   min-width: 0;
   flex-shrink: 1;
 `
-export const Graph = styled.div`
-  width: 500px;
-  height: 400px;
-`

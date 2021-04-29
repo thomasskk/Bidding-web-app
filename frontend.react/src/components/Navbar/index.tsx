@@ -1,5 +1,5 @@
 import { AnimationItem } from 'lottie-web'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hook'
 import AnimLoad from '../../utils/animLoad'
@@ -9,11 +9,11 @@ import logoImg from './img/logo.png'
 import profileJson from './img/profile.json'
 import { Button, Dropdown, Logo, Menu, MenuOption, Nav, Profile } from './style'
 
-export default function Navbar() {
-  const profileContainer = useRef<HTMLDivElement | null>(null)
+export default function Navbar(): JSX.Element {
+  const profileContainer = useRef() as MutableRefObject<HTMLDivElement>
   const [profileAnim, setProfileAnim] = useState<AnimationItem | null>(null)
 
-  const dropDownContainer = useRef<HTMLDivElement | null>(null)
+  const dropDownContainer = useRef() as MutableRefObject<HTMLDivElement>
   const [dropDownAnim, setdropDownAnim] = useState<AnimationItem | null>(null)
   const authenticated = useAppSelector((state) => state.authenticated)
   const dispatch = useAppDispatch()
@@ -22,7 +22,7 @@ export default function Navbar() {
     AnimLoad(setdropDownAnim, dropDownContainer, dropdownJson, 5.5)
     AnimLoad(setProfileAnim, profileContainer, profileJson, 2)
   }, [])
-  const menuRef = useRef<HTMLDivElement | null>(null)
+  const menuRef = useRef() as MutableRefObject<HTMLDivElement>
   const onClickMenu = () => {
     setMenuIsActive(!isMenuActive)
     dropDownAnim?.playSegments([0, 60], true)

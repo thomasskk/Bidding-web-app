@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react'
 
-const ClickOutsideListener = (ref:any, initialState:any, callback = () => {}) => {
+const ClickOutsideListener = (
+  ref: React.MutableRefObject<HTMLDivElement | null>,
+  initialState: boolean,
+  callback = () => {
+    null
+  }
+): [boolean, React.Dispatch<boolean>] => {
   const [isActive, setIsActive] = useState(initialState)
 
   useEffect(() => {
-    const onClick = (e:any) => {
+    const onClick = (e: MouseEvent) => {
       if (ref.current !== null && ref.current !== e.target) {
         callback()
         setIsActive(!isActive)

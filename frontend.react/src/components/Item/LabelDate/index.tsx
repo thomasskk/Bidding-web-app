@@ -1,14 +1,15 @@
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { Container } from './style'
+import React from 'react'
 
-export default function LabelDate(props: { endingDate: string }) {
-  var [date, setDate] = useState<moment.Duration>(
+export default function LabelDate(props: { endingDate: string }): JSX.Element {
+  const [date, setDate] = useState<moment.Duration>(
     moment.duration(moment(props.endingDate).diff(moment()))
   )
 
   useEffect(() => {
-    var timer = setInterval(
+    const timer = setInterval(
       () => setDate(moment.duration(moment(props.endingDate).diff(moment()))),
       1000
     )

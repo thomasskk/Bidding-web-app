@@ -17,12 +17,12 @@ public class ItemController {
 
   @GetMapping("filter")
   public Iterable<Item> filterNameCategory(@RequestParam String category,
-                                      @RequestParam int slice,
-                                      @RequestParam String input) {
+                                           @RequestParam int slice,
+                                           @RequestParam String input) {
     return itemService.filterNameCategory(input, slice, category);
   }
 
-  @GetMapping("id")
+  @GetMapping("get")
   public Optional<Item> findById(@RequestParam int id) {
     return itemService.findById(id);
   }

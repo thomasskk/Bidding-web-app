@@ -1,5 +1,4 @@
-/* eslint-disable import/no-anonymous-default-export */
-import { css } from 'styled-components'
+import { css, FlattenSimpleInterpolation } from 'styled-components'
 
 const mixins = {
   flex: (
@@ -7,7 +6,7 @@ const mixins = {
     align = 'none',
     direction = 'none',
     flex: number | string = 'none'
-  ) => css`
+  ): FlattenSimpleInterpolation => css`
     display: flex;
     justify-content: ${justify};
     align-items: ${align};

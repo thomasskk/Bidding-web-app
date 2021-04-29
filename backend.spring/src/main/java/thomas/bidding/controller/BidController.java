@@ -17,9 +17,9 @@ public class BidController {
   @Autowired private BidService bidService;
 
   @GetMapping("get")
-  public Iterable<Bid> getBookmarkByUserId(@RequestParam int itemId,
+  public Iterable<Bid> getBookmarkByUserId(@RequestParam int id,
                                            @RequestParam int slice) {
-    return bidService.getBidByItemId(itemId, slice);
+    return bidService.getBidByItemId(id, slice);
   }
 
   @PostMapping("add")

@@ -1,18 +1,16 @@
 import axios from 'axios'
-import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
-import { Line } from 'react-chartjs-2'
 import { useNavigate, useParams } from 'react-router-dom'
 import shortid from 'shortid'
 import cross from '../Auth/img/cross.png'
 import { Cross } from '../Auth/style'
-import { BlurFocus, Graph, Stats, Table, Wrapper } from './style'
+import Graph from './Graph'
+import { BlurFocus, Stats, Table, Wrapper } from './style'
 
-export default function ItemDetails() {
-  const [bidData, setBidData] = useState<any[] | undefined>(undefined)
-  const [priceData, setPriceData] = useState<any[]>([])
+export default function ItemDetails(): JSX.Element {
+  const [bidData, setBidData] = useState<Record<string, unknown>[] | undefined>(undefined)
   const navigate = useNavigate()
-  const item = useRef()
+  const item = useRef<Record<string, any> | null>(null)
   const { id } = useParams()
 
   useEffect(() => {
@@ -22,56 +20,15 @@ export default function ItemDetails() {
           params: { id },
         })
       ).data
-    })()
-  }, [id])
 
-  useEffect(() => {
-    ;(async () => {
       const data = await (
         await axios(process.env.REACT_APP_API_URL + 'bid/get', {
-          params: { itemId: id, slice: 0 },
+          params: { id, slice: 0 },
         })
       ).data
-
       setBidData(data)
-
-      let priceDataTemp: any[] = []
-      const today = moment()
-
-      while (priceDataTemp.length !== 7) {
-        const bid = data.find((e: any) => moment(e.date).date() <= today.date()) || 0
-
-        const price = bid.sellPrice + bid.price || bid.initialPrice
-
-        priceDataTemp = [
-          {
-            price,
-            date: today.format('MM/DD'),
-          },
-          ...priceDataTemp,
-        ]
-        today.subtract(1, 'd')
-      }
-      setPriceData(priceDataTemp)
     })()
   }, [id])
-
-  const data = {
-    datasets: [
-      {
-        label: 'price',
-        data: priceData,
-      },
-    ],
-  }
-  const options = {
-    parsing: {
-      xAxisKey: 'date',
-      yAxisKey: 'price',
-    },
-    maintainAspectRatio: false,
-    borderColor: '#F85F73',
-  }
 
   return (
     <Wrapper id="focus">
@@ -87,7 +44,7 @@ export default function ItemDetails() {
             </tr>
           </thead>
           <tbody>
-            {bidData?.map((bid: any) => (
+            {bidData?.map((bid: Record<string, any>) => (
               <tr key={shortid.generate()}>
                 <td data-label="User">{bid.user.username}</td>
                 <td data-label="Pice">{bid.price}</td>
@@ -96,9 +53,9 @@ export default function ItemDetails() {
             ))}
           </tbody>
         </Table>
-        <Graph>
-          <Line data={data} type="line" options={options} />
-        </Graph>
+        {bidData !== undefined && (
+          <Graph data={[...bidData, item.current?.initialPrice]} />
+        )}
       </Stats>
     </Wrapper>
   )

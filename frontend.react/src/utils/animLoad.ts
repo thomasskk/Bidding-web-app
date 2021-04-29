@@ -1,12 +1,12 @@
-import lottie from 'lottie-web'
+import lottie, { AnimationItem } from 'lottie-web'
 
 const animLoad = (
-  state: any,
-  container: any,
-  path: any,
-  speed:number = 1,
-  initialSegment: number = 0
-) => {
+  state: React.Dispatch<React.SetStateAction<AnimationItem | null>>,
+  container: React.MutableRefObject<HTMLDivElement>,
+  path: Record<string, unknown>,
+  speed = 1,
+  initialSegment = 0
+): void => {
   const anim = lottie.loadAnimation({
     container: container.current,
     renderer: 'svg',

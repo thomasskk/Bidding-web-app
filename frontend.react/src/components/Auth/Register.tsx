@@ -6,9 +6,10 @@ import { useRef } from 'react'
 import cross from './img/cross.png'
 import { useAppDispatch } from '../../hook'
 import { useNavigate } from 'react-router-dom'
+import React from 'react'
 
-export default function Register() {
-  let registrationErrorMessage = useRef<String>('')
+export default function Register(): JSX.Element {
+  const registrationErrorMessage = useRef<string>('')
   const navigate = useNavigate()
 
   const {
@@ -20,7 +21,7 @@ export default function Register() {
 
   const dispatch = useAppDispatch()
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: never) => {
     try {
       const token = (await axios.post(process.env.REACT_APP_API_URL + 'register', data))
         .data

@@ -6,10 +6,11 @@ import { useRef } from 'react'
 import cross from './img/cross.png'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import React from 'react'
 
-export default function Login() {
+export default function Login(): JSX.Element {
   const navigate = useNavigate()
-  let loginErrorMessage = useRef<String>('')
+  const loginErrorMessage = useRef<string>('')
   const dispatch = useDispatch()
 
   type FormValues = {
@@ -23,7 +24,7 @@ export default function Login() {
     formState: { errors },
   } = useForm<FormValues>()
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: never) => {
     try {
       const token = (await axios.post(process.env.REACT_APP_API_URL + 'login', data)).data
       localStorage.setItem('token', token)

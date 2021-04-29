@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 
-const TokenInterceptor = () => {
+const TokenInterceptor = (): void => {
   axios.interceptors.request.use((config) => {
     const token = localStorage.getItem('token')
     if (token) {

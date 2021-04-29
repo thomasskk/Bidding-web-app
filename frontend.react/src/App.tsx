@@ -10,7 +10,7 @@ import Register from './components/Auth/Register'
 import ItemDetails from 'components/ItemDetails'
 import SetAuth from 'utils/isAuth'
 
-function App() {
+function App(): JSX.Element {
   TokenInterceptor()
   SetAuth()
 
