@@ -5,7 +5,10 @@ import Wall from './components/Wall'
 import { tokenInterceptor, InvalidTokenInterceptor } from './utils/interceptors'
 import { useDispatch } from 'react-redux'
 import GlobalStyle from './style'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Login from './components/Auth/Login'
+import Register from './components/Auth/Register'
+import ItemDetails from 'components/ItemDetails'
 
 function App() {
   tokenInterceptor()
@@ -16,17 +19,29 @@ function App() {
       type: 'AUTHENTICATED',
       payload: true,
     })
+
   return (
-    <Router>
-      <Switch>
-        <Route path="/home">
-          <GlobalStyle />
-          <SearchBar />
-          <Navbar />
-          <Wall />
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <GlobalStyle />
+              <SearchBar />
+              <Navbar />
+              <Wall />
+            </>
+          }
+        >
+          <Routes>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="itemDetails/:id" element={<ItemDetails />} />
+          </Routes>
         </Route>
-      </Switch>
-    </Router>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

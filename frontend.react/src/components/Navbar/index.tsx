@@ -1,11 +1,9 @@
 import { AnimationItem } from 'lottie-web'
-import { useEffect, useRef, useState } from 'react'
-import { Link, Route, Switch, useRouteMatch } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from 'react'
+import { Link, Outlet } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hook'
 import AnimLoad from '../../utils/animLoad'
 import ClickOutsideListener from '../../utils/ClickOutsideListener'
-import Login from '../Auth/Login'
-import Register from '../Auth/Register'
 import dropdownJson from './img/dropdown.json'
 import logoImg from './img/logo.png'
 import profileJson from './img/profile.json'
@@ -21,8 +19,6 @@ export default function Navbar() {
   const [showRegister, setshowRegister] = useState<boolean>(false)
   const authenticated = useAppSelector((state) => state.authenticated)
   const dispatch = useAppDispatch()
-
-  let match = useRouteMatch()
 
   useEffect(() => {
     AnimLoad(setdropDownAnim, dropDownContainer, dropdownJson, 5.5)
@@ -67,10 +63,10 @@ export default function Navbar() {
               <MenuOption onClick={logout}>Logout</MenuOption>
             ) : (
               <>
-                <Link to={`${match.url}/login`}>
+                <Link to="login">
                   <MenuOption>Login</MenuOption>
                 </Link>
-                <Link to={`${match.url}/register`}>
+                <Link to="register">
                   <MenuOption onClick={register}>Sign up</MenuOption>
                 </Link>
               </>
@@ -78,15 +74,7 @@ export default function Navbar() {
           </Menu>
         </Button>
       </Nav>
-
-      <Switch>
-        <Route path={`${match.path}/login`}>
-          <Login />
-        </Route>
-        <Route path={`${match.path}/login`}>
-          <Register />
-        </Route>
-      </Switch>
+      <Outlet />
     </>
   )
 }

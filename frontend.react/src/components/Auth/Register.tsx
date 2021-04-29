@@ -5,11 +5,11 @@ import { ErrorMessage } from '@hookform/error-message'
 import { useRef } from 'react'
 import cross from './img/cross.png'
 import { useAppDispatch } from '../../hook'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
   let registrationErrorMessage = useRef<String>('')
-  let history = useHistory()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -29,7 +29,7 @@ export default function Register() {
         type: 'AUTHENTICATED',
         payload: true,
       })
-      history.goBack()
+      navigate('/')
     } catch (error) {
       registrationErrorMessage.current = error.response.data.message
     }
@@ -39,7 +39,7 @@ export default function Register() {
     <>
       <BlurFocus />
       <RegisterForm onSubmit={handleSubmit(onSubmit)}>
-        <Cross src={cross} alt="" onClick={() => history.goBack()}></Cross>
+        <Cross src={cross} alt="" onClick={() => navigate('/')}></Cross>
         <span>{registrationErrorMessage.current}</span>
         <InputDiv>
           <Input

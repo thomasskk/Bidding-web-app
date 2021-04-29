@@ -1,5 +1,6 @@
 package thomas.bidding.service;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,14 +16,8 @@ public class ItemService implements ItemSpecification {
 
   @Autowired private ItemRepoSpec itemRepoSpec;
 
-  public Iterable<Item> findAllItem(int slice) {
-    Pageable limit = PageRequest.of(slice, 12);
-    Page<Item> page = itemRepoSpec.findAll(limit);
-    return page.getContent();
-  }
-
-  public Iterable<Item> SearchByNameCategory(String name, int slice,
-                                             String category) {
+  public Iterable<Item> filterNameCategory(String name, int slice,
+                                           String category) {
     Pageable limit = PageRequest.of(slice, 12);
     Specification<Item> spec =
         Specification.where((nameLike(name)).and(categoryLike(category)));
@@ -30,13 +25,5 @@ public class ItemService implements ItemSpecification {
     return page.getContent();
   }
 
-  public Iterable<Item> SearchByCategory(int slice, String category) {
-    Pageable limit = PageRequest.of(slice, 12);
-    Page<Item> page = itemRepoSpec.findAll(categoryLike(category), limit);
-    return page.getContent();
-  }
-
-  public void SaveAllItem(Iterable<Item> IterableItem) {
-    itemRepoSpec.saveAll(IterableItem);
-  }
+  public Optional<Item> findById(int id) { return itemRepoSpec.findById(id); }
 }

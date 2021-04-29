@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Link, Outlet, Route } from 'react-router-dom'
 import ItemDetails from '../ItemDetails'
 import Bookmark from './Bookmark/index'
 import LabelDate from './LabelDate'
@@ -9,18 +9,14 @@ export default function Item(props: {
   item: any
   authenticated: boolean
   bookmark: any[] | null
-  focused?: boolean
 }) {
-  let match = useRouteMatch()
-
   const percentagePrice = Math.floor(
     ((props.item.sellPrice - props.item.initialPrice) / props.item.initialPrice) * 100
   )
 
   return (
-    <>
       <ItemContainer>
-        <Link to={`${match.url}/ItemDetails/${props.item.id}`}>
+        <Link to={`/ItemDetails/${props.item.id}`}>
           <ItemImage>
             <img src={`https://robohash.org/${props.item.id}/300/300`} alt="" />
           </ItemImage>
@@ -50,16 +46,7 @@ export default function Item(props: {
             </>
           )}
         </ItemFooter>
+
       </ItemContainer>
-      <Switch>
-        <Route exact path={`${match.path}/ItemDetails/${props.item.id}`}>
-          <ItemDetails
-            item={props.item}
-            authenticated={props.authenticated}
-            bookmark={props.bookmark}
-          />
-        </Route>
-      </Switch>
-    </>
   )
 }

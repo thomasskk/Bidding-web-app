@@ -8,8 +8,8 @@ import { Container } from './style'
 export default function Wall() {
   const [item, setItem] = useState<any[]>([])
   const [slice, setSlice] = useState(0)
-  const searchName = useAppSelector((state) => state.searchName)
-  const searchCategory = useAppSelector((state) => state.searchCategory)
+  const input = useAppSelector((state) => state.searchName)
+  const category = useAppSelector((state) => state.searchCategory)
   const dispatch = useAppDispatch()
   const bookmark = useRef<any[] | null>(null)
   const authenticated = useAppSelector((state) => state.authenticated)
@@ -17,7 +17,7 @@ export default function Wall() {
   useEffect(() => {
     setItem([])
     setSlice(0)
-  }, [searchName, searchCategory, authenticated])
+  }, [input, category, authenticated])
 
   useEffect(() => {
     ;(async () => {
@@ -32,11 +32,17 @@ export default function Wall() {
           })
         })
       }
+
       const data = await (
-        await axios(
-          process.env.REACT_APP_API_URL + `item/${searchCategory}/${slice}/${searchName}`
-        )
+        await axios(process.env.REACT_APP_API_URL + 'item/filter', {
+          params: {
+            category,
+            slice,
+            input,
+          },
+        })
       ).data
+
       setItem((item) => [
         ...item,
         ...data.map((item: any) => (
@@ -49,7 +55,7 @@ export default function Wall() {
         )),
       ])
     })()
-  }, [authenticated, dispatch, searchCategory, searchName, slice])
+  }, [authenticated, dispatch, category, input, slice])
 
   return (
     <Container
