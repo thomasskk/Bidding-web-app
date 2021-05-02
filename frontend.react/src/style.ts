@@ -17,8 +17,6 @@ const GlobalStyle = createGlobalStyle`
 * {
   box-sizing:border-box;
   font-family: HMSansLatin-Regular;
-  image-rendering: crisp-edges;
-
 }
 
 a {

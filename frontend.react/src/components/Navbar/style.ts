@@ -7,14 +7,14 @@ export const Nav = styled.nav`
   position: sticky;
   top: 0;
   z-index: 11;
-  background: white;
-  padding: 0 80px 0 80px;
+  background: whitesmoke;
+  padding: 0 10% 0 10%;
 `
 export const Logo = styled.span`
   font-family: 'Spectral', serif;
   font-weight: bold;
-  font-size: 1.7em;
-  letter-spacing: 8px;
+  font-size: 1.4em;
+  letter-spacing: 5px;
 `
 
 export const Links = styled.span`
