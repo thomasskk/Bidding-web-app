@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Bookmark from './Bookmark/index'
 import LabelDate from './LabelDate'
 import { ItemContainer, ItemCore, ItemFooter, ItemImage } from './style'
+import { Hr } from '../Home/style'
 
 export default function Item(props: {
   item: any
@@ -15,11 +16,9 @@ export default function Item(props: {
 
   return (
     <ItemContainer>
-      <Link to={`/ItemDetails/${props.item.id}`}>
-        <ItemImage>
-          <img src={`https://robohash.org/${props.item.id}/300/300`} alt="" />
-        </ItemImage>
-      </Link>
+      <ItemImage>
+        <img src={`https://robohash.org/${props.item.id}/300/300`} alt="" />
+      </ItemImage>
       <ItemCore>
         <label>{props.item.name}</label>
         <label> {props.item.description}</label>
@@ -29,6 +28,7 @@ export default function Item(props: {
           <span>&ensp; +{percentagePrice}%</span>{' '}
         </label>
       </ItemCore>
+      <Hr width="85%" />
       <ItemFooter>
         <LabelDate endingDate={props.item.biddingEndingDate} />
         {props.authenticated && (

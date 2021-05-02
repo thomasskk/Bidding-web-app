@@ -3,7 +3,7 @@ import { AnimationItem } from 'lottie-web'
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useAppDispatch } from '../../../hook'
 import AnimLoad from '../../../utils/animLoad'
-import bookmarkJson from '../../Wall/img/bookmark.json'
+import bookmarkJson from '../../Market/img/bookmark.json'
 import { Container } from './style'
 import React from 'react'
 

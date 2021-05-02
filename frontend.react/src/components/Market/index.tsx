@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hook'
 import Item from '../Item'
 import { Container } from './style'
 
-export default function Wall() {
+export default function Market(): JSX.Element {
   const [item, setItem] = useState<any[]>([])
   const [slice, setSlice] = useState(0)
   const input = useAppSelector((state) => state.searchName)

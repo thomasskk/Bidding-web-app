@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 import styled from 'styled-components'
 import mixins from '../../utils/mixins'
 
+
 export const LoginForm = styled.form`
   ${mixins.flex('center', 'center', 'column')};
   z-index: 10;
@@ -24,16 +25,7 @@ export const RegisterForm = styled(LoginForm)`
   flex-wrap: wrap;
 `
 
-export const BlurFocus = createGlobalStyle`
-    #root > div,nav:not(LoginForm){
-      pointer-events: none;
-      filter: blur(10px);
-    }
-    body {
-      overflow: hidden;
-    }
 
-`
 export const Cross = styled.img`
   position: absolute;
   width: 15px;

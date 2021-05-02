@@ -1,4 +1,4 @@
-import { RegisterForm, InputDiv, Input, Submit, Select, BlurFocus, Cross } from './style'
+import { RegisterForm, InputDiv, Input, Submit, Select } from './style'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
@@ -38,9 +38,7 @@ export default function Register(): JSX.Element {
 
   return (
     <>
-      <BlurFocus />
       <RegisterForm onSubmit={handleSubmit(onSubmit)}>
-        <Cross src={cross} alt="" onClick={() => navigate('/')}></Cross>
         <span>{registrationErrorMessage.current}</span>
         <InputDiv>
           <Input

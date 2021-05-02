@@ -3,23 +3,21 @@ import mixins from '../../utils/mixins'
 
 export const ItemContainer = styled.div`
   ${mixins.flex('none', 'center', 'column', 'flex-grow')};
-  flex: 1 0 250px;
+  flex: 1 0 270px;
   position: relative;
   cursor: pointer;
   margin: 30px 10px 30px 10px;
-  border-radius: 10px;
   background: white;
   min-width: 0;
-  max-width: 300px;
+  max-width: 350px;
+  border: 1px solid black;
 `
 
-export const ItemCore = styled.label`
+export const ItemCore = styled.div`
   ${mixins.flex('none', 'none', 'column')};
   width: 100%;
-  padding: 5px 10px 50px 10px;
-  color: white;
-  background: black;
-  border-radius: 0 0 10px 10px;
+  padding: 5px 10px 10px 10px;
+  background: ${mixins.color1};
 
   // name
   label:nth-of-type(1) {
@@ -27,7 +25,6 @@ export const ItemCore = styled.label`
     margin-bottom: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    color: white;
   }
   //description
   label:nth-of-type(2) {
@@ -45,7 +42,7 @@ export const ItemCore = styled.label`
     }
     span:nth-of-type(2) {
       color: slategray;
-      font-size:1.1em;
+      font-size: 1.1em;
     }
     span:nth-of-type(3) {
       color: #02f75c;
@@ -60,13 +57,10 @@ export const ItemCore = styled.label`
 
 export const ItemFooter = styled.div`
   ${mixins.flex('space-between', 'center')};
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  padding: 3px 20px 3px 20px;
+  padding: 10px 20px 3px 20px;
   background: white;
-  border-radius: 0 0 10px 10px;
-  border: 3px solid #292827;
+  border: 3px solid ${mixins.color1};
   button {
     ${mixins.flex('space-evenly', 'center', 'column')};
     ${mixins.border};
@@ -87,8 +81,6 @@ export const ItemImage = styled.div`
   display: flex;
 
   img {
-    border: 3px solid black;
-    border-radius: 10px 10px 0 0;
     background: url(https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/vector-seamless-texture-with-abstract-flowers-endless-background-ethnic-sea_M1h0rTqO_thumb.jpg);
     background-size: 100% 100%;
     min-height: 0;

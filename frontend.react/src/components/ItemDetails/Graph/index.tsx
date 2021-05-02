@@ -2,6 +2,7 @@ import { Container } from './style'
 import { Line } from 'react-chartjs-2'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import { defaults } from 'react-chartjs-2'
 
 export default function Graph(props: { data: Record<string, any>[] }): JSX.Element {
   const [dataPrice, setDataPrice] = useState<Record<string, unknown>[] | null>(null)
@@ -36,6 +37,7 @@ export default function Graph(props: { data: Record<string, any>[] }): JSX.Eleme
       {
         label: 'price',
         data: dataPrice,
+        borderColor: 'whitesmoke',
       },
     ],
   }
@@ -44,9 +46,39 @@ export default function Graph(props: { data: Record<string, any>[] }): JSX.Eleme
       xAxisKey: 'date',
       yAxisKey: 'price',
     },
+
+    legend: {
+      display: false,
+    },
+    axisY: {
+      valueFormatString: '#####',
+    },
+    animation: {
+      easing: 'linear',
+    },
+    tension: 0.4,
+    responsive: true,
     maintainAspectRatio: false,
-    borderColor: '#F85F73',
+    elements: {
+      point: {
+        radius: 0,
+      },
+      line: {
+        borderJoinStyle: 'round',
+      },
+    },
+    layout: {
+      padding: 20,
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
   }
+
+  defaults.borderColor = '#1f354c'
+  defaults.color = 'whitesmoke'
 
   return (
     <Container>

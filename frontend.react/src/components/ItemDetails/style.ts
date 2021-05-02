@@ -1,24 +1,15 @@
-import styled, { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 import mixins from '../../utils/mixins'
-
-export const BlurFocus = createGlobalStyle`
-    #root > .infinite-scroll-component__outerdiv > div > *:not(#focus),
-    #root > div:first-of-type,nav
-    {
-      pointer-events: none;
-      filter: blur(10px);
-    }
-    body {
-      overflow: hidden;
-    }
-`
 
 export const Wrapper = styled.div`
   ${mixins.flex('none', 'none', 'row')}
   position: fixed;
-  z-index: 2;
+  z-index: 10;
   top: 50%;
   width: 100%;
+  max-width: 1500px;
+  max-height: 700px;
+  height: 100%;
   transform: translate(-50%, -50%);
   left: 50%;
   @media screen and (max-width: 1400px) {

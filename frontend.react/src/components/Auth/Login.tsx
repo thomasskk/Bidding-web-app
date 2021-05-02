@@ -1,4 +1,4 @@
-import { LoginForm, InputDiv, Input, Submit, BlurFocus, Cross } from './style'
+import { LoginForm, InputDiv, Input, Submit } from './style'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
@@ -40,9 +40,7 @@ export default function Login(): JSX.Element {
 
   return (
     <>
-      <BlurFocus />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
-        <Cross src={cross} alt="" onClick={() => navigate('/')}></Cross>
         <span>{loginErrorMessage.current}</span>
         <InputDiv>
           <Input

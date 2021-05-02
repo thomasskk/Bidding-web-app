@@ -5,7 +5,7 @@ import shortid from 'shortid'
 import cross from '../Auth/img/cross.png'
 import { Cross } from '../Auth/style'
 import Graph from './Graph'
-import { BlurFocus, Stats, Table, Wrapper } from './style'
+import { Stats, Table, Wrapper } from './style'
 
 export default function ItemDetails(): JSX.Element {
   const [bidData, setBidData] = useState<Record<string, unknown>[] | undefined>(undefined)
@@ -31,32 +31,33 @@ export default function ItemDetails(): JSX.Element {
   }, [id])
 
   return (
-    <Wrapper id="focus">
-      <Cross src={cross} onClick={() => navigate('/')} />
-      <BlurFocus />
-      <Stats>
-        <Table>
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Price</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bidData?.map((bid: Record<string, any>) => (
-              <tr key={shortid.generate()}>
-                <td data-label="User">{bid.user.username}</td>
-                <td data-label="Pice">{bid.price}</td>
-                <td data-label="Date">{bid.date}</td>
+    <>
+      <Wrapper id="focus">
+        <Cross src={cross} onClick={() => navigate('/')} />
+        <Stats>
+          <Table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Price</th>
+                <th>Date</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-        {bidData !== undefined && (
-          <Graph data={[...bidData, item.current?.initialPrice]} />
-        )}
-      </Stats>
-    </Wrapper>
+            </thead>
+            <tbody>
+              {bidData?.map((bid: Record<string, any>) => (
+                <tr key={shortid.generate()}>
+                  <td data-label="User">{bid.user.username}</td>
+                  <td data-label="Pice">{bid.price}</td>
+                  <td data-label="Date">{bid.date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          {bidData !== undefined && (
+            <Graph data={[...bidData, item.current?.initialPrice]} />
+          )}
+        </Stats>
+      </Wrapper>
+    </>
   )
 }
