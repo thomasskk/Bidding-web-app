@@ -10,14 +10,14 @@ export default function Graph(props: { data: Record<string, any>[] }): JSX.Eleme
   useEffect(() => {
     let data: Record<string, unknown>[] = []
     const today = moment()
-    const initialPrice = props.data.pop()
+    const basePrice = props.data.pop()
 
     while (data.length !== 7) {
       const bid = props.data?.find(
         (e: Record<string, any>) => moment(e.date).date() <= today.date()
       )
 
-      const price = bid?.sellPrice + bid?.price || initialPrice
+      const price = bid?.sellPrice + bid?.price || basePrice
 
       data = [
         {

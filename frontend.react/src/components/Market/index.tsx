@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import shortid from 'shortid'
 import { useAppDispatch, useAppSelector } from '../../hook'
 import Item from '../Item'
-import { Container } from './style'
+import { Container, Wrapper } from './style'
+import { Hr } from '../Home/style'
 
 export default function Market(): JSX.Element {
   const [item, setItem] = useState<any[]>([])
@@ -58,14 +59,17 @@ export default function Market(): JSX.Element {
   }, [dispatch, category, input, slice, authenticated])
 
   return (
-    <Container
-      dataLength={item.length}
-      next={() => setSlice(slice + 1)}
-      scrollThreshold={0.8}
-      hasMore={slice >= item.length ? false : true}
-      loader={null}
-    >
-      {item}
-    </Container>
+    <>
+        <Hr width={'70%'} />
+        <Container
+          dataLength={item.length}
+          next={() => setSlice(slice + 1)}
+          scrollThreshold={0.8}
+          hasMore={slice >= item.length ? false : true}
+          loader={null}
+        >
+          {item}
+        </Container>
+    </>
   )
 }

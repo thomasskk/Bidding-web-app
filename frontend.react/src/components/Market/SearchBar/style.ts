@@ -9,7 +9,6 @@ export const Search = styled.div`
   border-radius: 15px;
 `
 
-
 export const SearchItem = styled.input`
   ${mixins.border};
   width: 100%;
@@ -22,7 +21,7 @@ export const Separator = styled.div`
   border-left: 1px solid gray;
 `
 
-export const Category = styled.div<{ tabIndex: number }>`
+export const Category = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;

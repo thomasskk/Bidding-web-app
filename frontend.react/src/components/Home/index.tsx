@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import img from './img/image.svg'
 import {
   MainImg,
@@ -7,8 +7,6 @@ import {
   DTitle,
   DText,
   Span,
-  Line1,
-  Line3,
   Hr,
   DRight,
   Recent,
@@ -16,22 +14,22 @@ import {
 } from './style'
 
 export default function Home(): JSX.Element {
+  useEffect(() => {
+    const log = () => console.log(window.pageYOffset)
+
+    window.addEventListener('scroll', () => log())
+    return () => {
+      window.removeEventListener('scroll', () => log())
+    }
+  })
+
   return (
     <>
       <MainImg src={img} />
       <Text>
-        <Line1>
-          <Span>Find</Span>
-        </Line1>
-        <div>
-          <div>
-            <Span> the Rarest</Span>{' '}
-          </div>
-          <Line3>
-            <Span>Collections</Span>
-            <Span>of NFT</Span>
-          </Line3>
-        </div>
+        <Span>Find the Rarest</Span>
+        <Span>Collections</Span>
+        <Span>of NFT</Span>
       </Text>
       <Description>
         <DTitle>

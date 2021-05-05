@@ -24,7 +24,8 @@ const mixins = {
     font-family: HMSansLatin-Bold;
   `,
   color0: '#e9c46a',
-  color1: 'transparent',
+  color1: (opacity = 1): string => `rgb(128,76,59,${opacity})`,
+  color2: (opacity = 1): string => `rgb(27, 27, 26,${opacity})`,
 }
 
 export default mixins

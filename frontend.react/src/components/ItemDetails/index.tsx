@@ -54,7 +54,7 @@ export default function ItemDetails(): JSX.Element {
             </tbody>
           </Table>
           {bidData !== undefined && (
-            <Graph data={[...bidData, item.current?.initialPrice]} />
+            <Graph data={[...bidData, item.current?.basePrice]} />
           )}
         </Stats>
       </Wrapper>

@@ -4,9 +4,15 @@ import mixins from '../../utils/mixins'
 
 export const Container = styled<any>(InfiniteScroll)`
   ${mixins.flex('center')};
-  margin-top: 100px;
   flex-wrap: wrap;
   padding: 20px;
   gap: 30px;
-  min-height:800px;
+  margin: 100px 250px 0 250px;
+`
+
+export const Wrapper = styled.div`
+  position: fixed;
+  overflow: visible;
+  height: 100%;
+  z-index: 201;
 `

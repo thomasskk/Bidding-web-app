@@ -11,14 +11,12 @@ export default function Item(props: {
   bookmark: any[] | null
 }): JSX.Element {
   const percentagePrice = Math.floor(
-    ((props.item.sellPrice - props.item.initialPrice) / props.item.initialPrice) * 100
+    ((props.item.sellPrice - props.item.basePrice) / props.item.basePrice) * 100
   )
 
   return (
     <ItemContainer>
-      <ItemImage>
-        <img src={`https://robohash.org/${props.item.id}/300/300`} alt="" />
-      </ItemImage>
+      <ItemImage src={props.item.imageUrl} alt="" />
       <ItemCore>
         <label>{props.item.name}</label>
         <label> {props.item.description}</label>

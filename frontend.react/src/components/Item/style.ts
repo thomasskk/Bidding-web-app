@@ -3,7 +3,6 @@ import mixins from '../../utils/mixins'
 
 export const ItemContainer = styled.div`
   ${mixins.flex('none', 'center', 'column', 'flex-grow')};
-  flex: 1 0 270px;
   position: relative;
   cursor: pointer;
   margin: 30px 10px 30px 10px;
@@ -11,13 +10,13 @@ export const ItemContainer = styled.div`
   min-width: 0;
   max-width: 350px;
   border: 1px solid black;
+  z-index: 201;
 `
 
 export const ItemCore = styled.div`
   ${mixins.flex('none', 'none', 'column')};
   width: 100%;
   padding: 5px 10px 10px 10px;
-  background: ${mixins.color1};
 
   // name
   label:nth-of-type(1) {
@@ -60,7 +59,6 @@ export const ItemFooter = styled.div`
   width: 100%;
   padding: 10px 20px 3px 20px;
   background: white;
-  border: 3px solid ${mixins.color1};
   button {
     ${mixins.flex('space-evenly', 'center', 'column')};
     ${mixins.border};
@@ -73,19 +71,7 @@ export const ItemFooter = styled.div`
   }
 `
 
-export const ItemImage = styled.div`
-  min-height: 0;
-  min-width: 0;
+export const ItemImage = styled.img`
   width: 100%;
   height: 100%;
-  display: flex;
-
-  img {
-    background: url(https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/vector-seamless-texture-with-abstract-flowers-endless-background-ethnic-sea_M1h0rTqO_thumb.jpg);
-    background-size: 100% 100%;
-    min-height: 0;
-    min-width: 0;
-    width: 100%;
-    height: 100%;
-  }
 `

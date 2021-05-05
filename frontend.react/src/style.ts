@@ -1,8 +1,9 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import HMSansLatinRegularWoff2 from './utils/fonts/HMSansLatin-Regular.woff2'
 import HMSansLatinBoldWoff2 from './utils/fonts/HMSansLatin-Bold.woff2'
+import noise from './img/noise.png'
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
 
 @import url('https://fonts.googleapis.com/css2?family=Spectral:wght@700&display=swap');
 @font-face {
@@ -37,11 +38,54 @@ a {
 }
 
 body {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
   background: whitesmoke;
 }
-
 `
-export default GlobalStyle
+
+export const Noise = styled.div`
+  @keyframes grain {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    10% {
+      transform: translate(-5%, -10%);
+    }
+    20% {
+      transform: translate(-15%, 5%);
+    }
+    30% {
+      transform: translate(7%, -25%);
+    }
+    40% {
+      transform: translate(-5%, 25%);
+    }
+    50% {
+      transform: translate(-15%, 10%);
+    }
+    60% {
+      transform: translate(15%, 0%);
+    }
+    70% {
+      transform: translate(0%, 15%);
+    }
+    80% {
+      transform: translate(3%, 35%);
+    }
+    90% {
+      transform: translate(-10%, 10%);
+    }
+  }
+  &:after {
+    content: '';
+    animation: grain 8s steps(10) infinite;
+    background-image: url(${noise});
+    height: 300%;
+    width: 300%;
+    top: -100%;
+    left: -100%;
+    opacity: 0.3;
+    position: fixed;
+    z-index: 200;
+  }
+`

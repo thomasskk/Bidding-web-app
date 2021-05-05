@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
-
 @Entity
 @Data
 @Table(name = "ITEMS")
@@ -20,8 +19,11 @@ public class Item {
   public String description;
   public Date biddingOpeningDate;
   public Date biddingEndingDate;
-  public Long initialPrice;
+  public Long basePrice;
   public Long sellPrice;
+  public Long askPrice;
   public int userId;
+  public String imageUrl;
+
   @ManyToOne @JoinColumn(name = "categoryId") private Category category;
 }
