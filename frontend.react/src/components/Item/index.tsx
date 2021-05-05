@@ -2,7 +2,16 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Bookmark from './Bookmark/index'
 import LabelDate from './LabelDate'
-import { ItemContainer, ItemCore, ItemFooter, ItemImage } from './style'
+import {
+  ItemContainer,
+  ItemCore,
+  ItemFooter,
+  ItemImage,
+  Name,
+  LastBid,
+  AskedPrice,
+  EthSymbol,
+} from './style'
 import { Hr } from '../Home/style'
 
 export default function Item(props: {
@@ -18,15 +27,16 @@ export default function Item(props: {
     <ItemContainer>
       <ItemImage src={props.item.imageUrl} alt="" />
       <ItemCore>
-        <label>{props.item.name}</label>
-        <label> {props.item.description}</label>
-        <label>
-          {' '}
-          Current price : <span>{props.item.sellPrice}</span> <span>&#x2B27;</span>{' '}
-          <span>&ensp; +{percentagePrice}%</span>{' '}
-        </label>
+        <Name>{props.item.name}</Name>
+        <LastBid>
+          <span>{props.item.sellPrice} </span>
+          <EthSymbol />
+          <span>&ensp; +{percentagePrice}%</span>
+          Last bid
+        </LastBid>
+        Asked Price :<span>{props.item.askPrice}</span>
+        <Hr width="100%" />
       </ItemCore>
-      <Hr width="85%" />
       <ItemFooter>
         <LabelDate endingDate={props.item.biddingEndingDate} />
         {props.authenticated && (

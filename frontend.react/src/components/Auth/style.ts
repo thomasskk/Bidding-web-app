@@ -1,39 +1,29 @@
-import { createGlobalStyle } from 'styled-components'
 import styled from 'styled-components'
 import mixins from '../../utils/mixins'
+import { createGlobalStyle } from 'styled-components'
+import { CoreWrapper } from '../../style'
+import { Nav } from 'components/Navbar/style'
 
+export const Center = createGlobalStyle`
+${CoreWrapper} {
+  ${mixins.flex('center', 'center')};
+}
+`
 
 export const LoginForm = styled.form`
   ${mixins.flex('center', 'center', 'column')};
-  z-index: 10;
-  position: absolute;
-  top: 250px;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
+  z-index: 204;
   max-width: 300px;
   padding: 50px;
-  border-radius: 10px;
   border-color: black;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   background-color: white;
+  border: 1px solid black;
 `
 
 export const RegisterForm = styled(LoginForm)`
   top: 40px;
   flex-wrap: wrap;
-`
-
-
-export const Cross = styled.img`
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  right: 0;
-  top: 0;
-  margin: 10px;
-  cursor: pointer;
+  max-width: 800px;
 `
 
 export const InputDiv = styled.div`
@@ -42,7 +32,6 @@ export const InputDiv = styled.div`
   padding: 6px;
   display: flex;
   margin: 7px;
-  border-radius: 5px;
   width: 100%;
 `
 
@@ -59,7 +48,6 @@ export const Submit = styled.button`
   color: white;
   width: 100px;
   height: 40px;
-  border-radius: 5px;
   margin-top: 15px;
 `
 

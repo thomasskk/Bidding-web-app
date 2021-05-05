@@ -22,7 +22,7 @@ public class ItemController {
     return itemService.filterNameCategory(input, slice, category);
   }
 
-  @GetMapping("get")
+  @GetMapping
   public Optional<Item> findById(@RequestParam int id) {
     return itemService.findById(id);
   }

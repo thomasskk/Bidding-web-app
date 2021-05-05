@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import shortid from 'shortid'
 import cross from '../Auth/img/cross.png'
-import { Cross } from '../Auth/style'
 import Graph from './Graph'
 import { Stats, Table, Wrapper } from './style'
 
@@ -33,7 +32,6 @@ export default function ItemDetails(): JSX.Element {
   return (
     <>
       <Wrapper id="focus">
-        <Cross src={cross} onClick={() => navigate('/')} />
         <Stats>
           <Table>
             <thead>

@@ -10,22 +10,22 @@ import thomas.bidding.model.Bookmark;
 import thomas.bidding.service.BookmarkService;
 
 @RestController
-@RequestMapping("bookmark/")
+@RequestMapping("bookmark")
 public class BookmarkController {
 
   @Autowired private BookmarkService bookmarkService;
 
-  @PostMapping("add")
+  @PostMapping
   public void addBookmark(@RequestParam int id) {
     bookmarkService.addBookmark(id);
   }
 
-  @DeleteMapping("remove")
+  @DeleteMapping
   public void removeBookmark(@RequestParam int id) {
     bookmarkService.removeBookmark(id);
   }
 
-  @GetMapping("get")
+  @GetMapping
   public Iterable<Bookmark> getBookmarkByUserId() {
     return bookmarkService.getBookmarkByUserId();
   }

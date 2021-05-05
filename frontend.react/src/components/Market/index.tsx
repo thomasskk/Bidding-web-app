@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import shortid from 'shortid'
 import { useAppDispatch, useAppSelector } from '../../hook'
 import Item from '../Item'
-import { Container, Wrapper } from './style'
+import { Container, NavStyle } from './style'
 import { Hr } from '../Home/style'
 
 export default function Market(): JSX.Element {
@@ -14,6 +14,7 @@ export default function Market(): JSX.Element {
   const dispatch = useAppDispatch()
   const bookmark = useRef<any[] | null>(null)
   const authenticated = useAppSelector((state) => state.authenticated)
+  const ExchangeR = useRef(null)
 
   useEffect(() => {
     setItem([])
@@ -22,10 +23,24 @@ export default function Market(): JSX.Element {
 
   useEffect(() => {
     ;(async () => {
+      const data = await (
+        await axios('https://api.coinbase.com/v2/prices/BTC-USD/buy', {
+          headers: {
+            Authorization:
+              'Bearer abd90df5f27a7b170cd775abf89d632b350b7c1c9d53e08b340cd9832ce52c2c',
+          },
+        })
+      ).data
+      ExchangeR.current = data.data.amount
+      console.log(ExchangeR.current)
+    })()
+  }, [])
+
+  useEffect(() => {
+    ;(async () => {
       if (!bookmark.current && authenticated) {
-        bookmark.current = await (
-          await axios(process.env.REACT_APP_API_URL + 'bookmark/get')
-        ).data
+        bookmark.current = await (await axios(process.env.REACT_APP_API_URL + 'bookmark'))
+          .data
         bookmark?.current?.map((bookmark: any) => {
           return dispatch({
             type: 'ADD_BOOKMARK',
@@ -60,16 +75,17 @@ export default function Market(): JSX.Element {
 
   return (
     <>
-        <Hr width={'70%'} />
-        <Container
-          dataLength={item.length}
-          next={() => setSlice(slice + 1)}
-          scrollThreshold={0.8}
-          hasMore={slice >= item.length ? false : true}
-          loader={null}
-        >
-          {item}
-        </Container>
+      <NavStyle />
+      <Hr width={'70%'} />
+      <Container
+        dataLength={item.length}
+        next={() => setSlice(slice + 1)}
+        scrollThreshold={0.8}
+        hasMore={slice >= item.length ? false : true}
+        loader={null}
+      >
+        {item}
+      </Container>
     </>
   )
 }

@@ -30,9 +30,13 @@ export default function Bookmark(props: {
       type: 'ADD_BOOKMARK',
       payload: props.itemId,
     })
-    await axios.post(process.env.REACT_APP_API_URL + 'bookmark', {
-      params: { id: props.itemId },
-    })
+    await axios.post(
+      process.env.REACT_APP_API_URL + 'bookmark',
+      {},
+      {
+        params: { id: props.itemId },
+      }
+    )
   }
 
   const removeBookmark = async () => {

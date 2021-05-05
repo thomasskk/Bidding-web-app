@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 const TokenInterceptor = (): void => {
   axios.interceptors.request.use((config) => {
     const token = localStorage.getItem('token')
-    if (token) {
+    if (token && config.url?.includes('localhost')) {
       config.headers['Authorization'] = 'Bearer ' + token
     }
     return config

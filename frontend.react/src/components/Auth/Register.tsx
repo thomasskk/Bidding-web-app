@@ -1,9 +1,8 @@
-import { RegisterForm, InputDiv, Input, Submit, Select } from './style'
+import { RegisterForm, InputDiv, Input, Submit, Select, Center } from './style'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { useRef } from 'react'
-import cross from './img/cross.png'
 import { useAppDispatch } from '../../hook'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
@@ -38,6 +37,7 @@ export default function Register(): JSX.Element {
 
   return (
     <>
+      <Center />
       <RegisterForm onSubmit={handleSubmit(onSubmit)}>
         <span>{registrationErrorMessage.current}</span>
         <InputDiv>

@@ -1,13 +1,13 @@
 import styled, { css, createGlobalStyle } from 'styled-components'
 import mixins from '../../utils/mixins'
 import { Link as LinkRoot } from 'react-router-dom'
+import { CoreWrapper } from '../../style'
 
 export const Overflow = createGlobalStyle`
   html  
   body{
     overflow: hidden;
   }
-  
 `
 
 export const Nav = styled.nav`
@@ -28,16 +28,11 @@ export const Nav = styled.nav`
   transition: all 0.22s ease-in;
   transition-property: transform, height;
 
-  & ~ div {
-    transition: transform 0.22s ease-in;
-    position: relative;
-  }
-
   ${({ theme }) => {
     return (
       theme.toggle &&
       css`
-        & ~ div {
+        ${CoreWrapper} {
           opacity: 0.3;
           transform: translateX(50vw);
         }
@@ -57,7 +52,7 @@ export const Logo = styled(LinkRoot)`
   letter-spacing: 5px;
   margin: 4px 0 0 40px;
   position: fixed;
-  z-index: 201;
+  z-index: 203;
   top: 0;
   color: ${mixins.color2(1)};
   @media screen and (max-width: 700px) {
@@ -73,7 +68,7 @@ export const Links = styled.li`
     left: 0;
     top: 50px;
   }
-  z-index: 201;
+  z-index: 203;
   ${mixins.flex('space-evenly')}
   max-width:300px;
   width: 100%;
@@ -110,6 +105,7 @@ export const BurgerLink = styled.div`
   width: 50vw;
   height: 100%;
   background: white;
+  z-index: 203;
   ${mixins.shadow}
   display: ${({ theme }) => (theme.toggle ? 'block' : 'none')};
   animation: display 0.22s ease-in;
@@ -117,7 +113,7 @@ export const BurgerLink = styled.div`
 
 export const BurgerButton = styled.div`
   top: 0;
-  z-index: 1000;
+  z-index: 204;
   transform: translate(20px, 9px);
   outline: none;
   border-top: 2px solid black;
@@ -157,7 +153,7 @@ export const BurgerButton = styled.div`
       theme.toggle &&
       css`
         position: absolute;
-        transform: translate(calc(50vw - 30px), 10px);
+        transform: translate(calc(50vw - 30px), 15px);
         border-color: transparent;
         &:before {
           transform: rotate(45deg);

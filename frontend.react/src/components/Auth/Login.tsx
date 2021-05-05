@@ -1,9 +1,8 @@
-import { LoginForm, InputDiv, Input, Submit } from './style'
+import { LoginForm, InputDiv, Input, Submit, Center } from './style'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { useRef } from 'react'
-import cross from './img/cross.png'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
@@ -32,7 +31,7 @@ export default function Login(): JSX.Element {
         type: 'AUTHENTICATED',
         payload: true,
       })
-      navigate('/')
+      navigate(0)
     } catch (error) {
       loginErrorMessage.current = 'Wrong username or password'
     }
@@ -40,6 +39,7 @@ export default function Login(): JSX.Element {
 
   return (
     <>
+      <Center />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <span>{loginErrorMessage.current}</span>
         <InputDiv>
