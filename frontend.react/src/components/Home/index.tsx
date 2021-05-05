@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import img from './img/image.svg'
+import img from './img/hhh.jpg'
 import {
   MainImg,
   Text,
@@ -11,6 +11,7 @@ import {
   DRight,
   Recent,
   RTitle,
+  Square,
 } from './style'
 
 export default function Home(): JSX.Element {
@@ -25,6 +26,7 @@ export default function Home(): JSX.Element {
 
   return (
     <>
+      <Square />
       <MainImg src={img} />
       <Text>
         <Span>Find the Rarest</Span>

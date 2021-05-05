@@ -39,6 +39,7 @@ a {
 
 body {
   background: whitesmoke;
+  overflow-x: hidden;
 }
 `
 

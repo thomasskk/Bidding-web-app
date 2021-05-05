@@ -28,8 +28,6 @@ export const Name = styled.span`
 
 export const LastBid = styled.label`
   font-size: 0.9em;
-  margin-bottom: 12px;
-  font-weight: 250;
   span:nth-of-type(3) {
     color: #02f75c;
   }
@@ -43,7 +41,14 @@ export const EthSymbol = styled.span`
   }
 `
 
-export const AskedPrice = styled.label``
+export const AskedPrice = styled.span`
+  font-size: 0.9em;
+  
+`
+
+export const Price = styled.label`
+  ${mixins.flex('space-between', 'center')};
+`
 
 export const ItemFooter = styled.div`
   ${mixins.flex('space-between', 'center')};

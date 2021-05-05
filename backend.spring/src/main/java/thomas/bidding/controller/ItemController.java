@@ -16,10 +16,12 @@ public class ItemController {
   @Autowired private ItemService itemService;
 
   @GetMapping("filter")
-  public Iterable<Item> filterNameCategory(@RequestParam String category,
-                                           @RequestParam int slice,
-                                           @RequestParam String input) {
-    return itemService.filterNameCategory(input, slice, category);
+  public Iterable<Item>
+  filterNameCategory(@RequestParam String category, @RequestParam int slice,
+                     @RequestParam String input, @RequestParam int amount
+
+  ) {
+    return itemService.filterNameCategory(input, slice, category, amount);
   }
 
   @GetMapping
@@ -27,3 +29,5 @@ public class ItemController {
     return itemService.findById(id);
   }
 }
+
+

@@ -1,19 +1,19 @@
 import React from 'react'
-import Navbar from './components/Navbar'
-import Market from './components/Market'
-import TokenInterceptor from './utils/TokenInterceptor'
+import Navbar from 'components/Navbar'
+import Market from 'components/Market'
 import { GlobalStyle, Noise, CoreWrapper } from './style'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Login from './components/Auth/Login'
-import Register from './components/Auth/Register'
+import Login from 'components/Auth/Login'
+import Register from 'components/Auth/Register'
 import ItemDetails from 'components/ItemDetails'
-import SetAuth from 'utils/isAuth'
-import Home from './components/Home'
+import setAuth from 'utils/setAuth'
+import Home from 'components/Home'
 import Footer from 'components/Footer'
+import tokenInterceptor from 'utils/tokenInterceptor'
 
 function App(): JSX.Element {
-  TokenInterceptor()
-  SetAuth()
+  tokenInterceptor()
+  setAuth()
 
   return (
     <BrowserRouter>

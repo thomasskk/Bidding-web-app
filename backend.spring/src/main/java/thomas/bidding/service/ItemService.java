@@ -17,8 +17,8 @@ public class ItemService implements ItemSpecification {
   @Autowired private ItemRepoSpec itemRepoSpec;
 
   public Iterable<Item> filterNameCategory(String name, int slice,
-                                           String category) {
-    Pageable limit = PageRequest.of(slice, 12);
+                                           String category, int amount) {
+    Pageable limit = PageRequest.of(slice, amount);
     Specification<Item> spec =
         Specification.where((nameLike(name)).and(categoryLike(category)));
     Page<Item> page = itemRepoSpec.findAll(spec, limit);

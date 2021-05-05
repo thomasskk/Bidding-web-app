@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import shortid from 'shortid'
+import useAsyncEffect from 'use-async-effect'
 import cross from '../Auth/img/cross.png'
 import Graph from './Graph'
 import { Stats, Table, Wrapper } from './style'
@@ -12,21 +13,19 @@ export default function ItemDetails(): JSX.Element {
   const item = useRef<Record<string, any> | null>(null)
   const { id } = useParams()
 
-  useEffect(() => {
-    ;(async () => {
-      item.current = await (
-        await axios(process.env.REACT_APP_API_URL + 'item/get', {
-          params: { id },
-        })
-      ).data
+  useAsyncEffect(async () => {
+    item.current = await (
+      await axios(process.env.REACT_APP_API_URL + 'item/get', {
+        params: { id },
+      })
+    ).data
 
-      const data = await (
-        await axios(process.env.REACT_APP_API_URL + 'bid/get', {
-          params: { id, slice: 0 },
-        })
-      ).data
-      setBidData(data)
-    })()
+    const data = await (
+      await axios(process.env.REACT_APP_API_URL + 'bid', {
+        params: { id, slice: 0 },
+      })
+    ).data
+    setBidData(data)
   }, [id])
 
   return (

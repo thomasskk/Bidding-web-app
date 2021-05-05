@@ -1,10 +1,12 @@
 import axios from 'axios'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import shortid from 'shortid'
-import { useAppDispatch, useAppSelector } from '../../hook'
+import { useAppDispatch, useAppSelector } from 'hook'
 import Item from '../Item'
 import { Container, NavStyle } from './style'
 import { Hr } from '../Home/style'
+import useInterval from 'utils/useInterval'
+import useAsyncEffect from 'use-async-effect'
 
 export default function Market(): JSX.Element {
   const [item, setItem] = useState<any[]>([])
@@ -14,65 +16,70 @@ export default function Market(): JSX.Element {
   const dispatch = useAppDispatch()
   const bookmark = useRef<any[] | null>(null)
   const authenticated = useAppSelector((state) => state.authenticated)
-  const ExchangeR = useRef(null)
+
+  const updateETHUSD = async () => {
+    const exchangeRData = await (
+      await axios('https://api.coinbase.com/v2/prices/BTC-USD/buy', {
+        headers: {
+          Authorization:
+            'Bearer abd90df5f27a7b170cd775abf89d632b350b7c1c9d53e08b340cd9832ce52c2c',
+        },
+      })
+    ).data
+
+    dispatch({
+      type: 'ETH_USD',
+      payload: exchangeRData.data.amount,
+    })
+  }
+
+  useEffect(() => {
+    updateETHUSD()
+  }, [])
+
+  useInterval(updateETHUSD, 3600000)
 
   useEffect(() => {
     setItem([])
     setSlice(0)
   }, [input, category, authenticated])
 
-  useEffect(() => {
-    ;(async () => {
-      const data = await (
-        await axios('https://api.coinbase.com/v2/prices/BTC-USD/buy', {
-          headers: {
-            Authorization:
-              'Bearer abd90df5f27a7b170cd775abf89d632b350b7c1c9d53e08b340cd9832ce52c2c',
-          },
+  useAsyncEffect(async () => {
+    if (!bookmark.current && authenticated) {
+      bookmark.current = await (await axios(process.env.REACT_APP_API_URL + 'bookmark'))
+        .data
+      bookmark?.current?.map((bookmark: any) => {
+        return dispatch({
+          type: 'ADD_BOOKMARK',
+          payload: bookmark.itemId,
         })
-      ).data
-      ExchangeR.current = data.data.amount
-      console.log(ExchangeR.current)
-    })()
-  }, [])
+      })
+    }
 
-  useEffect(() => {
-    ;(async () => {
-      if (!bookmark.current && authenticated) {
-        bookmark.current = await (await axios(process.env.REACT_APP_API_URL + 'bookmark'))
-          .data
-        bookmark?.current?.map((bookmark: any) => {
-          return dispatch({
-            type: 'ADD_BOOKMARK',
-            payload: bookmark.itemId,
-          })
-        })
-      }
+    const itemData = await (
+      await axios(process.env.REACT_APP_API_URL + 'item/filter', {
+        params: {
+          category,
+          slice,
+          input,
+          amount: 9,
+        },
+      })
+    ).data
 
-      const data = await (
-        await axios(process.env.REACT_APP_API_URL + 'item/filter', {
-          params: {
-            category,
-            slice,
-            input,
-          },
-        })
-      ).data
-
-      setItem((item) => [
-        ...item,
-        ...data.map((item: any) => (
-          <Item
-            authenticated={authenticated}
-            item={item}
-            bookmark={bookmark.current}
-            key={shortid.generate()}
-          />
-        )),
-      ])
-    })()
+    setItem((item) => [
+      ...item,
+      ...itemData.map((item: any) => (
+        <Item
+          authenticated={authenticated}
+          item={item}
+          bookmark={bookmark.current}
+          key={shortid.generate()}
+        />
+      )),
+    ])
   }, [dispatch, category, input, slice, authenticated])
-
+  Intl.NumberFormat("fr-FR", {maximumFractionDigits: 0,style: "currency", currency: "EUR", currencyDisplay: "symbol"} );
   return (
     <>
       <NavStyle />

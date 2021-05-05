@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { useAppDispatch, useAppSelector } from '../../hook'
 import { Logo, Nav, Links, BurgerButton, BurgerLink, Link, Overflow } from './style'
-import { Noise } from '../../style'
 
 export default function Navbar(): JSX.Element {
   const dispatch = useAppDispatch()
@@ -37,14 +36,13 @@ export default function Navbar(): JSX.Element {
 
   return (
     <ThemeProvider theme={{ toggle: toggle }}>
-
       {toggle && <Overflow />}
       {links()}
 
       <BurgerButton onClick={() => setToggle(!toggle)} />
       <BurgerLink> {links()}</BurgerLink>
-      <Nav />
       {!toggle && <Logo to="/"> BIDDING</Logo>}
+
     </ThemeProvider>
   )
 }

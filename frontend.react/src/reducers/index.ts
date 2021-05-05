@@ -7,6 +7,7 @@ const actions = {
   ADD_BOOKMARK: 'ADD_BOOKMARK',
   REMOVE_BOOKMARK: 'REMOVE_BOOKMARK',
   AUTHENTICATED: 'AUTHENTICATED',
+  ETH_USD: 'ETH_USD',
 }
 
 type Handler = Partial<{
@@ -23,6 +24,7 @@ export interface InitialState {
   searchCategory: string
   bookmark: any[]
   authenticated: boolean
+  ETHUSD: number
 }
 
 const initialState: InitialState = {
@@ -30,6 +32,7 @@ const initialState: InitialState = {
   searchCategory: 'All',
   bookmark: [],
   authenticated: false,
+  ETHUSD: 0,
 }
 
 const reducers = (key: string, effect: string) => {
@@ -63,6 +66,7 @@ handlers[actions.SET_SEARCH_CATEGORY] = reducers('searchCategory', 'CHANGE')
 handlers[actions.ADD_BOOKMARK] = reducers('bookmark', 'ADD')
 handlers[actions.REMOVE_BOOKMARK] = reducers('bookmark', 'FILTER')
 handlers[actions.AUTHENTICATED] = reducers('authenticated', 'CHANGE')
+handlers[actions.ETH_USD] = reducers('ETHUSD', 'CHANGE')
 
 const reducersFactory = (initialState: InitialState, handlers: Handler) => {
   return (state = initialState, action: PayloadAction<any>): any => {

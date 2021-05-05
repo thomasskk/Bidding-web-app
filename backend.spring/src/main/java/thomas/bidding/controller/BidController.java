@@ -11,18 +11,18 @@ import thomas.bidding.model.Bid;
 import thomas.bidding.service.BidService;
 
 @RestController
-@RequestMapping("bid/")
+@RequestMapping("bid")
 public class BidController {
 
   @Autowired private BidService bidService;
 
-  @GetMapping("get")
+  @GetMapping
   public Iterable<Bid> getBookmarkByUserId(@RequestParam int id,
                                            @RequestParam int slice) {
     return bidService.getBidByItemId(id, slice);
   }
 
-  @PostMapping("add")
+  @PostMapping
   public void addBid(@RequestBody @Valid Bid bid) {
     bidService.addBid(bid);
   }

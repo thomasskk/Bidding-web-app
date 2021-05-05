@@ -15,6 +15,8 @@ export default function Bookmark(props: {
   const [bookmarkAnim, setBookmarkAnim] = useState<AnimationItem | null>(null)
   const bookmarkOn = useRef<boolean | null>(props.bookmark)
   const dispatch = useAppDispatch()
+
+  
   useEffect(() => {
     AnimLoad(
       setBookmarkAnim,

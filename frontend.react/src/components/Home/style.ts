@@ -2,18 +2,26 @@ import styled from 'styled-components'
 import mixins from '../../utils/mixins'
 
 export const MainImg = styled.embed`
-  height: 820px;
+  height: 100vh;
   width: 100%;
-  border: 50px solid ${mixins.color2()};
-  border-width: 80px 0 38px 0;
+  object-fit: cover;
+  overflow: hidden;
 `
 
 export const Text = styled.div`
   ${mixins.flex('none', 'none', 'column')}
   position: absolute;
   top: 200px;
-  transform: translate(-50%, -30%);
-  left: 50%;
+  transform: translate(170%, -30%);
+  z-index: 200;
+`
+
+export const Square = styled.div`
+  position: absolute;
+  background: ${mixins.color2()};
+  height: 100vh;
+  width: 50vw;
+  z-index: 199;
 `
 
 export const Span = styled.span`
@@ -26,8 +34,7 @@ export const Span = styled.span`
   margin: 10px 0 0 0;
   font-weight: bold;
   font-size: clamp(2.2em, 6vw, 3.4em);
-  color: ${mixins.color2(1)};
-  background: white;
+  color: white;
   position: relative;
   margin-bottom: 0px;
 `

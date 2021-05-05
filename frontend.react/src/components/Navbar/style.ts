@@ -21,7 +21,7 @@ export const Nav = styled.nav`
   background: whitesmoke;
   height: 42px;
   position: fixed;
-  z-index: 200;
+  z-index: 0;
   top: 0;
   width: 100%;
   padding: 0 10% 0 10%;
@@ -52,9 +52,9 @@ export const Logo = styled(LinkRoot)`
   letter-spacing: 5px;
   margin: 4px 0 0 40px;
   position: fixed;
-  z-index: 203;
+  z-index: 9999;
   top: 0;
-  color: ${mixins.color2(1)};
+  color: white;
   @media screen and (max-width: 700px) {
     left: 50%;
     transform: translateX(calc(-50% - 25px));
@@ -79,7 +79,7 @@ export const Links = styled.li`
 `
 
 export const Link = styled(LinkRoot)`
-  color: ${mixins.color2(1)};
+  color: white;
   outline: none;
   &:hover {
     text-decoration: underline;
