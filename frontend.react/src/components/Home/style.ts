@@ -1,18 +1,20 @@
 import styled from 'styled-components'
 import mixins from '../../utils/mixins'
 
+
 export const MainImg = styled.embed`
   height: 100vh;
   width: 100%;
   object-fit: cover;
   overflow: hidden;
+  
 `
 
 export const Text = styled.div`
   ${mixins.flex('none', 'none', 'column')}
   position: absolute;
   top: 200px;
-  transform: translate(170%, -30%);
+  transform: translate(170%, -20%);
   z-index: 200;
 `
 
@@ -31,7 +33,7 @@ export const Span = styled.span`
   white-space: nowrap;
   letter-spacing: 2px;
   padding: 0 10px 0px 10px;
-  margin: 10px 0 0 0;
+  margin: 30px 0 0 0;
   font-weight: bold;
   font-size: clamp(2.2em, 6vw, 3.4em);
   color: white;

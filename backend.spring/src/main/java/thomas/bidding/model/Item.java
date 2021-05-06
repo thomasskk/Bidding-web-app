@@ -19,9 +19,8 @@ public class Item {
   public String description;
   public Date biddingOpeningDate;
   public Date biddingEndingDate;
-  public Long basePrice;
-  public Long sellPrice;
   public Long askPrice;
+  public Long lastBid;
   public int userId;
   public String imageUrl;
 

@@ -43,7 +43,6 @@ export const EthSymbol = styled.span`
 
 export const AskedPrice = styled.span`
   font-size: 0.9em;
-  
 `
 
 export const Price = styled.label`

@@ -26,13 +26,13 @@ export default function Item(props: {
   const percentagePrice = Math.floor(
     ((props.item.sellPrice - props.item.basePrice) / props.item.basePrice) * 100
   )
-  const formatPrice = () => {
+  const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
       maximumFractionDigits: 0,
       style: 'currency',
       currency: 'USD',
       currencyDisplay: 'symbol',
-    }).format(ETHUSD * props.item.sellPrice)
+    }).format(ETHUSD * price)
   }
 
   return (
@@ -43,15 +43,31 @@ export default function Item(props: {
         <Price>
           <LastBid>
             Last bid <br />
-            <span>{props.item.sellPrice} </span>
-            <EthSymbol />
-            &nbsp; ({formatPrice()})
-            <span>
-              <br /> +{percentagePrice}%
-            </span>
+            {props.item.lastBid === 0 ? (
+              <>
+                <span> - </span>
+                <br />
+                <span> &nbsp; </span>
+              </>
+            ) : (
+              <>
+                {' '}
+                <span>{props.item.lastBid} </span>
+                <EthSymbol />
+                &nbsp; ({formatPrice(props.item.lastBid)})
+                <span>
+                  <br /> +{percentagePrice}%
+                </span>
+              </>
+            )}{' '}
           </LastBid>
           <AskedPrice>
-            Asked Price :<span>{props.item.askPrice}</span>
+            <span>Asked Price</span> <br />
+            <span>{props.item.askPrice}</span>
+            <EthSymbol />
+            &nbsp; ({formatPrice(props.item.askPrice)})
+            <br />
+            <span> &nbsp; </span>
           </AskedPrice>
         </Price>
         <Hr width="100%" />
