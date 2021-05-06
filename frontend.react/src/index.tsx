@@ -6,8 +6,11 @@ import store from './store'
 
 ReactDOM.render(
   <Provider store={store}>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Spectral:wght@700&display=swap"
+    />
     <App />
   </Provider>,
   document.getElementById('root')
 )
-

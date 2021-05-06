@@ -7,6 +7,7 @@ import { Container, NavStyle } from './style'
 import { Hr } from '../Home/style'
 import useInterval from 'utils/useInterval'
 import useAsyncEffect from 'use-async-effect'
+import SearchBar from './SearchBar'
 
 export default function Market(): JSX.Element {
   const [item, setItem] = useState<any[]>([])
@@ -79,9 +80,15 @@ export default function Market(): JSX.Element {
       )),
     ])
   }, [dispatch, category, input, slice, authenticated])
-  Intl.NumberFormat("fr-FR", {maximumFractionDigits: 0,style: "currency", currency: "EUR", currencyDisplay: "symbol"} );
+  Intl.NumberFormat('fr-FR', {
+    maximumFractionDigits: 0,
+    style: 'currency',
+    currency: 'EUR',
+    currencyDisplay: 'symbol',
+  })
   return (
     <>
+      <SearchBar />
       <NavStyle />
       <Hr width={'70%'} />
       <Container

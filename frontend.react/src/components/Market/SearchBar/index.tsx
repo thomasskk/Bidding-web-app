@@ -1,12 +1,20 @@
 import axios from 'axios'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAppDispatch } from '../../../hook'
-import { Category, Search, SearchItem, Separator } from './style'
+import {
+  Category,
+  Search,
+  SearchItem,
+  Separator,
+  ListCategory,
+  ItemListCategory,
+  Wrapper,
+} from './style'
 import React from 'react'
+import shortid from 'shortid'
 
 export default function SearchBar(): JSX.Element {
   const dispatch = useAppDispatch()
-  const categoryRef = useRef('All')
 
   interface Category {
     id: number
@@ -20,21 +28,19 @@ export default function SearchBar(): JSX.Element {
       setCategory((await axios(process.env.REACT_APP_API_URL + 'category')).data))()
   }, [])
 
-  const returnCategory = () => {
-    return category?.map((category: Category, index: number) => (
-      <>
-        <input name="test" type="radio" id={`opt${index}`} checked />
-        <label htmlFor={`opt${index}`}>{category.name}</label>
-      </>
-    ))
-  }
+  const onClickCategory = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
+    console.log(e)
 
-  const onClickMenuOption = (e: React.MouseEvent<HTMLOptionElement, MouseEvent>) => {
-    categoryRef.current = e.currentTarget.value
     dispatch({
       type: 'SET_SEARCH_CATEGORY',
-      payload: e.currentTarget.id,
+      payload: e.currentTarget.innerHTML,
     })
+  }
+
+  const returnCategory = () => {
+    return category?.map((category: Category, index: number) => (
+      <ItemListCategory key={shortid.generate()}>{category.name}</ItemListCategory>
+    ))
   }
 
   const OnChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,14 +53,19 @@ export default function SearchBar(): JSX.Element {
 
   return (
     <>
-      <Search>
-        <SearchItem
-          placeholder="Search"
-          onChange={(e) => OnChangeInputSearch(e)}
-        ></SearchItem>
-        <Separator />
-        <Category tabIndex={1}>{returnCategory()}</Category>
-      </Search>
+      <Wrapper>
+        <Search>
+          <SearchItem
+            placeholder="Search"
+            onChange={(e) => OnChangeInputSearch(e)}
+          ></SearchItem>
+          <Separator />
+          <Category tabIndex={1}>
+            <span>Category</span>
+            <ListCategory>{returnCategory()}</ListCategory>
+          </Category>
+        </Search>
+      </Wrapper>
     </>
   )
 }

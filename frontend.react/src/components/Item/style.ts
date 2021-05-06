@@ -10,7 +10,7 @@ export const ItemContainer = styled.div`
   max-width: 350px;
   border: 1px solid black;
   z-index: 201;
-  background: rgb(255, 255, 255, 0.5);
+  position: relative;
 `
 
 export const ItemCore = styled.div`

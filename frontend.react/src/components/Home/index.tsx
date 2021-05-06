@@ -15,14 +15,6 @@ import {
 } from './style'
 
 export default function Home(): JSX.Element {
-  useEffect(() => {
-    const log = () => console.log(window.pageYOffset)
-
-    window.addEventListener('scroll', () => log())
-    return () => {
-      window.removeEventListener('scroll', () => log())
-    }
-  })
 
   return (
     <>

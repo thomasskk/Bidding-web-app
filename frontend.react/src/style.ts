@@ -5,7 +5,6 @@ import noise from './img/noise.png'
 
 export const GlobalStyle = createGlobalStyle`
 
-@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@700&display=swap');
 @font-face {
   font-family: HMSansLatin-Regular;
   src: url(${HMSansLatinRegularWoff2}) format('woff2')
@@ -36,7 +35,9 @@ a {
         background-position: 0% 50%;
     }
 }
-
+html{
+  overflow-x: hidden;
+}
 body {
   background: whitesmoke;
   overflow-x: hidden;
@@ -50,7 +51,6 @@ export const CoreWrapper = styled.div`
 `
 
 export const Noise = styled.div`
-  position: absolute !important;
   @keyframes grain {
     0%,
     100% {

@@ -2,12 +2,16 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
 import mixins from '../../utils/mixins'
 import { createGlobalStyle } from 'styled-components'
-import { Nav } from 'components/Navbar/style'
+import { Link, Logo, Nav } from 'components/Navbar/style'
 
 export const NavStyle = createGlobalStyle`
-  ${Nav} {
-    z-index: 202;
-  }
+    ${Logo}, ${Link}{
+      color:${mixins.color2()}
+    }
+    ${Nav} {
+      background:${mixins.color2()};
+      z-index:203;
+    }
 `
 
 export const Container = styled<any>(InfiniteScroll)`
@@ -15,5 +19,8 @@ export const Container = styled<any>(InfiniteScroll)`
   flex-wrap: wrap;
   padding: 20px;
   gap: 30px;
-  margin: 100px 250px 0 250px;
+  margin: 10vw 10vw 0 10vw;
+  @media screen and (max-width: 540px) {
+    margin: 1vw 1vw 0 1vw;
+  }
 `

@@ -8,6 +8,10 @@ export const Overflow = createGlobalStyle`
   body{
     overflow: hidden;
   }
+  ${CoreWrapper} {
+          opacity: 0.3;
+          transform: translateX(50vw);
+        }
 `
 
 export const Nav = styled.nav`
@@ -18,10 +22,10 @@ export const Nav = styled.nav`
       display: none;
     }
   }
-  background: whitesmoke;
+  background: ${mixins.color2()}; 
   height: 42px;
   position: fixed;
-  z-index: 0;
+  z-index: 200;
   top: 0;
   width: 100%;
   padding: 0 10% 0 10%;
@@ -32,18 +36,18 @@ export const Nav = styled.nav`
     return (
       theme.toggle &&
       css`
-        ${CoreWrapper} {
-          opacity: 0.3;
-          transform: translateX(50vw);
-        }
-        & {
-          transform: translateX(50vw);
-          height: 0;
-          border: none;
-        }
+        transform: translateX(50vw);
+        height: 0;
+        border: none;
       `
     )
   }}
+`
+
+export const LinkNavWrapper = styled.div`
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 `
 
 export const Logo = styled(LinkRoot)`
@@ -79,7 +83,7 @@ export const Links = styled.li`
 `
 
 export const Link = styled(LinkRoot)`
-  color: white;
+  color: ${({ theme }) => (theme.toggle ? 'black' : 'white')};
   outline: none;
   &:hover {
     text-decoration: underline;
@@ -114,9 +118,9 @@ export const BurgerLink = styled.div`
 export const BurgerButton = styled.div`
   top: 0;
   z-index: 204;
-  transform: translate(20px, 9px);
+  transform: translate(20px, 12px);
   outline: none;
-  border-top: 2px solid black;
+  border-top: 2px solid ${({ theme }) => (theme.toggle ? 'black' : 'white')};
   height: 17px;
   width: 20px;
   position: fixed;
@@ -132,7 +136,7 @@ export const BurgerButton = styled.div`
     position: absolute;
     height: 2px;
     width: 20px;
-    background: black;
+    background: ${({ theme }) => (theme.toggle ? 'black' : 'white')};
     top: 5px;
     transition: all 0.22s ease-in;
   }
@@ -143,7 +147,7 @@ export const BurgerButton = styled.div`
     position: absolute;
     height: 2px;
     width: 20px;
-    background: black;
+    background: ${({ theme }) => (theme.toggle ? 'black' : 'white')};
     bottom: 1px;
     transition: all 0.22s ease-in;
   }

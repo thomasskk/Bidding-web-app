@@ -1,20 +1,19 @@
 import styled from 'styled-components'
 import mixins from '../../utils/mixins'
 
-
 export const MainImg = styled.embed`
   height: 100vh;
   width: 100%;
   object-fit: cover;
   overflow: hidden;
-  
 `
 
 export const Text = styled.div`
   ${mixins.flex('none', 'none', 'column')}
   position: absolute;
   top: 200px;
-  transform: translate(170%, -20%);
+  left: 50%;
+  transform: translateX(-45%);
   z-index: 200;
 `
 
