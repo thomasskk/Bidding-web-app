@@ -1,17 +1,16 @@
 import axios from 'axios'
-import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useAppDispatch } from '../../../hook'
+import { useAppDispatch } from 'hook'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import shortid from 'shortid'
 import {
   Category,
+  ItemListCategory,
+  ListCategory,
   Search,
   SearchItem,
   Separator,
-  ListCategory,
-  ItemListCategory,
   Wrapper,
 } from './style'
-import React from 'react'
-import shortid from 'shortid'
 
 export default function SearchBar(): JSX.Element {
   const dispatch = useAppDispatch()
@@ -29,7 +28,6 @@ export default function SearchBar(): JSX.Element {
   }, [])
 
   const onClickCategory = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-    console.log(e)
 
     dispatch({
       type: 'SET_SEARCH_CATEGORY',

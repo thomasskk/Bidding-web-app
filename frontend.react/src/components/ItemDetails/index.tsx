@@ -1,9 +1,8 @@
 import axios from 'axios'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import shortid from 'shortid'
 import useAsyncEffect from 'use-async-effect'
-import cross from '../Auth/img/cross.png'
 import Graph from './Graph'
 import { Stats, Table, Wrapper } from './style'
 

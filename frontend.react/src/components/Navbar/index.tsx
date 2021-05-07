@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
-import { useAppDispatch, useAppSelector } from '../../hook'
+import { useAppDispatch, useAppSelector } from 'hook'
 import {
   Logo,
   Nav,
@@ -9,13 +9,15 @@ import {
   BurgerLink,
   Link,
   Overflow,
-  LinkNavWrapper,
+  BurgerButtonWrapper,
 } from './style'
+import { useLocation } from 'react-router-dom'
 
 export default function Navbar(): JSX.Element {
   const dispatch = useAppDispatch()
   const [toggle, setToggle] = useState(false)
   const authenticated = useAppSelector((state) => state.authenticated)
+  const location = useLocation()
 
   const logout = () => {
     localStorage.removeItem('token')
@@ -43,13 +45,22 @@ export default function Navbar(): JSX.Element {
     )
   }
 
+  const theme = {
+    toggle: toggle,
+    isHome: location.pathname === '/' ? true : false,
+  }
+
   return (
-    <ThemeProvider theme={{ toggle: toggle }}>
+    <ThemeProvider theme={theme}>
       {toggle && <Overflow />}
-      <LinkNavWrapper>{links()}</LinkNavWrapper>
-      <BurgerButton onClick={() => setToggle(!toggle)} />
+      <BurgerButtonWrapper onClick={() => setToggle(!toggle)}>
+        <BurgerButton />
+      </BurgerButtonWrapper>
+      <Nav>
+        {!toggle && <Logo to="/"> BIDDING</Logo>}
+        {links()}
+      </Nav>
       <BurgerLink> {links()}</BurgerLink>
-      {!toggle && <Logo to="/"> BIDDING</Logo>}
     </ThemeProvider>
   )
 }

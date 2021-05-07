@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { useRef } from 'react'
-import { useAppDispatch } from '../../hook'
+import { useAppDispatch } from 'hook'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
 
@@ -102,6 +102,28 @@ export default function Register(): JSX.Element {
         />
         <InputDiv>
           <Input
+            type="text"
+            placeholder="Username"
+            {...register('username', {
+              required: 'This field is required.',
+              maxLength: {
+                value: 30,
+                message: 'Max lenght is 30 characters.',
+              },
+              minLength: {
+                value: 5,
+                message: 'Min lenght is 5 characters.',
+              },
+            })}
+          />
+        </InputDiv>
+        <ErrorMessage
+          errors={errors}
+          name="username"
+          render={({ message }) => <span>{message}</span>}
+        />
+        <InputDiv>
+          <Input
             type="tel"
             placeholder="Phone number"
             {...register('phone', {
@@ -118,7 +140,7 @@ export default function Register(): JSX.Element {
           name="phone"
           render={({ message }) => <span>{message}</span>}
         />
-        <InputDiv>
+        <InputDiv style={{ maxWidth: "614px" }}>
           <Input
             type="text"
             placeholder="Street"
@@ -170,28 +192,6 @@ export default function Register(): JSX.Element {
         <ErrorMessage
           errors={errors}
           name="city"
-          render={({ message }) => <span>{message}</span>}
-        />
-        <InputDiv>
-          <Input
-            type="text"
-            placeholder="Username"
-            {...register('username', {
-              required: 'This field is required.',
-              maxLength: {
-                value: 30,
-                message: 'Max lenght is 30 characters.',
-              },
-              minLength: {
-                value: 5,
-                message: 'Min lenght is 5 characters.',
-              },
-            })}
-          />
-        </InputDiv>
-        <ErrorMessage
-          errors={errors}
-          name="username"
           render={({ message }) => <span>{message}</span>}
         />
         <InputDiv>

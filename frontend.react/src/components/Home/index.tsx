@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react'
-import img from './img/hhh.jpg'
+import React from 'react'
+import img from 'assets/img/homeRight.jpg'
 import {
-  MainImg,
-  Text,
   Description,
-  DTitle,
-  DText,
-  Span,
-  Hr,
   DRight,
+  DText,
+  DTitle,
+  Hr,
+  MainImg,
   Recent,
   RTitle,
+  Span,
   Square,
+  Text,
 } from './style'
 
 export default function Home(): JSX.Element {
-
   return (
     <>
       <Square />

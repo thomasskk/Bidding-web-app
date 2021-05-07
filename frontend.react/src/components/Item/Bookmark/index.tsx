@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { AnimationItem } from 'lottie-web'
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
-import { useAppDispatch } from '../../../hook'
-import AnimLoad from '../../../utils/animLoad'
-import bookmarkJson from '../../Market/img/bookmark.json'
+import { useAppDispatch } from 'hook'
+import AnimLoad from 'utils/animLoad'
+import bookmarkJson from 'assets/jsonAnimation/bookmark.json'
 import { Container } from './style'
 import React from 'react'
 
@@ -16,7 +16,6 @@ export default function Bookmark(props: {
   const bookmarkOn = useRef<boolean | null>(props.bookmark)
   const dispatch = useAppDispatch()
 
-  
   useEffect(() => {
     AnimLoad(
       setBookmarkAnim,

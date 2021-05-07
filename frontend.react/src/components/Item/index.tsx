@@ -1,5 +1,4 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { memo } from 'react'
 import Bookmark from './Bookmark/index'
 import LabelDate from './LabelDate'
 import {
@@ -24,7 +23,7 @@ export default function Item(props: {
   const ETHUSD = useAppSelector((state) => state.ETHUSD)
 
   const percentagePrice = Math.floor(
-    ((props.item.sellPrice - props.item.basePrice) / props.item.basePrice) * 100
+    ((props.item.lastBid - props.item.askPrice) / props.item.askPrice) * 100
   )
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -55,9 +54,15 @@ export default function Item(props: {
                 <span>{props.item.lastBid} </span>
                 <EthSymbol />
                 &nbsp; ({formatPrice(props.item.lastBid)})
-                <span>
-                  <br /> +{percentagePrice}%
-                </span>
+                {percentagePrice >= 0 ? (
+                  <span style={{ color: '#0eab30' }}>
+                    <br /> +{percentagePrice}%
+                  </span>
+                ) : (
+                  <span style={{ color: '#c91508' }}>
+                    <br /> {percentagePrice}%
+                  </span>
+                )}
               </>
             )}{' '}
           </LastBid>

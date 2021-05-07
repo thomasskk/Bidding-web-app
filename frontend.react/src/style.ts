@@ -1,10 +1,9 @@
 import styled, { createGlobalStyle } from 'styled-components'
 import HMSansLatinRegularWoff2 from './utils/fonts/HMSansLatin-Regular.woff2'
 import HMSansLatinBoldWoff2 from './utils/fonts/HMSansLatin-Bold.woff2'
-import noise from './img/noise.png'
+import noise from 'assets/img/noise.png'
 
 export const GlobalStyle = createGlobalStyle`
-
 @font-face {
   font-family: HMSansLatin-Regular;
   src: url(${HMSansLatinRegularWoff2}) format('woff2')
@@ -84,16 +83,21 @@ export const Noise = styled.div`
       transform: translate(-10%, 10%);
     }
   }
-  &:after {
-    content: '';
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  z-index: 200;
+
+  &::after {
     animation: grain 8s steps(10) infinite;
     background-image: url(${noise});
-    height: 300%;
-    width: 300%;
-    top: -100%;
-    left: -100%;
+    content: '';
+    height: 285%;
+    left: -50%;
     opacity: 0.3;
-    position: fixed;
-    z-index: 200;
+    position: absolute;
+    top: -100%;
+    width: 300%;
   }
 `

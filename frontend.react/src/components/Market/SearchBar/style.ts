@@ -4,16 +4,15 @@ import mixins from '../../../utils/mixins'
 export const Wrapper = styled.div`
   ${mixins.flex('center', 'center')};
   font-size: 0.9em;
+  z-index: 201;
+  position: relative;
 `
 
 export const Search = styled.div`
   ${mixins.flex('none', 'center', 'none', 1)};
   max-width: 500px;
   background: white;
-  padding: 0;
   margin-top: 200px;
-  z-index: 500;
-  position: relative;
 `
 
 export const SearchItem = styled.input`

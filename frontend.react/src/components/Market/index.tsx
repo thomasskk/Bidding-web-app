@@ -1,13 +1,12 @@
 import axios from 'axios'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import shortid from 'shortid'
 import { useAppDispatch, useAppSelector } from 'hook'
-import Item from '../Item'
-import { Container, NavStyle } from './style'
-import { Hr } from '../Home/style'
-import useInterval from 'utils/useInterval'
+import React, { useEffect, useRef, useState } from 'react'
+import shortid from 'shortid'
 import useAsyncEffect from 'use-async-effect'
+import useInterval from 'utils/useInterval'
+import Item from '../Item'
 import SearchBar from './SearchBar'
+import { Container, Loader } from './style'
 
 export default function Market(): JSX.Element {
   const [item, setItem] = useState<any[]>([])
@@ -17,6 +16,18 @@ export default function Market(): JSX.Element {
   const dispatch = useAppDispatch()
   const bookmark = useRef<any[] | null>(null)
   const authenticated = useAppSelector((state) => state.authenticated)
+  const loaderRef = useRef() as React.MutableRefObject<HTMLDivElement>
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries[0].isIntersecting && setSlice(slice + 1)
+      },
+      { threshold: 0.4 }
+    )
+    observer.observe(loaderRef.current)
+    return () => observer.disconnect()
+  }, [item])
 
   const updateETHUSD = async () => {
     const exchangeRData = await (
@@ -70,36 +81,24 @@ export default function Market(): JSX.Element {
 
     setItem((item) => [
       ...item,
-      ...itemData.map((item: any) => (
-        <Item
-          authenticated={authenticated}
-          item={item}
-          bookmark={bookmark.current}
-          key={shortid.generate()}
-        />
-      )),
+      <>
+        {itemData.map((item: any) => (
+          <Item
+            authenticated={authenticated}
+            item={item}
+            bookmark={bookmark.current}
+            key={shortid.generate()}
+          />
+        ))}
+      </>,
     ])
-  }, [dispatch, category, input, slice, authenticated])
-  Intl.NumberFormat('fr-FR', {
-    maximumFractionDigits: 0,
-    style: 'currency',
-    currency: 'EUR',
-    currencyDisplay: 'symbol',
-  })
+  }, [category, input, slice, authenticated])
+
   return (
     <>
       <SearchBar />
-      <NavStyle />
-      <Hr width={'70%'} />
-      <Container
-        dataLength={item.length}
-        next={() => setSlice(slice + 1)}
-        scrollThreshold={0.8}
-        hasMore={slice >= item.length ? false : true}
-        loader={null}
-      >
-        {item}
-      </Container>
+      <Container>{item}</Container>
+      <Loader key={shortid.generate()} ref={loaderRef} />
     </>
   )
 }

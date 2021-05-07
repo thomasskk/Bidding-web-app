@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import mixins from '../../utils/mixins'
+import placeholder from 'assets/img/placeholder.png'
 
 export const ItemContainer = styled.div`
   ${mixins.flex('none', 'center', 'column', 'flex-grow')};
@@ -9,8 +10,6 @@ export const ItemContainer = styled.div`
   min-width: 0;
   max-width: 350px;
   border: 1px solid black;
-  z-index: 201;
-  position: relative;
 `
 
 export const ItemCore = styled.div`
@@ -28,9 +27,6 @@ export const Name = styled.span`
 
 export const LastBid = styled.label`
   font-size: 0.9em;
-  span:nth-of-type(3) {
-    color: #02f75c;
-  }
 `
 
 export const EthSymbol = styled.span`
@@ -65,6 +61,10 @@ export const ItemFooter = styled.div`
 `
 
 export const ItemImage = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 348px;
+  height: 348px;
+  @media screen and (max-width: 450px) {
+    width: 100%;
+    height: 100%;
+  }
 `

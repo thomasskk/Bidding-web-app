@@ -22,6 +22,7 @@ export const LoginForm = styled.form`
 
 export const RegisterForm = styled(LoginForm)`
   top: 40px;
+  flex-direction: row;
   flex-wrap: wrap;
   max-width: 800px;
 `
@@ -32,6 +33,7 @@ export const InputDiv = styled.div`
   padding: 6px;
   display: flex;
   margin: 7px;
+  max-width: 300px;
   width: 100%;
 `
 
