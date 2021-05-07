@@ -6,6 +6,9 @@ export const ItemContainer = styled.div`
   ${mixins.flex('none', 'center', 'column', 'flex-grow')};
   cursor: pointer;
   margin: 30px 10px 30px 10px;
+  @media screen and (max-width: 420px) {
+    margin: 10px 0 0 0;
+  }
   background: white;
   min-width: 0;
   max-width: 350px;
@@ -16,6 +19,9 @@ export const ItemCore = styled.div`
   ${mixins.flex('none', 'none', 'column')};
   width: 100%;
   padding: 5px 20px 10px 20px;
+  @media screen and (max-width: 420px) {
+    padding: 5px 10px 5px 10px;
+  }
 `
 
 export const Name = styled.span`
@@ -27,6 +33,8 @@ export const Name = styled.span`
 
 export const LastBid = styled.label`
   font-size: 0.9em;
+  width: 100%;
+  height: 100%;
 `
 
 export const EthSymbol = styled.span`
@@ -39,6 +47,8 @@ export const EthSymbol = styled.span`
 
 export const AskedPrice = styled.span`
   font-size: 0.9em;
+  height: 100%;
+  white-space: nowrap;
 `
 
 export const Price = styled.label`

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useAppDispatch } from 'hook'
+import { useAppDispatch, useAppSelector } from 'hook'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import shortid from 'shortid'
 import {
@@ -14,6 +14,7 @@ import {
 
 export default function SearchBar(): JSX.Element {
   const dispatch = useAppDispatch()
+  const categoryList = useAppSelector((state) => state.searchCategory)
 
   interface Category {
     id: number
@@ -27,17 +28,31 @@ export default function SearchBar(): JSX.Element {
       setCategory((await axios(process.env.REACT_APP_API_URL + 'category')).data))()
   }, [])
 
-  const onClickCategory = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-
-    dispatch({
-      type: 'SET_SEARCH_CATEGORY',
-      payload: e.currentTarget.innerHTML,
-    })
+  const onClickCategory = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const target = e.target as HTMLDivElement
+    const data = target.getAttribute('data-focus')
+    if (data === 'false')
+      dispatch({
+        type: 'ADD_CATEGORY',
+        payload: e.currentTarget.innerHTML,
+      })
+    else
+      dispatch({
+        type: 'REMOVE_CATEGORY',
+        payload: e.currentTarget.innerHTML,
+      })
+    target.setAttribute('data-focus', 'false')
   }
 
   const returnCategory = () => {
-    return category?.map((category: Category, index: number) => (
-      <ItemListCategory key={shortid.generate()}>{category.name}</ItemListCategory>
+    return category?.map((category: Category) => (
+      <ItemListCategory
+        key={shortid.generate()}
+        onClick={(e) => onClickCategory(e)}
+        data-focus={categoryList.includes(category.name) ? 'true' : 'false'}
+      >
+        {category.name}
+      </ItemListCategory>
     ))
   }
 
@@ -59,7 +74,7 @@ export default function SearchBar(): JSX.Element {
           ></SearchItem>
           <Separator />
           <Category tabIndex={1}>
-            <span>Category</span>
+            <span>Categories</span>
             <ListCategory>{returnCategory()}</ListCategory>
           </Category>
         </Search>

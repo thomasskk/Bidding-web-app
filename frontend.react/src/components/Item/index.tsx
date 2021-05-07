@@ -14,6 +14,7 @@ import {
 } from './style'
 import { Hr } from '../Home/style'
 import { useAppSelector } from 'hook'
+import { Link } from 'react-router-dom'
 
 export default function Item(props: {
   item: any
@@ -36,7 +37,9 @@ export default function Item(props: {
 
   return (
     <ItemContainer>
-      <ItemImage src={props.item.imageUrl} alt="" />
+      <Link to={`itemDetails/${props.item.id}`}>
+        <ItemImage src={props.item.imageUrl} alt="" />
+      </Link>
       <ItemCore>
         <Name>{props.item.name}</Name>
         <Price>
@@ -50,8 +53,7 @@ export default function Item(props: {
               </>
             ) : (
               <>
-                {' '}
-                <span>{props.item.lastBid} </span>
+                <span>{props.item.lastBid}</span>
                 <EthSymbol />
                 &nbsp; ({formatPrice(props.item.lastBid)})
                 {percentagePrice >= 0 ? (
@@ -64,15 +66,12 @@ export default function Item(props: {
                   </span>
                 )}
               </>
-            )}{' '}
+            )}
           </LastBid>
           <AskedPrice>
             <span>Asked Price</span> <br />
             <span>{props.item.askPrice}</span>
-            <EthSymbol />
-            &nbsp; ({formatPrice(props.item.askPrice)})
-            <br />
-            <span> &nbsp; </span>
+            <EthSymbol /> <span>&nbsp; ({formatPrice(props.item.askPrice)})</span>{' '}
           </AskedPrice>
         </Price>
         <Hr width="100%" />

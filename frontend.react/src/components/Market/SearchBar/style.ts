@@ -4,7 +4,7 @@ import mixins from '../../../utils/mixins'
 export const Wrapper = styled.div`
   ${mixins.flex('center', 'center')};
   font-size: 0.9em;
-  z-index: 201;
+  z-index: 202;
   position: relative;
 `
 
@@ -12,7 +12,7 @@ export const Search = styled.div`
   ${mixins.flex('none', 'center', 'none', 1)};
   max-width: 500px;
   background: white;
-  margin-top: 200px;
+  margin-top: 150px;
 `
 
 export const SearchItem = styled.input`
@@ -43,6 +43,8 @@ export const Category = styled.div`
   text-align: center;
   vertical-align: middle;
   line-height: 40px;
+  position: relative;
+  cursor: pointer;
   &:focus {
     ${ListCategory} {
       visibility: visible;
@@ -53,8 +55,13 @@ export const ItemListCategory = styled.div`
   background: white;
   height: 40px;
   font-size: 0.9em;
-
-  transition: background 0.4s ease-in-out;
-  &:hover {
+  &[data-focus='false'] {
+    transition: background 0.4s ease-in-out;
+    &:hover {
+      background: #e6e6e6;
+    }
+  }
+  &[data-focus='true'] {
+    background: #e6e6e6;
   }
 `

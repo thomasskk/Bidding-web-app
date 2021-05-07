@@ -20,12 +20,11 @@ export const Nav = styled.nav`
     li {
       display: none;
     }
-    justify-content: flex-end;
   }
   background: ${({ theme }) => (theme.isHome ? 'transparent' : mixins.color2())};
   height: 42px;
   position: fixed;
-  z-index: 202;
+  z-index: 210;
   width: 100%;
   padding: 0 10% 0 10%;
   transition: 0.22s ease-in;
@@ -47,6 +46,10 @@ export const Logo = styled(LinkRoot)`
   font-size: 1.4em;
   letter-spacing: 5px;
   color: white;
+  line-height: 0px;
+  @media screen and (max-width: 700px) {
+    margin-left: calc(50% - 30px);
+  }
 `
 
 export const Links = styled.li`
@@ -96,9 +99,9 @@ export const BurgerLink = styled.div`
 
 export const BurgerButtonWrapper = styled.div`
   transform: ${({ theme }) =>
-    theme.toggle ? 'translate(calc(50vw - 34px), 11px)' : 'translate(10vw, 11px)'};
+    theme.toggle ? 'translate(calc(50vw - 34px), 10px)' : 'translate(5vw, 10px)'};
   position: fixed;
-  z-index: 204;
+  z-index: 211;
   height: 20px;
   cursor: pointer;
   transition: transform 0.22s ease-in;

@@ -1,8 +1,6 @@
-import styled from 'styled-components'
-import mixins from '../../utils/mixins'
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { CoreWrapper } from '../../style'
-import { Nav } from 'components/Navbar/style'
+import mixins from '../../utils/mixins'
 
 export const Center = createGlobalStyle`
 ${CoreWrapper} {
@@ -11,9 +9,10 @@ ${CoreWrapper} {
 `
 
 export const LoginForm = styled.form`
-  ${mixins.flex('center', 'center', 'column')};
+  ${mixins.flex('center', 'center', 'column', 'flex-grow')};
   z-index: 204;
   max-width: 300px;
+  width: 100%;
   padding: 50px;
   border-color: black;
   background-color: white;
@@ -21,10 +20,20 @@ export const LoginForm = styled.form`
 `
 
 export const RegisterForm = styled(LoginForm)`
-  top: 40px;
-  flex-direction: row;
-  flex-wrap: wrap;
+  margin-top: 40px;
   max-width: 800px;
+  @media screen and (max-width: 550px) {
+    padding: 10px 10px 10px 0;
+  }
+`
+
+export const FormWrapper = styled.div`
+  display: grid;
+  gap: 20px;
+  width: 100%;
+  @media screen and (max-width: 550px) {
+    display: block;
+  }
 `
 
 export const InputDiv = styled.div`
@@ -34,11 +43,11 @@ export const InputDiv = styled.div`
   display: flex;
   margin: 7px;
   max-width: 300px;
-  width: 100%;
+  min-width: 100%;
 `
 
 export const Input = styled.input`
-  min-width: 0;
+  width: 100%;
   font-size: 15px;
   ${mixins.border};
 `

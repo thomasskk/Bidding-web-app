@@ -1,5 +1,6 @@
 package thomas.bidding.controller;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,17 +11,17 @@ import thomas.bidding.model.Item;
 import thomas.bidding.service.ItemService;
 
 @RestController
-@RequestMapping("item/")
+@RequestMapping("item")
 public class ItemController {
 
   @Autowired private ItemService itemService;
 
-  @GetMapping("filter")
+  @GetMapping("/filter")
   public Iterable<Item>
-  filterNameCategory(@RequestParam String category, @RequestParam int slice,
-                     @RequestParam String input, @RequestParam int amount
-
-  ) {
+  filterNameCategory(@RequestParam(value = "category[]") List<String> category,
+                     @RequestParam int slice, @RequestParam String input,
+                     @RequestParam int amount) {
+    System.out.println(category);
     return itemService.filterNameCategory(input, slice, category, amount);
   }
 
@@ -29,5 +30,3 @@ public class ItemController {
     return itemService.findById(id);
   }
 }
-
-

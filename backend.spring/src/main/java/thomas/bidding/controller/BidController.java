@@ -1,4 +1,5 @@
 package thomas.bidding.controller;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +18,10 @@ public class BidController {
   @Autowired private BidService bidService;
 
   @GetMapping
-  public Iterable<Bid> getBookmarkByUserId(@RequestParam int id,
-                                           @RequestParam int slice) {
-    return bidService.getBidByItemId(id, slice);
+  public Iterable<Bid> FindByItemIdAndDate(@RequestParam int itemId,
+                                           @RequestParam int slice,
+                                           @RequestParam int day) {
+    return bidService.FindByItemIdAndDate(itemId, slice, day);
   }
 
   @PostMapping

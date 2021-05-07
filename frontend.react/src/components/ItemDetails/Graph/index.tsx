@@ -10,24 +10,29 @@ export default function Graph(props: { data: Record<string, any>[] }): JSX.Eleme
   useEffect(() => {
     let data: Record<string, unknown>[] = []
     const today = moment()
-    const basePrice = props.data.pop()
+
+    //bidData + askedPrice
+    let lastBid = props.data.pop()
 
     while (data.length !== 7) {
+      //for day d associate highest bid j made on day d, if j=null j=lastest bid made
       const bid = props.data?.find(
-        (e: Record<string, any>) => moment(e.date).date() <= today.date()
+        (e: Record<string, any>) => moment(e.date).format() <= today.format()
       )
 
-      const price = bid?.sellPrice + bid?.price || basePrice
+      lastBid = bid?.price || lastBid
 
       data = [
         {
-          price,
+          lastBid,
           date: today.format('MM/DD'),
         },
         ...data,
       ]
       today.subtract(1, 'd')
     }
+
+    console.log(data)
 
     setDataPrice(data)
   }, [])

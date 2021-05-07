@@ -1,6 +1,6 @@
 package thomas.bidding.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,8 +17,8 @@ public class Item {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY) public int id;
   public String name;
   public String description;
-  public Date biddingOpeningDate;
-  public Date biddingEndingDate;
+  public LocalDate biddingOpeningDate;
+  public LocalDate biddingEndingDate;
   public Long askPrice;
   public Long lastBid;
   public int userId;

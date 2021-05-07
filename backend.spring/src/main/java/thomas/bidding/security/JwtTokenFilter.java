@@ -13,13 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import thomas.bidding.repoSpec.UserRepoSpec;
+
+import thomas.bidding.repositories.UserRepository;
 
 
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-  @Autowired private UserRepoSpec userRepoSpec;
+  @Autowired private UserRepository userRepository;
   @Autowired private JwtTokenUtil jwtTokenUtil;
 
   @Override
@@ -40,7 +41,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     UserDetails userDetails =
-        userRepoSpec.findByUsername(jwtTokenUtil.getUsername(token))
+        userRepository.findByUsername(jwtTokenUtil.getUsername(token))
             .orElse(null);
 
     UsernamePasswordAuthenticationToken authentication =

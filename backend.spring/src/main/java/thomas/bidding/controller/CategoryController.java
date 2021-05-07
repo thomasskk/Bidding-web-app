@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import thomas.bidding.model.Category;
 import thomas.bidding.service.CategoryService;
 
-
 @RestController
 public class CategoryController {
 
@@ -14,7 +13,7 @@ public class CategoryController {
 
   @GetMapping("category")
   public Iterable<Category> findAll() {
-    
+
     return categoryService.findAllCategory();
   }
 }

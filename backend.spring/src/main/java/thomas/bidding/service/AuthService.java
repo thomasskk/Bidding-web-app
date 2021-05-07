@@ -8,24 +8,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import thomas.bidding.model.User;
 import thomas.bidding.model.UserAuth;
-import thomas.bidding.repoSpec.UserRepoSpec;
+import thomas.bidding.repositories.UserRepository;
 import thomas.bidding.security.JwtTokenUtil;
 
 @Service
 public class AuthService {
 
-  @Autowired private UserRepoSpec userRepoSpec;
+  @Autowired private UserRepository userRepository;
   @Autowired private PasswordEncoder passwordEncoder;
   @Autowired private JwtTokenUtil jwtTokenUtil;
   @Autowired private AuthenticationManager authenticationManager;
 
   public String register(User user) throws ValidationException {
-    if (userRepoSpec.findByUsername(user.getUsername()).isPresent() ||
-        userRepoSpec.findByEmail(user.getEmail()).isPresent()) {
+    if (userRepository.findByUsername(user.getUsername()).isPresent() ||
+        userRepository.findByEmail(user.getEmail()).isPresent()) {
       throw new ValidationException("Username/Email already exists");
     }
     user.setPassword(passwordEncoder.encode(user.getPassword()));
-    userRepoSpec.save(user);
+    userRepository.save(user);
     String token = jwtTokenUtil.generateToken(user.getUsername());
 
     return token;
@@ -38,5 +38,4 @@ public class AuthService {
     String token = jwtTokenUtil.generateToken(user.getUsername());
     return token;
   }
-
 }

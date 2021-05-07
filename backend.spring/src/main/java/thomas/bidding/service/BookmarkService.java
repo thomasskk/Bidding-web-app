@@ -3,11 +3,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import thomas.bidding.model.Bookmark;
-import thomas.bidding.repoSpec.BookmarkRepoSpec;
+import thomas.bidding.repositories.BookmarkRepositorty;
 
 @Service
 public class BookmarkService {
-  @Autowired private BookmarkRepoSpec bookmarkRepoSpec;
+  @Autowired private BookmarkRepositorty bookmarkRepository;
   @Autowired private UserService userService;
 
   public void addBookmark(int itemId) {
@@ -15,13 +15,13 @@ public class BookmarkService {
     bookmark.setUserId(userService.getUserId());
     bookmark.setItemId(itemId);
     System.out.println(bookmark);
-    bookmarkRepoSpec.save(bookmark);
+    bookmarkRepository.save(bookmark);
   }
   @Transactional
   public void removeBookmark(int itemId) {
-    bookmarkRepoSpec.deleteByItemId(itemId);
+    bookmarkRepository.deleteByItemId(itemId);
   }
   public Iterable<Bookmark> getBookmarkByUserId() {
-    return bookmarkRepoSpec.findByUserId(userService.getUserId());
+    return bookmarkRepository.findByUserId(userService.getUserId());
   }
 }

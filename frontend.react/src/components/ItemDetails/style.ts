@@ -2,24 +2,11 @@ import styled from 'styled-components'
 import mixins from '../../utils/mixins'
 
 export const Wrapper = styled.div`
-  ${mixins.flex('none', 'none', 'row')}
-  position: fixed;
-  z-index: 10;
-  top: 50%;
-  width: 100%;
-  max-width: 1500px;
-  max-height: 700px;
-  height: 100%;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  @media screen and (max-width: 1400px) {
-    transform: translate(0, -50%);
-    left: 0;
-  }
-  border-radius: 10px;
-  padding: 30px;
-  background: #f7f7f7;
-  border: 3px solid black;
+  ${mixins.flex('center')}
+  padding-top: 50px;
+  position: relative;
+  height: 100vh;
+  z-index:204;
 `
 
 export const Table = styled.table`
@@ -90,7 +77,5 @@ export const Table = styled.table`
 `
 
 export const Stats = styled.div`
-  ${mixins.flex()}
   min-width: 0;
-  flex-shrink: 1;
 `

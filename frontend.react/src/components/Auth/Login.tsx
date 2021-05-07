@@ -31,7 +31,7 @@ export default function Login(): JSX.Element {
         type: 'AUTHENTICATED',
         payload: true,
       })
-      navigate(0)
+      navigate(-1)
     } catch (error) {
       loginErrorMessage.current = 'Wrong username or password'
     }

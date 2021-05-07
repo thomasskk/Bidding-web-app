@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { ItemImage } from 'components/Item/style'
 import React, { useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import shortid from 'shortid'
@@ -14,14 +15,14 @@ export default function ItemDetails(): JSX.Element {
 
   useAsyncEffect(async () => {
     item.current = await (
-      await axios(process.env.REACT_APP_API_URL + 'item/get', {
+      await axios(process.env.REACT_APP_API_URL + 'item', {
         params: { id },
       })
     ).data
 
     const data = await (
       await axios(process.env.REACT_APP_API_URL + 'bid', {
-        params: { id, slice: 0 },
+        params: { itemId: id, slice: 0, day: 7 },
       })
     ).data
     setBidData(data)
@@ -29,30 +30,27 @@ export default function ItemDetails(): JSX.Element {
 
   return (
     <>
-      <Wrapper id="focus">
-        <Stats>
-          <Table>
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Price</th>
-                <th>Date</th>
+      <Wrapper>
+        <Table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Price</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bidData?.map((bid: Record<string, any>) => (
+              <tr key={shortid.generate()}>
+                <td data-label="User">{bid.user.username}</td>
+                <td data-label="Pice">{bid.price}</td>
+                <td data-label="Date">{bid.date}</td>
               </tr>
-            </thead>
-            <tbody>
-              {bidData?.map((bid: Record<string, any>) => (
-                <tr key={shortid.generate()}>
-                  <td data-label="User">{bid.user.username}</td>
-                  <td data-label="Pice">{bid.price}</td>
-                  <td data-label="Date">{bid.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          {bidData !== undefined && (
-            <Graph data={[...bidData, item.current?.basePrice]} />
-          )}
-        </Stats>
+            ))}
+          </tbody>
+        </Table>
+        {bidData !== undefined && <Graph data={[...bidData, item.current?.lastBid]} />}
+        <ItemImage src={item.current?.imageUrl} alt="" />
       </Wrapper>
     </>
   )

@@ -7,6 +7,7 @@ import useInterval from 'utils/useInterval'
 import Item from '../Item'
 import SearchBar from './SearchBar'
 import { Container, Loader } from './style'
+import useDebounce from 'utils/useDebounce'
 
 export default function Market(): JSX.Element {
   const [item, setItem] = useState<any[]>([])
@@ -17,6 +18,7 @@ export default function Market(): JSX.Element {
   const bookmark = useRef<any[] | null>(null)
   const authenticated = useAppSelector((state) => state.authenticated)
   const loaderRef = useRef() as React.MutableRefObject<HTMLDivElement>
+  const debouncedInput = useDebounce<string>(input, 500)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -54,7 +56,7 @@ export default function Market(): JSX.Element {
   useEffect(() => {
     setItem([])
     setSlice(0)
-  }, [input, category, authenticated])
+  }, [debouncedInput, category, authenticated])
 
   useAsyncEffect(async () => {
     if (!bookmark.current && authenticated) {
@@ -81,18 +83,16 @@ export default function Market(): JSX.Element {
 
     setItem((item) => [
       ...item,
-      <>
-        {itemData.map((item: any) => (
-          <Item
-            authenticated={authenticated}
-            item={item}
-            bookmark={bookmark.current}
-            key={shortid.generate()}
-          />
-        ))}
-      </>,
+      itemData.map((item: any) => (
+        <Item
+          authenticated={authenticated}
+          item={item}
+          bookmark={bookmark.current}
+          key={shortid.generate()}
+        />
+      )),
     ])
-  }, [category, input, slice, authenticated])
+  }, [category, debouncedInput, slice, authenticated])
 
   return (
     <>

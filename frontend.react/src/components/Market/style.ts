@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-wrap: wrap;
   padding: 20px;
   gap: 30px;
-  margin: 10vw 10vw 0 10vw;
+  margin: 5vw 10vw 0 10vw;
   @media screen and (max-width: 540px) {
     margin: 1vw 1vw 0 1vw;
   }

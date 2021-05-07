@@ -19,12 +19,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import thomas.bidding.repoSpec.UserRepoSpec;
+
+import thomas.bidding.repositories.UserRepository;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Autowired private UserRepoSpec userRepoSpec;
+  @Autowired private UserRepository userRepository;
   @Autowired private JwtTokenFilter jwtTokenFilter;
 
   @Override
@@ -32,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     auth.userDetailsService(
         username
-        -> userRepoSpec.findByUsername(username).orElseThrow(
+        -> userRepository.findByUsername(username).orElseThrow(
             ()
                 -> new UsernameNotFoundException(
                     format("User: %s, not found", username))));
@@ -60,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                .and();
 
     http.authorizeRequests()
-        .antMatchers("/category", "/item/**", "/login", "/register")
+        .antMatchers("/category", "/item/**", "/login", "/register", "/bid/**")
         .permitAll()
         .anyRequest()
         .authenticated();

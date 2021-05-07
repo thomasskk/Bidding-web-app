@@ -1,29 +1,29 @@
 package thomas.bidding.service;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import thomas.bidding.model.Item;
-import thomas.bidding.repoSpec.ItemRepoSpec;
-import thomas.bidding.specification.ItemSpecification;
+import thomas.bidding.repositories.ItemRepository;
 
 @Service
-public class ItemService implements ItemSpecification {
+public class ItemService {
 
-  @Autowired private ItemRepoSpec itemRepoSpec;
+  @Autowired private ItemRepository itemRepository;
 
   public Iterable<Item> filterNameCategory(String name, int slice,
-                                           String category, int amount) {
+                                           List<String> category, int amount) {
     Pageable limit = PageRequest.of(slice, amount);
-    Specification<Item> spec =
-        Specification.where((nameLike(name)).and(categoryLike(category)));
-    Page<Item> page = itemRepoSpec.findAll(spec, limit);
-    return page.getContent();
+    if (category.isEmpty()) {
+      return itemRepository.findAllByNameContaining(name, limit).getContent();
+    }
+    return itemRepository
+        .findAllByCategoryNameInAndNameContaining(category, name, limit)
+        .getContent();
   }
 
-  public Optional<Item> findById(int id) { return itemRepoSpec.findById(id); }
+  public Optional<Item> findById(int id) { return itemRepository.findById(id); }
 }
