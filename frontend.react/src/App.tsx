@@ -20,7 +20,7 @@ function App(): JSX.Element {
       <GlobalStyle />
       <Navbar />
       <Noise />
-      <CoreWrapper>
+      <CoreWrapper id="core">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />

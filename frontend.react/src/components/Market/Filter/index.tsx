@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { useAppDispatch, useAppSelector } from 'hook'
 import React, { ChangeEvent, useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import shortid from 'shortid'
 import {
   Category,
@@ -9,12 +9,15 @@ import {
   Search,
   SearchItem,
   Separator,
-  Wrapper,
+  Price,
+  From,
+  To,
+  Container,
+  FilterE,
 } from './style'
 
-export default function SearchBar(): JSX.Element {
-  const dispatch = useAppDispatch()
-  const categoryList = useAppSelector((state) => state.searchCategory)
+export default function Filter(): JSX.Element {
+  const [filterParams, setFilterParams] = useSearchParams()
 
   interface Category {
     id: number
@@ -29,19 +32,16 @@ export default function SearchBar(): JSX.Element {
   }, [])
 
   const onClickCategory = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const target = e.target as HTMLDivElement
-    const data = target.getAttribute('data-focus')
-    if (data === 'false')
-      dispatch({
-        type: 'ADD_CATEGORY',
-        payload: e.currentTarget.innerHTML,
-      })
-    else
-      dispatch({
-        type: 'REMOVE_CATEGORY',
-        payload: e.currentTarget.innerHTML,
-      })
-    target.setAttribute('data-focus', 'false')
+    const isSelected = e.currentTarget.getAttribute('data-focus')
+    const category = e.currentTarget.innerHTML
+    const categoryList = filterParams.getAll('category')
+
+    if (isSelected === 'true') {
+      setFilterParams({ category: categoryList.filter((e) => e !== category) })
+      e.currentTarget.setAttribute('data-focus', 'false')
+    } else {
+      setFilterParams({ category: [...categoryList, category] })
+    }
   }
 
   const returnCategory = () => {
@@ -49,7 +49,9 @@ export default function SearchBar(): JSX.Element {
       <ItemListCategory
         key={shortid.generate()}
         onClick={(e) => onClickCategory(e)}
-        data-focus={categoryList.includes(category.name) ? 'true' : 'false'}
+        data-focus={
+          filterParams.getAll('category').includes(category.name) ? 'true' : 'false'
+        }
       >
         {category.name}
       </ItemListCategory>
@@ -58,15 +60,12 @@ export default function SearchBar(): JSX.Element {
 
   const OnChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist()
-    dispatch({
-      type: 'SET_SEARCH_NAME',
-      payload: e.target.value,
-    })
+    setFilterParams({ searchInput: e.target.value })
   }
 
   return (
     <>
-      <Wrapper>
+      <Container>
         <Search>
           <SearchItem
             placeholder="Search"
@@ -78,7 +77,13 @@ export default function SearchBar(): JSX.Element {
             <ListCategory>{returnCategory()}</ListCategory>
           </Category>
         </Search>
-      </Wrapper>
+        <FilterE>
+          <Price>
+            <From placeholder="Min" />
+            <To placeholder="Max" />
+          </Price>
+        </FilterE>
+      </Container>
     </>
   )
 }

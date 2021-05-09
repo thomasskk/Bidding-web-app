@@ -2,9 +2,6 @@ import { PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from 'store'
 
 const actions = {
-  SET_SEARCH_NAME: 'SET_SEARCH_NAME',
-  ADD_CATEGORY: 'ADD_CATEGORY',
-  REMOVE_CATEGORY: 'REMOVE_CATEGORY',
   ADD_BOOKMARK: 'ADD_BOOKMARK',
   REMOVE_BOOKMARK: 'REMOVE_BOOKMARK',
   AUTHENTICATED: 'AUTHENTICATED',
@@ -21,16 +18,12 @@ type Handler = Partial<{
 const handlers: Handler = {}
 
 export interface InitialState {
-  searchName: string
-  searchCategory: string[]
   bookmark: any[]
   authenticated: boolean
   ETHUSD: number
 }
 
 const initialState: InitialState = {
-  searchName: '',
-  searchCategory: [''],
   bookmark: [],
   authenticated: false,
   ETHUSD: 0,
@@ -62,9 +55,6 @@ const reducers = (key: string, effect: string) => {
   }
 }
 
-handlers[actions.SET_SEARCH_NAME] = reducers('searchName', 'CHANGE')
-handlers[actions.REMOVE_CATEGORY] = reducers('searchCategory', 'FILTER')
-handlers[actions.ADD_CATEGORY] = reducers('searchCategory', 'ADD')
 handlers[actions.ADD_BOOKMARK] = reducers('bookmark', 'ADD')
 handlers[actions.REMOVE_BOOKMARK] = reducers('bookmark', 'FILTER')
 handlers[actions.AUTHENTICATED] = reducers('authenticated', 'CHANGE')

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import thomas.bidding.model.Item;
 import thomas.bidding.service.ItemService;
 
+
 @RestController
 @RequestMapping("item")
 public class ItemController {
@@ -17,10 +18,11 @@ public class ItemController {
   @Autowired private ItemService itemService;
 
   @GetMapping("/filter")
-  public Iterable<Item>
-  filterNameCategory(@RequestParam(value = "category[]") List<String> category,
-                     @RequestParam int slice, @RequestParam String input,
-                     @RequestParam int amount) {
+  public Iterable<Item> filterNameCategory(
+      @RequestParam(required = false,
+                    name = "category[]", defaultValue = "") List<String> category,
+      @RequestParam(required = false, defaultValue = "") String input,
+      @RequestParam int slice, @RequestParam int amount) {
     System.out.println(category);
     return itemService.filterNameCategory(input, slice, category, amount);
   }

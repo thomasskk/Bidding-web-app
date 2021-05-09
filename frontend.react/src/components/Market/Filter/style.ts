@@ -1,16 +1,13 @@
 import styled from 'styled-components'
-import mixins from '../../../utils/mixins'
+import mixins from 'utils/mixins'
 
-export const Wrapper = styled.div`
-  ${mixins.flex('center', 'center')};
-  font-size: 0.9em;
-  z-index: 202;
-  position: relative;
+export const Container = styled.div`
+  grid-column: 1 / -1;
+  width: 100%;
 `
 
 export const Search = styled.div`
   ${mixins.flex('none', 'center', 'none', 1)};
-  max-width: 500px;
   background: white;
   margin-top: 150px;
 `
@@ -19,11 +16,6 @@ export const SearchItem = styled.input`
   ${mixins.border};
   width: 100%;
   padding: 10px;
-  border-radius: 15px;
-  font-size: 1em;
-  &::placeholder {
-    font-size: 1em;
-  }
 `
 
 export const Separator = styled.div`
@@ -45,16 +37,17 @@ export const Category = styled.div`
   line-height: 40px;
   position: relative;
   cursor: pointer;
+  font-size: 0.8em;
   &:focus {
     ${ListCategory} {
       visibility: visible;
     }
   }
 `
+
 export const ItemListCategory = styled.div`
   background: white;
   height: 40px;
-  font-size: 0.9em;
   &[data-focus='false'] {
     transition: background 0.4s ease-in-out;
     &:hover {
@@ -65,3 +58,21 @@ export const ItemListCategory = styled.div`
     background: #e6e6e6;
   }
 `
+
+export const FilterE = styled.div`
+  width: fit-content;
+  margin: 0;
+`
+
+export const Price = styled.div`
+  ${mixins.flex()};
+  margin-top: 20px;
+  justify-self: center;
+`
+
+export const From = styled(SearchItem)`
+  max-width: 75px;
+  margin-right: 15px;
+`
+
+export const To = styled(From)``

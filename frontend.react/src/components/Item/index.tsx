@@ -77,7 +77,7 @@ export default function Item(props: {
         <Hr width="100%" />
       </ItemCore>
       <ItemFooter>
-        <LabelDate endingDate={props.item.biddingEndingDate} />
+        <LabelDate endDate={props.item.endDate} />
         {props.authenticated && (
           <>
             <Bookmark

@@ -4,13 +4,13 @@ import { Container } from './style'
 import React from 'react'
 import useInterval from 'utils/useInterval'
 
-export default function LabelDate(props: { endingDate: string }): JSX.Element {
+export default function LabelDate(props: { endDate: string }): JSX.Element {
   const [date, setDate] = useState<moment.Duration>(
-    moment.duration(moment(props.endingDate).diff(moment()))
+    moment.duration(moment(props.endDate).diff(moment()))
   )
 
   const udpateDate = () => {
-    setDate(moment.duration(moment(props.endingDate).diff(moment())))
+    setDate(moment.duration(moment(props.endDate).diff(moment())))
   }
 
   useInterval(udpateDate, 1000)

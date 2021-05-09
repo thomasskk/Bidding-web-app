@@ -36,7 +36,7 @@ body {
 export const CoreWrapper = styled.div`
   transition: transform 0.22s ease-in;
   position: relative;
-  min-height: calc(100vh - 90px);
+  min-height: 100vh;
 `
 
 export const Noise = styled.div`

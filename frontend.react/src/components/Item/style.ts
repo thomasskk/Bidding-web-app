@@ -1,18 +1,14 @@
 import styled from 'styled-components'
 import mixins from '../../utils/mixins'
-import placeholder from 'assets/img/placeholder.png'
 
 export const ItemContainer = styled.div`
   ${mixins.flex('none', 'center', 'column', 'flex-grow')};
   cursor: pointer;
-  margin: 30px 10px 30px 10px;
-  @media screen and (max-width: 420px) {
-    margin: 10px 0 0 0;
-  }
   background: white;
   min-width: 0;
   max-width: 350px;
   border: 1px solid black;
+  overflow: hidden;
 `
 
 export const ItemCore = styled.div`
@@ -73,8 +69,5 @@ export const ItemFooter = styled.div`
 export const ItemImage = styled.img`
   width: 348px;
   height: 348px;
-  @media screen and (max-width: 450px) {
-    width: 100%;
-    height: 100%;
-  }
+  object-fit: cover;
 `

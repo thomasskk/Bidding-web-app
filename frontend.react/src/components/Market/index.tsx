@@ -1,39 +1,49 @@
 import axios from 'axios'
 import { useAppDispatch, useAppSelector } from 'hook'
 import React, { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import shortid from 'shortid'
 import useAsyncEffect from 'use-async-effect'
+import useDebounce from 'utils/useDebounce'
 import useInterval from 'utils/useInterval'
 import Item from '../Item'
-import SearchBar from './SearchBar'
-import { Container, Loader } from './style'
-import useDebounce from 'utils/useDebounce'
+import Filter from './Filter'
+import { Center, Container, Loader } from './style'
 
 export default function Market(): JSX.Element {
   const [item, setItem] = useState<any[]>([])
   const [slice, setSlice] = useState(0)
-  const input = useAppSelector((state) => state.searchName)
-  const category = useAppSelector((state) => state.searchCategory)
   const dispatch = useAppDispatch()
   const bookmark = useRef<any[] | null>(null)
   const authenticated = useAppSelector((state) => state.authenticated)
-  const loaderRef = useRef() as React.MutableRefObject<HTMLDivElement>
-  const debouncedInput = useDebounce<string>(input, 500)
+  const [filterParams] = useSearchParams()
+  const filter = useDebounce<URLSearchParams>(filterParams, 500)
+  const intersectionRef = useRef<any>(null)
+  const container = useRef<any>()
 
+  // Infinite scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries[0].isIntersecting && setSlice(slice + 1)
+        if (entries[0].isIntersecting) {
+          setSlice(slice + 1)
+        }
       },
-      { threshold: 0.4 }
+      {
+        threshold: 1,
+      }
     )
-    observer.observe(loaderRef.current)
-    return () => observer.disconnect()
-  }, [item])
+    observer.observe(intersectionRef.current)
 
+    return () => {
+      observer.disconnect()
+    }
+  }, [intersectionRef.current])
+
+  // ETH value
   const updateETHUSD = async () => {
     const exchangeRData = await (
-      await axios('https://api.coinbase.com/v2/prices/BTC-USD/buy', {
+      await axios('https://api.coinbase.com/v2/prices/ETH-USD/buy', {
         headers: {
           Authorization:
             'Bearer abd90df5f27a7b170cd775abf89d632b350b7c1c9d53e08b340cd9832ce52c2c',
@@ -56,7 +66,7 @@ export default function Market(): JSX.Element {
   useEffect(() => {
     setItem([])
     setSlice(0)
-  }, [debouncedInput, category, authenticated])
+  }, [filter, authenticated])
 
   useAsyncEffect(async () => {
     if (!bookmark.current && authenticated) {
@@ -73,15 +83,15 @@ export default function Market(): JSX.Element {
     const itemData = await (
       await axios(process.env.REACT_APP_API_URL + 'item/filter', {
         params: {
-          category,
+          category: filter.getAll('category'),
           slice,
-          input,
-          amount: 9,
+          input: filter.get('searchInput'),
+          amount: 16,
         },
       })
     ).data
 
-    setItem((item) => [
+    const datas = (item: any) => [
       ...item,
       itemData.map((item: any) => (
         <Item
@@ -91,14 +101,18 @@ export default function Market(): JSX.Element {
           key={shortid.generate()}
         />
       )),
-    ])
-  }, [category, debouncedInput, slice, authenticated])
+    ]
+    setItem(datas)
+  }, [filter, slice, authenticated])
 
   return (
     <>
-      <SearchBar />
-      <Container>{item}</Container>
-      <Loader key={shortid.generate()} ref={loaderRef} />
+      <Center ref={container} />
+      <Container>
+        <Filter />
+        {item}
+      </Container>
+      <Loader key={shortid.generate()} ref={intersectionRef} />
     </>
   )
 }

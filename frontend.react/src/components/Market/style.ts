@@ -1,21 +1,26 @@
-import styled from 'styled-components'
-import mixins from '../../utils/mixins'
+import { CoreWrapper } from 'style'
+import styled, { createGlobalStyle } from 'styled-components'
+
+export const Center = createGlobalStyle`
+${CoreWrapper} {
+  margin: 0 10vw 0 10vw;
+  @media screen and (max-width: 540px) {
+    margin: 0 1vw 0 1vw;
+  }
+  z-index: 202;
+}
+`
 
 export const Container = styled.div`
-  ${mixins.flex('center')};
-  flex-wrap: wrap;
-  padding: 20px;
-  gap: 30px;
-  margin: 5vw 10vw 0 10vw;
-  @media screen and (max-width: 540px) {
-    margin: 1vw 1vw 0 1vw;
-  }
-  position: relative;
-  z-index: 201;
-  min-height: 100vh;
+  display: grid;
+  gap: 70px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 350px));
+  justify-content: center;
 `
 
 export const Loader = styled.div`
   width: 100%;
   height: 50px;
+  transform: translateY(-2000px);
 `
+  

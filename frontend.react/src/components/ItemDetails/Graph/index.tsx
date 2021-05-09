@@ -32,28 +32,26 @@ export default function Graph(props: { data: Record<string, any>[] }): JSX.Eleme
       today.subtract(1, 'd')
     }
 
-    console.log(data)
-
     setDataPrice(data)
+    console.log(data)
   }, [])
 
   const data = {
     datasets: [
       {
-        label: 'price',
+        label: 'lastBid',
         data: dataPrice,
-        borderColor: 'whitesmoke',
+        fill: true,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'red',
       },
     ],
   }
+
   const options = {
     parsing: {
       xAxisKey: 'date',
-      yAxisKey: 'price',
-    },
-
-    legend: {
-      display: false,
+      yAxisKey: 'lastBid',
     },
     axisY: {
       valueFormatString: '#####',
@@ -61,7 +59,6 @@ export default function Graph(props: { data: Record<string, any>[] }): JSX.Eleme
     animation: {
       easing: 'linear',
     },
-    tension: 0.4,
     responsive: true,
     maintainAspectRatio: false,
     elements: {
@@ -82,12 +79,9 @@ export default function Graph(props: { data: Record<string, any>[] }): JSX.Eleme
     },
   }
 
-  defaults.borderColor = '#1f354c'
-  defaults.color = 'whitesmoke'
-
   return (
     <Container>
-      <Line data={data} type="line" options={options} />
+      <Line data={data} type="line" options={options} height={300} />
     </Container>
   )
 }
