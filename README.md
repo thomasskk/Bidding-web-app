@@ -1,4 +1,4 @@
 Project made while learning React and Spring.
 
-![](home.PNG)
+![](homePage.PNG)
 ![](market.PNG)
