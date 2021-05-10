@@ -1,5 +1,6 @@
 package thomas.bidding.service.specification;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -87,12 +88,12 @@ public class ItemSpecification<T> implements Specification<T> {
       case GREATER_THAN_EQUAL_DATE ->
 
         predicates.add(builder.greaterThanOrEqualTo(
-            root.get(criteria.getKey()), criteria.getValue().toString()));
-
+            root.get(criteria.getKey()), LocalDate.now()));
+          
       case LESS_THAN_EQUAL_DATE ->
       
         predicates.add(builder.lessThanOrEqualTo(
-            root.get(criteria.getKey()), criteria.getValue().toString()));
+            root.get(criteria.getKey()),LocalDate.now()));
       }
     }
 

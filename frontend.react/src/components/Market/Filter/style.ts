@@ -48,9 +48,6 @@ export const ItemList = styled.div`
   height: 40px;
   &[data-focus='false'] {
     transition: background 0.4s ease-in-out;
-    &:hover {
-      background: #e6e6e6;
-    }
   }
   &[data-focus='true'] {
     background: #e6e6e6;
@@ -78,7 +75,7 @@ export const Range = styled(SearchItem)`
   max-width: 75px;
   margin-left: 5px;
 `
-export const SortBy = styled.div`
+export const SortAction = styled.div`
   background: white;
   max-width: max-content;
   width: 100%;
@@ -106,6 +103,6 @@ export const SortBy = styled.div`
   }
 `
 
-export const Category = styled(SortBy)`
+export const Category = styled(SortAction)`
   margin: 0;
 `

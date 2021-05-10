@@ -9,6 +9,7 @@ import useInterval from 'utils/useInterval'
 import Item from '../Item'
 import Filter from './Filter'
 import { Center, Container, Loader } from './style'
+import sortAction from './Filter/sortAction'
 
 export default function Market(): JSX.Element {
   const [item, setItem] = useState<any[]>([])
@@ -19,7 +20,6 @@ export default function Market(): JSX.Element {
   const [filterParams] = useSearchParams()
   const filter = useDebounce<URLSearchParams>(filterParams, 500)
   const intersectionRef = useRef<any>(null)
-  const container = useRef<any>()
   const [isIntersecting, setIsIntersecting] = useState(false)
 
   // Infinite scroll
@@ -72,8 +72,9 @@ export default function Market(): JSX.Element {
 
   useAsyncEffect(async () => {
     if (!bookmark.current && authenticated) {
-      bookmark.current = await (await axios(process.env.REACT_APP_API_URL + 'bookmark'))
-        .data
+      bookmark.current = await (
+        await axios(process.env.REACT_APP_API_URL + 'bookmark')
+      ).data
       bookmark?.current?.map((bookmark: any) => {
         return dispatch({
           type: 'ADD_BOOKMARK',
@@ -81,6 +82,8 @@ export default function Market(): JSX.Element {
         })
       })
     }
+
+    const sortQuery = filter.get('sort')
 
     const itemData = await (
       await axios(process.env.REACT_APP_API_URL + 'item/filter', {
@@ -91,6 +94,8 @@ export default function Market(): JSX.Element {
           amount: 16,
           priceMin: filter.get('priceMin'),
           priceMax: filter.get('priceMax'),
+          sortAttribute: sortQuery && sortAction[sortQuery].attribute,
+          sortDirection: sortQuery && sortAction[sortQuery].direction,
         },
       })
     ).data
@@ -111,7 +116,7 @@ export default function Market(): JSX.Element {
 
   return (
     <>
-      <Center ref={container} />
+      <Center />
       <Container>
         <Filter />
         {item}

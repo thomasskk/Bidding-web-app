@@ -19,7 +19,7 @@ public class Item {
   public String description;
   public LocalDateTime startDate;
   public LocalDateTime endDate;
-  public Float askPrice;
+  public Float listPrice;
   public Float lastBid;
   public int userId;
   public String imageUrl;

@@ -10,6 +10,7 @@ import setAuth from 'utils/setAuth'
 import Home from 'components/Home'
 import Footer from 'components/Footer'
 import tokenInterceptor from 'utils/tokenInterceptor'
+import { hot } from 'react-hot-loader'
 
 function App(): JSX.Element {
   tokenInterceptor()
@@ -33,5 +34,5 @@ function App(): JSX.Element {
     </BrowserRouter>
   )
 }
-
+hot(module)(App)
 export default App

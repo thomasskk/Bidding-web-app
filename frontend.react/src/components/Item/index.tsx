@@ -24,7 +24,7 @@ export default function Item(props: {
   const ETHUSD = useAppSelector((state) => state.ETHUSD)
 
   const percentagePrice = Math.floor(
-    ((props.item.lastBid - props.item.askPrice) / props.item.askPrice) * 100
+    ((props.item.lastBid - props.item.listPrice) / props.item.listPrice) * 100
   )
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -70,8 +70,8 @@ export default function Item(props: {
           </LastBid>
           <AskedPrice>
             <span>Asked Price</span> <br />
-            <span>{props.item.askPrice}</span>
-            <EthSymbol /> <span>&nbsp; ({formatPrice(props.item.askPrice)})</span>{' '}
+            <span>{props.item.listPrice}</span>
+            <EthSymbol /> <span>&nbsp; ({formatPrice(props.item.listPrice)})</span>{' '}
           </AskedPrice>
         </Price>
         <Hr width="100%" />

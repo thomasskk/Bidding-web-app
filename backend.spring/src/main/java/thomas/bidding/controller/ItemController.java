@@ -23,10 +23,12 @@ public class ItemController {
                      @RequestParam(defaultValue = "") String input,
                      @RequestParam int slice, @RequestParam int amount,
                      @RequestParam(required = false) Double priceMin,
-                     @RequestParam(required = false) Double priceMax) {
+                     @RequestParam(required = false) Double priceMax,
+                     @RequestParam(required = false) String sortAttribute,
+                     @RequestParam(required = false) String sortDirection) {
 
     return itemService.filter(input, slice, category, amount, priceMin,
-                              priceMax);
+                              priceMax, sortAttribute, sortDirection);
   }
 
   @GetMapping

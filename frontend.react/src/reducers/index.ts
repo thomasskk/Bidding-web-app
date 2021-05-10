@@ -31,7 +31,7 @@ const initialState: InitialState = {
 
 const reducers = (key: string, effect: string) => {
   return (state: RootState, action: PayloadAction<any>): Partial<InitialState> => {
-    const effectSwitch: { [name: string]: any } = {
+    const effectSwitch: Record<string, () => any> = {
       CHANGE: () => {
         return {
           ...state,
