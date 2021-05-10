@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import thomas.bidding.model.Item;
 import thomas.bidding.repositories.ItemRepository;
-import thomas.bidding.service.specification.ItemSpecification;
+import thomas.bidding.service.specification.EntitySpecification;
 import thomas.bidding.service.specification.SearchCriteria;
 import thomas.bidding.service.specification.SearchOperation;
 
@@ -31,7 +31,7 @@ public class ItemService {
 
     Pageable page = PageRequest.of(slice, amount, sort);
 
-    ItemSpecification<Item> spec = new ItemSpecification<Item>();
+    EntitySpecification<Item> spec = new EntitySpecification<Item>();
 
     spec.add(new SearchCriteria("name", name, SearchOperation.MATCH));
     spec.add(new SearchCriteria("listPrice", priceMax,

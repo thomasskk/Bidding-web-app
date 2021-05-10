@@ -9,10 +9,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
-public class ItemSpecification<T> implements Specification<T> {
+public class EntitySpecification<T> implements Specification<T> {
   private List<SearchCriteria> list;
 
-  public ItemSpecification() { this.list = new ArrayList<>(); }
+  public EntitySpecification() { this.list = new ArrayList<>(); }
 
   public void add(SearchCriteria criteria) { list.add(criteria); }
 
