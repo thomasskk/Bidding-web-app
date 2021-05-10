@@ -8,21 +8,29 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import thomas.bidding.model.Item;
 import thomas.bidding.repositories.ItemRepository;
+import thomas.bidding.service.specification.ItemSpecification;
+import thomas.bidding.service.specification.SearchCriteria;
+import thomas.bidding.service.specification.SearchOperation;
 
 @Service
 public class ItemService {
 
   @Autowired private ItemRepository itemRepository;
 
-  public Iterable<Item> filterNameCategory(String name, int slice,
-                                           List<String> category, int amount) {
-    Pageable limit = PageRequest.of(slice, amount);
-    if (category.isEmpty()) {
-      return itemRepository.findAllByNameContaining(name, limit).getContent();
-    }
-    return itemRepository
-        .findAllByCategoryNameInAndNameContaining(category, name, limit)
-        .getContent();
+  public Iterable<Item> filter(String name, int slice, List<String> category,
+                               Integer amount, Double priceMin,
+                               Double priceMax) {
+
+    Pageable page = PageRequest.of(slice, amount);
+    ItemSpecification<Item> spec = new ItemSpecification<Item>();
+
+    spec.add(new SearchCriteria("name", name, SearchOperation.MATCH));
+    spec.add(new SearchCriteria("askPrice", priceMax,
+                                SearchOperation.LESS_THAN_EQUAL));
+    spec.add(new SearchCriteria("askPrice", priceMin,
+                                SearchOperation.GREATER_THAN_EQUAL));
+
+    return itemRepository.findAll(spec, page).getContent();
   }
 
   public Optional<Item> findById(int id) { return itemRepository.findById(id); }

@@ -24,8 +24,8 @@ export const Nav = styled.nav`
   background: ${({ theme }) => (theme.isHome ? 'transparent' : mixins.color2())};
   height: 42px;
   position: fixed;
-  z-index: 210;
   width: 100%;
+  z-index:205;
   padding: 0 10% 0 10%;
   transition: 0.22s ease-in;
   transition-property: transform, height;

@@ -19,8 +19,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
 import thomas.bidding.repositories.UserRepository;
+
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -73,7 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://localhost:5000"));
+    configuration.setAllowedOrigins(
+        Arrays.asList("http://localhost:3000", "http://localhost:5000"));
     configuration.setAllowedMethods(
         Arrays.asList("GET", "POST", "DELETE", "UPDATE", "OPTIONS"));
     configuration.setAllowedHeaders(

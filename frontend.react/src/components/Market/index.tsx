@@ -20,17 +20,19 @@ export default function Market(): JSX.Element {
   const filter = useDebounce<URLSearchParams>(filterParams, 500)
   const intersectionRef = useRef<any>(null)
   const container = useRef<any>()
+  const [isIntersecting, setIsIntersecting] = useState(false)
 
   // Infinite scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0].isIntersecting && !isIntersecting) {
+          setIsIntersecting(entries[0].isIntersecting)
           setSlice(slice + 1)
         }
       },
       {
-        threshold: 1,
+        threshold: 0.5,
       }
     )
     observer.observe(intersectionRef.current)
@@ -61,7 +63,7 @@ export default function Market(): JSX.Element {
     updateETHUSD()
   }, [])
 
-  useInterval(updateETHUSD, 3600000)
+  useInterval(updateETHUSD, 30000)
 
   useEffect(() => {
     setItem([])
@@ -85,13 +87,15 @@ export default function Market(): JSX.Element {
         params: {
           category: filter.getAll('category'),
           slice,
-          input: filter.get('searchInput'),
+          input: filter.get('search'),
           amount: 16,
+          priceMin: filter.get('priceMin'),
+          priceMax: filter.get('priceMax'),
         },
       })
     ).data
 
-    const datas = (item: any) => [
+    setItem((item: any) => [
       ...item,
       itemData.map((item: any) => (
         <Item
@@ -101,8 +105,8 @@ export default function Market(): JSX.Element {
           key={shortid.generate()}
         />
       )),
-    ]
-    setItem(datas)
+    ])
+    setIsIntersecting(false)
   }, [filter, slice, authenticated])
 
   return (

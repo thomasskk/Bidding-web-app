@@ -1,89 +1,115 @@
 import axios from 'axios'
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import { useAppSelector } from 'hook'
+import React, { ChangeEvent, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import shortid from 'shortid'
+import useAsyncEffect from 'use-async-effect'
 import {
+  ArrowUpDown,
   Category,
-  ItemListCategory,
-  ListCategory,
+  Container,
+  FilterE,
+  ItemList,
+  List,
+  Price,
+  Range,
   Search,
   SearchItem,
   Separator,
-  Price,
-  From,
-  To,
-  Container,
-  FilterE,
+  SortBy,
 } from './style'
 
 export default function Filter(): JSX.Element {
+  const [category, setCategory] = useState<any[] | undefined>(undefined)
   const [filterParams, setFilterParams] = useSearchParams()
+  const ETHUSD = useAppSelector((state) => state.ETHUSD)
 
-  interface Category {
-    id: number
-    name: string
-  }
-
-  const [category, setCategory] = useState<Category[] | undefined>(undefined)
-
-  useEffect(() => {
-    ;(async () =>
-      setCategory((await axios(process.env.REACT_APP_API_URL + 'category')).data))()
+  useAsyncEffect(async () => {
+    setCategory((await axios(process.env.REACT_APP_API_URL + 'category')).data)
   }, [])
 
-  const onClickCategory = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const CategoryOnChange = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const isSelected = e.currentTarget.getAttribute('data-focus')
-    const category = e.currentTarget.innerHTML
+    const targetCategory = e.currentTarget.innerHTML
     const categoryList = filterParams.getAll('category')
 
     if (isSelected === 'true') {
-      setFilterParams({ category: categoryList.filter((e) => e !== category) })
+      setFilterParams({ category: categoryList.filter((e) => e !== targetCategory) })
       e.currentTarget.setAttribute('data-focus', 'false')
     } else {
-      setFilterParams({ category: [...categoryList, category] })
+      setFilterParams({ category: [...categoryList, targetCategory] })
     }
   }
 
   const returnCategory = () => {
-    return category?.map((category: Category) => (
-      <ItemListCategory
+    return category?.map((category: any) => (
+      <ItemList
         key={shortid.generate()}
-        onClick={(e) => onClickCategory(e)}
+        onClick={(e) => CategoryOnChange(e)}
         data-focus={
           filterParams.getAll('category').includes(category.name) ? 'true' : 'false'
         }
       >
         {category.name}
-      </ItemListCategory>
+      </ItemList>
     ))
   }
 
-  const OnChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
+  const SearchOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist()
-    setFilterParams({ searchInput: e.target.value })
+    setFilterParams({ search: e.currentTarget.value })
+  }
+
+  const PriceRangeOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.persist()
+    console.log(e.currentTarget.value)
+    console.log(ETHUSD)
+
+    e.currentTarget.getAttribute('placeholder') === 'Min'
+      ? setFilterParams({
+          priceMin: String(Number(e.currentTarget.value) / ETHUSD),
+        })
+      : setFilterParams({
+          priceMax: String(Number(e.currentTarget.value) / ETHUSD),
+        })
   }
 
   return (
-    <>
-      <Container>
-        <Search>
-          <SearchItem
-            placeholder="Search"
-            onChange={(e) => OnChangeInputSearch(e)}
-          ></SearchItem>
-          <Separator />
-          <Category tabIndex={1}>
-            <span>Categories</span>
-            <ListCategory>{returnCategory()}</ListCategory>
-          </Category>
-        </Search>
-        <FilterE>
-          <Price>
-            <From placeholder="Min" />
-            <To placeholder="Max" />
-          </Price>
-        </FilterE>
-      </Container>
-    </>
+    <Container>
+      <Search>
+        <SearchItem placeholder="Search" onChange={(e) => SearchOnChange(e)}></SearchItem>
+        <Separator />
+        <Category tabIndex={1}>
+          <span>
+            Categories
+            <ArrowUpDown />
+          </span>
+          <div>
+            <List>{returnCategory()}</List>
+          </div>
+        </Category>
+      </Search>
+      <FilterE>
+        <Price>
+          <span>Price Range ($) :</span>
+          <Range
+            placeholder="Min"
+            type="number"
+            onChange={(e) => PriceRangeOnChange(e)}
+          />
+          <Range
+            placeholder="Max"
+            type="number"
+            onChange={(e) => PriceRangeOnChange(e)}
+          />
+          <SortBy tabIndex={1}>
+            <span>
+              Sort by
+              <ArrowUpDown />
+            </span>
+          </SortBy>
+        </Price>
+      </FilterE>
+    </Container>
   )
 }
