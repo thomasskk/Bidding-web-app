@@ -57,21 +57,23 @@ export default function Filter(): JSX.Element {
 
   const SearchOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist()
-    setFilterParams({ search: e.currentTarget.value })
+    filterParams.set('search', e.currentTarget.value)
+    setFilterParams(filterParams)
   }
 
   const PriceRangeOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.persist()
-    console.log(e.currentTarget.value)
-    console.log(ETHUSD)
-
-    e.currentTarget.getAttribute('placeholder') === 'Min'
-      ? setFilterParams({
-          priceMin: String(Number(e.currentTarget.value) / ETHUSD),
-        })
-      : setFilterParams({
-          priceMax: String(Number(e.currentTarget.value) / ETHUSD),
-        })
+    const value = e.currentTarget.value
+    const placeholder = e.currentTarget.getAttribute('placeholder')
+    if (placeholder === 'Min') {
+      value
+        ? filterParams.set('priceMin', String(Number(value) / ETHUSD))
+        : filterParams.delete('priceMin')
+    } else {
+      value
+        ? filterParams.set('priceMax', String(Number(value) / ETHUSD))
+        : filterParams.delete('priceMax')
+    }
+    setFilterParams(filterParams)
   }
 
   return (
