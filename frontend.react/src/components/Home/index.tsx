@@ -1,13 +1,20 @@
-import React from 'react'
 import img from 'assets/img/homeRight.jpg'
+import axios from 'axios'
+import Item from 'components/Item'
+import { useAppSelector } from 'hook'
+import React, { useState } from 'react'
+import shortid from 'shortid'
+import useAsyncEffect from 'use-async-effect'
 import {
   Description,
+  Dh6,
   DRight,
   DText,
   DTitle,
   Hr,
   MainImg,
   Recent,
+  RecentItem,
   RTitle,
   Span,
   Square,
@@ -15,6 +22,34 @@ import {
 } from './style'
 
 export default function Home(): JSX.Element {
+  const [item, setItem] = useState<any[]>([])
+  const ETHUSD = useAppSelector((state) => state.ETHUSD)
+  const authenticated = useAppSelector((state) => state.authenticated)
+
+  useAsyncEffect(async () => {
+    const itemData = await (
+      await axios(process.env.REACT_APP_API_URL + 'item/filter', {
+        params: {
+          slice: 0,
+          amount: 6,
+          sortAttribute: 'startDate',
+          sortDirection: 'DESC',
+        },
+      })
+    ).data
+
+    setItem(
+      itemData.map((item: any) => (
+        <Item
+          item={item}
+          key={shortid.generate()}
+          authenticated={authenticated}
+          ETHUSD={ETHUSD}
+        />
+      ))
+    )
+  }, [])
+
   return (
     <>
       <Square />
@@ -26,8 +61,8 @@ export default function Home(): JSX.Element {
       </Text>
       <Description>
         <DTitle>
-          <h6>How To use</h6>
-          <h6>Bidding</h6>
+          <Dh6>How To use</Dh6>
+          <Dh6>Bidding</Dh6>
         </DTitle>
         <DRight>
           <DText>
@@ -50,6 +85,7 @@ export default function Home(): JSX.Element {
       <Recent>
         <RTitle>Recent Art</RTitle>{' '}
       </Recent>
+      <RecentItem>{item}</RecentItem>
     </>
   )
 }

@@ -18,9 +18,8 @@ export const Container = styled.div`
   justify-content: center;
 `
 
-export const Loader = styled.div`
-  width: 100%;
+export const Loader = styled.div<any>`
+  width: 100vw;
   height: 50px;
-  transform: translateY(-2000px);
+  z-index: -1;
 `
-  

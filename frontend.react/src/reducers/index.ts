@@ -6,6 +6,7 @@ const actions = {
   REMOVE_BOOKMARK: 'REMOVE_BOOKMARK',
   AUTHENTICATED: 'AUTHENTICATED',
   ETH_USD: 'ETH_USD',
+  CHANGE_BOOKMARK: 'CHANGE_BOOKMARK',
 }
 
 type Handler = Partial<{
@@ -57,6 +58,7 @@ const reducers = (key: string, effect: string) => {
 
 handlers[actions.ADD_BOOKMARK] = reducers('bookmark', 'ADD')
 handlers[actions.REMOVE_BOOKMARK] = reducers('bookmark', 'FILTER')
+handlers[actions.CHANGE_BOOKMARK] = reducers('bookmark', 'CHANGE')
 handlers[actions.AUTHENTICATED] = reducers('authenticated', 'CHANGE')
 handlers[actions.ETH_USD] = reducers('ETHUSD', 'CHANGE')
 

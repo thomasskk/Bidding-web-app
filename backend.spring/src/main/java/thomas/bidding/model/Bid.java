@@ -15,6 +15,7 @@ import lombok.Data;
 public class Bid {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY) public int id;
+
   public LocalDateTime date;
   public Float price;
   @OneToOne @JoinColumn(name = "userId") private User user;

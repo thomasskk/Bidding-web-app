@@ -11,10 +11,14 @@ import Home from 'components/Home'
 import Footer from 'components/Footer'
 import tokenInterceptor from 'utils/tokenInterceptor'
 import { hot } from 'react-hot-loader'
+import updateETHUSD from 'services/updateETHUSD'
+import updateBookmark from 'services/updateBookmark'
 
 function App(): JSX.Element {
   tokenInterceptor()
   setAuth()
+  updateETHUSD()
+  updateBookmark()
 
   return (
     <BrowserRouter>
@@ -27,7 +31,7 @@ function App(): JSX.Element {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="market" element={<Market />} />
-          <Route path="market/itemDetails/:id" element={<ItemDetails />} />
+          <Route path="itemDetails/:id" element={<ItemDetails />} />
         </Routes>
       </CoreWrapper>
       <Footer />

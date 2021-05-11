@@ -1,95 +1,39 @@
 import axios from 'axios'
-import { useAppDispatch, useAppSelector } from 'hook'
+import { useAppSelector } from 'hook'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import shortid from 'shortid'
 import useAsyncEffect from 'use-async-effect'
 import useDebounce from 'utils/useDebounce'
-import useInterval from 'utils/useInterval'
+import useIntersection from 'utils/useIntersection'
 import Item from '../Item'
 import Filter from './Filter'
-import { Center, Container, Loader } from './style'
 import sortAction from './Filter/sortAction'
+import { Center, Container } from './style'
 
 export default function Market(): JSX.Element {
   const [item, setItem] = useState<any[]>([])
-  const [slice, setSlice] = useState(0)
-  const dispatch = useAppDispatch()
-  const bookmark = useRef<any[] | null>(null)
+  const slice = useRef(0)
   const authenticated = useAppSelector((state) => state.authenticated)
   const [filterParams] = useSearchParams()
   const filter = useDebounce<URLSearchParams>(filterParams, 500)
-  const intersectionRef = useRef<any>(null)
-  const [isIntersecting, setIsIntersecting] = useState(false)
-
-  // Infinite scroll
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !isIntersecting) {
-          setIsIntersecting(entries[0].isIntersecting)
-          setSlice(slice + 1)
-        }
-      },
-      {
-        threshold: 0.5,
-      }
-    )
-    observer.observe(intersectionRef.current)
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [intersectionRef.current])
-
-  // ETH value
-  const updateETHUSD = async () => {
-    const exchangeRData = await (
-      await axios('https://api.coinbase.com/v2/prices/ETH-USD/buy', {
-        headers: {
-          Authorization:
-            'Bearer abd90df5f27a7b170cd775abf89d632b350b7c1c9d53e08b340cd9832ce52c2c',
-        },
-      })
-    ).data
-
-    dispatch({
-      type: 'ETH_USD',
-      payload: exchangeRData.data.amount,
-    })
-  }
-
-  useEffect(() => {
-    updateETHUSD()
-  }, [])
-
-  useInterval(updateETHUSD, 30000)
+  const [setRef, visible] = useIntersection()
+  const ETHUSD = useAppSelector((state) => state.ETHUSD)
 
   useEffect(() => {
     setItem([])
-    setSlice(0)
+    slice.current = 0
   }, [filter, authenticated])
 
   useAsyncEffect(async () => {
-    if (!bookmark.current && authenticated) {
-      bookmark.current = await (
-        await axios(process.env.REACT_APP_API_URL + 'bookmark')
-      ).data
-      bookmark?.current?.map((bookmark: any) => {
-        return dispatch({
-          type: 'ADD_BOOKMARK',
-          payload: bookmark.itemId,
-        })
-      })
-    }
+    if (!visible) return
 
     const sortQuery = filter.get('sort')
-
     const itemData = await (
       await axios(process.env.REACT_APP_API_URL + 'item/filter', {
         params: {
           category: filter.getAll('category'),
-          slice,
+          slice: slice.current,
           input: filter.get('search'),
           amount: 16,
           priceMin: filter.get('priceMin'),
@@ -104,15 +48,16 @@ export default function Market(): JSX.Element {
       ...item,
       itemData.map((item: any) => (
         <Item
-          authenticated={authenticated}
           item={item}
-          bookmark={bookmark.current}
           key={shortid.generate()}
+          authenticated={authenticated}
+          ETHUSD={ETHUSD}
         />
       )),
     ])
-    setIsIntersecting(false)
-  }, [filter, slice, authenticated])
+
+    slice.current++
+  }, [visible, authenticated])
 
   return (
     <>
@@ -121,7 +66,7 @@ export default function Market(): JSX.Element {
         <Filter />
         {item}
       </Container>
-      <Loader key={shortid.generate()} ref={intersectionRef} />
+      <div ref={setRef} />
     </>
   )
 }

@@ -16,17 +16,17 @@ public class BookmarkController {
   @Autowired private BookmarkService bookmarkService;
 
   @PostMapping
-  public void addBookmark(@RequestParam int id) {
+  public void addOne(@RequestParam int id) {
     bookmarkService.addBookmark(id);
   }
 
   @DeleteMapping
-  public void removeBookmark(@RequestParam int id) {
+  public void deleteOne(@RequestParam int id) {
     bookmarkService.removeBookmark(id);
   }
 
   @GetMapping
-  public Iterable<Bookmark> getBookmarkByUserId() {
+  public Iterable<Bookmark> getOne() {
     return bookmarkService.getBookmarkByUserId();
   }
 }

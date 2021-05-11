@@ -1,6 +1,6 @@
 package thomas.bidding.service.specification;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -88,12 +88,12 @@ public class EntitySpecification<T> implements Specification<T> {
       case GREATER_THAN_EQUAL_DATE ->
 
         predicates.add(builder.greaterThanOrEqualTo(
-            root.get(criteria.getKey()), LocalDate.now()));
+            root.get(criteria.getKey()), LocalDateTime.now()));
           
       case LESS_THAN_EQUAL_DATE ->
       
         predicates.add(builder.lessThanOrEqualTo(
-            root.get(criteria.getKey()),LocalDate.now()));
+            root.get(criteria.getKey()),LocalDateTime.now()));
       }
     }
 

@@ -17,6 +17,7 @@ export const LoginForm = styled.form`
   border-color: black;
   background-color: white;
   border: 1px solid black;
+  margin: auto;
 `
 
 export const RegisterForm = styled(LoginForm)`

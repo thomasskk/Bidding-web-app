@@ -2,11 +2,13 @@ package thomas.bidding.model;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -23,6 +25,14 @@ public class Item {
   public Float lastBid;
   public int userId;
   public String imageUrl;
+  public int views;
+  public int bookmarked;
 
-  @ManyToOne @JoinColumn(name = "categoryId") private Category category;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "categoryId")
+  private Category category;
+
+  @OneToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "userId", insertable = false, updatable = false)
+  private User user;
 }

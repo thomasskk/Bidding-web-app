@@ -48,7 +48,7 @@ export const AskedPrice = styled.span`
 `
 
 export const Price = styled.label`
-  ${mixins.flex('space-between', 'center')};
+  ${mixins.flex('space-between')};
 `
 
 export const ItemFooter = styled.div`
@@ -66,7 +66,7 @@ export const ItemFooter = styled.div`
   }
 `
 
-export const ItemImage = styled.img`
+export const ItemImg = styled.img`
   width: 348px;
   height: 348px;
   object-fit: cover;

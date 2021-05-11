@@ -17,22 +17,21 @@ public class ItemController {
   @Autowired private ItemService itemService;
 
   @GetMapping("/filter")
-  public Iterable<Item>
-  filterNameCategory(@RequestParam(name = "category[]",
-                                   defaultValue = "") List<String> category,
-                     @RequestParam(defaultValue = "") String input,
-                     @RequestParam int slice, @RequestParam int amount,
-                     @RequestParam(required = false) Double priceMin,
-                     @RequestParam(required = false) Double priceMax,
-                     @RequestParam(required = false) String sortAttribute,
-                     @RequestParam(required = false) String sortDirection) {
+  public Iterable<Item> filter(
+      @RequestParam(name = "category[]",
+                    defaultValue = "") List<String> category,
+      @RequestParam(defaultValue = "") String input, @RequestParam int slice,
+      @RequestParam int amount, @RequestParam(required = false) Double priceMin,
+      @RequestParam(required = false) Double priceMax,
+      @RequestParam(required = false) String sortAttribute,
+      @RequestParam(required = false, defaultValue = "") String sortDirection) {
 
     return itemService.filter(input, slice, category, amount, priceMin,
                               priceMax, sortAttribute, sortDirection);
   }
 
   @GetMapping
-  public Optional<Item> findById(@RequestParam int id) {
+  public Optional<Item> findOne(@RequestParam int id) {
     return itemService.findById(id);
   }
 }

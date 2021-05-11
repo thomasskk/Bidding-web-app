@@ -1,28 +1,26 @@
-import React, { memo } from 'react'
+import { useAppSelector } from 'hook'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Hr } from '../Home/style'
 import Bookmark from './Bookmark/index'
 import LabelDate from './LabelDate'
 import {
+  AskedPrice,
+  EthSymbol,
   ItemContainer,
   ItemCore,
   ItemFooter,
-  ItemImage,
-  Name,
+  ItemImg,
   LastBid,
-  AskedPrice,
-  EthSymbol,
+  Name,
   Price,
 } from './style'
-import { Hr } from '../Home/style'
-import { useAppSelector } from 'hook'
-import { Link } from 'react-router-dom'
 
 export default function Item(props: {
   item: any
   authenticated: boolean
-  bookmark: any[] | null
+  ETHUSD: number
 }): JSX.Element {
-  const ETHUSD = useAppSelector((state) => state.ETHUSD)
-
   const percentagePrice = Math.floor(
     ((props.item.lastBid - props.item.listPrice) / props.item.listPrice) * 100
   )
@@ -32,13 +30,13 @@ export default function Item(props: {
       style: 'currency',
       currency: 'USD',
       currencyDisplay: 'symbol',
-    }).format(ETHUSD * price)
+    }).format(props.ETHUSD * price)
   }
 
   return (
     <ItemContainer>
-      <Link to={`itemDetails/${props.item.id}`}>
-        <ItemImage src={props.item.imageUrl} alt="" />
+      <Link to={`/itemDetails/${props.item.id}`}>
+        <ItemImg src={props.item.imageUrl} alt="" loading="lazy" />
       </Link>
       <ItemCore>
         <Name>{props.item.name}</Name>
@@ -71,7 +69,7 @@ export default function Item(props: {
           <AskedPrice>
             <span>Asked Price</span> <br />
             <span>{props.item.listPrice}</span>
-            <EthSymbol /> <span>&nbsp; ({formatPrice(props.item.listPrice)})</span>{' '}
+            <EthSymbol /> <span>&nbsp; ({formatPrice(props.item.listPrice)})</span>
           </AskedPrice>
         </Price>
         <Hr width="100%" />
@@ -80,13 +78,7 @@ export default function Item(props: {
         <LabelDate endDate={props.item.endDate} />
         {props.authenticated && (
           <>
-            <Bookmark
-              itemId={props.item.id}
-              bookmark={
-                props?.bookmark?.some((bookmark) => bookmark.itemId === props.item.id) ||
-                null
-              }
-            />
+            <Bookmark itemId={props.item.id} />
             <button> Bid </button>
           </>
         )}

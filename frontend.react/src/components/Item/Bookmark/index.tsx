@@ -1,20 +1,25 @@
 import axios from 'axios'
 import { AnimationItem } from 'lottie-web'
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
-import { useAppDispatch } from 'hook'
+import { useAppDispatch, useAppSelector } from 'hook'
 import AnimLoad from 'utils/animLoad'
 import bookmarkJson from 'assets/jsonAnimation/bookmark.json'
 import { Container } from './style'
 import React from 'react'
 
-export default function Bookmark(props: {
-  itemId: number
-  bookmark: boolean | null
-}): JSX.Element {
+export default function Bookmark(props: { itemId: number }): JSX.Element {
   const bookmarkContainer = useRef() as MutableRefObject<HTMLDivElement>
   const [bookmarkAnim, setBookmarkAnim] = useState<AnimationItem | null>(null)
-  const bookmarkOn = useRef<boolean | null>(props.bookmark)
+  const bookmark = useAppSelector((state) => state.bookmark)
+  const bookmarkOn = useRef<boolean | null>()
   const dispatch = useAppDispatch()
+  const authenticated = useAppSelector((state) => state.authenticated)
+
+  useEffect(() => {
+    bookmarkOn.current =
+      bookmark.some((bookmark: any) => bookmark === props.itemId) || null
+    !authenticated && bookmarkAnim?.goToAndStop(0)
+  }, [authenticated])
 
   useEffect(() => {
     AnimLoad(
@@ -24,6 +29,7 @@ export default function Bookmark(props: {
       1,
       bookmarkOn.current ? 50 : 0
     )
+    return () => bookmarkAnim?.destroy()
   }, [])
 
   const addBookmark = async () => {

@@ -56,13 +56,17 @@ export const Description = styled.div`
   }
 `
 
+export const Dh6 = styled.h6`
+  font-family: 'Spectral', serif;
+  font-weight: bold;
+  font-size: clamp(1.2em, 6vw, 2.5em);
+  margin: 0;
+  vertical-align: top;
+  line-height: 1.1em;
+  margin-bottom: 10px;
+`
+
 export const DTitle = styled.div`
-  h6 {
-    font-family: 'Spectral', serif;
-    font-weight: bold;
-    font-size: clamp(1.2em, 6vw, 2.5em);
-    margin: 0;
-  }
   @media screen and (max-width: 1000px) {
     ${mixins.flex('center')};
     margin-bottom: 30px;
@@ -100,7 +104,7 @@ export const DText = styled.div`
 `
 export const Recent = styled.div`
   ${mixins.flex('center', 'none', 'row')};
-  margin: 60px 0 250px 0;
+  margin: 80px 0 80px 0;
 `
 
 export const RTitle = styled.h6`
@@ -108,4 +112,15 @@ export const RTitle = styled.h6`
   font-weight: bold;
   font-size: clamp(1.2em, 6vw, 2.5em);
   margin: 0;
+`
+
+export const RecentItem = styled.div`
+  z-index: 215;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 350px));
+  padding: 0 140px 0 140px;
+  justify-content: center;
+  margin-bottom: 250px;
+  gap: 75px;
 `

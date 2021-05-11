@@ -1,12 +1,12 @@
-import styled from 'styled-components'
+import { ItemImg } from 'components/Item/style'
+import { CoreWrapper } from 'style'
+import styled, { createGlobalStyle } from 'styled-components'
 import mixins from '../../utils/mixins'
 
-export const Wrapper = styled.div`
-  ${mixins.flex('center')}
-  padding-top: 50px;
-  position: relative;
-  height: 100vh;
-  z-index:204;
+export const Center = createGlobalStyle`
+${CoreWrapper} {
+  ${mixins.flex('none', 'center', 'column')}  
+}
 `
 
 export const Table = styled.table`
@@ -77,5 +77,52 @@ export const Table = styled.table`
 `
 
 export const Stats = styled.div`
-  min-width: 0;
+  ${mixins.flex('center', 'center', 'row')}
+  display:none;
+`
+
+export const ItemInfo = styled.div`
+  z-index: 210;
+  ${mixins.flex('center', 'none', 'row')}
+  margin-top: 150px;
+  width: 100%;
+  ${ItemImg} {
+    width: 500px;
+    height: 500px;
+  }
+`
+
+export const Text2 = styled.div`
+  ${mixins.flex('none', 'none', 'column')}
+  margin-top: 20px;
+`
+
+export const Text = styled(Text2)`
+  font-size: 0.9em;
+`
+
+export const Img = styled(ItemImg)`
+  margin: 0 120px 0 120px;
+`
+
+export const UserInfo = styled.div`
+  ${mixins.flex('none', 'none')}
+  margin-bottom:50px;
+`
+
+export const UserImg = styled(ItemImg)`
+  border-radius: 50% 50%;
+  max-width: 45px;
+  max-height: 45px;
+`
+
+export const Profile = styled.div`
+  ${mixins.flex('none', 'none', 'column')}
+  font-size:0.9em;
+  margin-left: 16px;
+`
+
+export const ViewImg = styled.img`
+  max-width: 25px;
+  max-height: 25px;
 `
